@@ -57,3 +57,6 @@ typings/
 # dotenv environment variables file
 .env
 
+# nextjs output
+/nextjs/*/.next
+/nextjs/*/out
