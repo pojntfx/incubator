@@ -1,0 +1,20 @@
+{
+  "name": "nextjs-quick-test",
+  "version": "1.0.0",
+  "description": "A quick test of nextjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "export": "next export"
+  },
+  "author": "Felicitas Pojtinger",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "express": "^4.16.3",
+    "next": "^5.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "styled-components": "^3.2.3"
+  }
+}
