@@ -1,4 +1,5 @@
 import feathers from "@feathersjs/feathers";
+import memory from "feathers-memory";
 import express, {
   json,
   urlencoded,
@@ -35,7 +36,15 @@ export class MessagesMicroservice {
     this.app.use(urlencoded({ extended: true }));
     this.app.configure(rest());
     // Register Messages
-    this.app.use("messages", new Messages());
+    this.app.use(
+      "messages",
+      memory({
+        paginate: {
+          default: 10,
+          max: 25
+        }
+      })
+    );
     this.app.service("messages");
     this.app.hooks(messagesHooks);
     // Test and log Messages
