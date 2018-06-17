@@ -1,0 +1,17 @@
+{
+  "name": "featherjs-basics",
+  "version": "0.0.1-alpha",
+  "description": "A quick test of featherjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felicitas Pojtinger",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "@feathersjs/feathers": "^3.1.7",
+    "nodemon": "^1.17.5"
+  }
+}
