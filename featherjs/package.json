@@ -12,6 +12,7 @@
   "license": "AGPL-3.0",
   "dependencies": {
     "@feathersjs/errors": "^3.3.0",
+    "@feathersjs/express": "^1.2.3",
     "@feathersjs/feathers": "^3.1.7",
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
