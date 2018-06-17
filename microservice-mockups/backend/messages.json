@@ -1,0 +1,18 @@
+{
+  "messages": [
+    {
+      "id": "892345cou345o",
+      "date":
+        "Sat Jun 16 2018 19:26:52 GMT+0200 (Central European Summer Time)",
+      "context": "info",
+      "content": "Lorem ipsum dolor sit amet"
+    },
+    {
+      "id": "3256i09v304534095",
+      "date":
+        "Sat Jun 16 2018 19:30:52 GMT+0200 (Central European Summer Time)",
+      "context": "warning",
+      "content": "Lorem ipsum dolor sit amet, dolor lirum est!"
+    }
+  ]
+}

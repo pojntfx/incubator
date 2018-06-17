@@ -1,0 +1,28 @@
+{
+  "enpoints": {
+    "secrets": {
+      "id": "34095sdf8345",
+      "url": "http://localhost:2000"
+    },
+    "config": {
+      "id": "jksd87u234hdf",
+      "url": "http://localhost:3000"
+    },
+    "identity": {
+      "id": "asdfu3405sdfihjw4er",
+      "url": "http://localhost:4000"
+    },
+    "messages": {
+      "id": "903sot3t345jfgj34",
+      "url": "http://localhost:5000"
+    },
+    "documents": {
+      "id": "3fj849093v4oisj34",
+      "url": "http://localhost:7000"
+    }
+  },
+  "costumization": {
+    "backgroundUrl":
+      "https://images.unsplash.com/photo-1503058695716-c5f66a905312?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=140cdf8284f113d27ac538f2072d8ae0&auto=format&fit=crop&w=1301&q=80"
+  }
+}
