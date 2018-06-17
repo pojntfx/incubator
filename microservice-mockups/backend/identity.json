@@ -1,0 +1,126 @@
+{
+  "administrators": [
+    {
+      "id": "123984yhsadfh2389895",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    }
+  ],
+  "users": [
+    {
+      "id": "asedvkljphgoifsdtreiorluto",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "dsfgh345h345",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "453454",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "234534oij5",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "234509u0346",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "2345609h2345h34",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "23405804",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "345634563456",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "3456435645645857867",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "34563456345",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    },
+    {
+      "id": "3456345634563456565465",
+      "email": "felix@pojtinger.com",
+      "username": "pojntfx",
+      "password": "12345",
+      "publicKey": "pubkey1",
+      "meta": {
+        "fullName": "Felix Pojtinger"
+      }
+    }
+  ]
+}

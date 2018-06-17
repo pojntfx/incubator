@@ -1,0 +1,18 @@
+{
+  "documents": [
+    {
+      "id": "8924h8n345",
+      "date":
+        "Sat Jun 16 2018 19:31:52 GMT+0200 (Central European Summer Time)",
+      "context": "info",
+      "url": "http://cdn.mozilla.net/pdfjs/helloworld.pdf"
+    },
+    {
+      "id": "8924h8n345",
+      "date":
+        "Sat Jun 16 2018 19:33:52 GMT+0200 (Central European Summer Time)",
+      "context": "info",
+      "url": "http://cdn.mozilla.net/pdfjs/helloworld.pdf"
+    }
+  ]
+}
