@@ -1,9 +1,7 @@
-import { app } from "../index";
-
 /**
  * Test the Messages service
  */
-export async function testMessages() {
+export async function testMessages(app) {
   await app.service("messages").create({
     text: "First message"
   });

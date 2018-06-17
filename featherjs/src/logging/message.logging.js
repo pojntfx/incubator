@@ -1,9 +1,7 @@
-import { app } from "../index";
-
 /**
  * Log events from the Messages service
  */
-export async function logMessages() {
+export async function logMessages(app) {
   await app.service("messages").on("created", message => {
     console.log("Created a new message", message);
   });
