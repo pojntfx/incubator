@@ -4,7 +4,7 @@
   "description": "A quick Apollo test",
   "main": "src/index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/lib/neo/createMicroservice.js",
+    "start": "nodemon --exec babel-node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Felicitas Pojtinger",
@@ -16,7 +16,8 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "graphql": "^0.13.2",
-    "merge-graphql-schemas": "^1.5.1"
+    "merge-graphql-schemas": "^1.5.1",
+    "mongoose": "^5.1.6"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
