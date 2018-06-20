@@ -6,8 +6,8 @@ import path from "path";
  * Load typeDefs and resolvers from path
  */
 const config = {
-  typeDefs: mergeTypes(fileLoader(path.join(__dirname, "../../typeDefs"))),
-  resolvers: mergeResolvers(fileLoader(path.join(__dirname, "../../resolvers")))
+  typeDefs: mergeTypes(fileLoader(path.join(__dirname, "../typeDefs"))),
+  resolvers: mergeResolvers(fileLoader(path.join(__dirname, "../resolvers")))
 };
 
 /**
