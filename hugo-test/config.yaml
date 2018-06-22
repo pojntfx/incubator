@@ -1,0 +1,5 @@
+title: "Bootstrap Blog"
+baseurl: "http://192.168.178.100:1313/"
+
+languageCode: "en-us"
+theme: "hugo-bootstrap"
