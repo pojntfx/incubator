@@ -1,7 +1,7 @@
 ---
 title: "Impressum"
 date: 2018-06-23T12:58:42+02:00
-draft: true
+draft: false
 ---
 
 Angaben gemäß § 5 TMG
