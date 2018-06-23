@@ -1,0 +1,12 @@
+{{ define "main" }}
+
+<h1>Posts</h1>
+{{ .Content }}
+<!-- Page list -->
+<div class="list-group">
+  {{ range .Pages}}
+  <a href="{{ .URL }}" class="list-group-item list-group-item-action">{{.Title}} - Written at {{ .Date }}</a>
+  {{ end }}
+</div>
+
+{{ end }}
