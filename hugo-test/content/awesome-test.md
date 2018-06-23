@@ -6,7 +6,7 @@ draft: false
 
 # Hello, World
 
-This is the first post. Great!
+This is the first post. Great! I like it!
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Navbar</a>
