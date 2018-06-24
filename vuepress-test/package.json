@@ -1,0 +1,20 @@
+{
+  "name": "vuepress-test",
+  "version": "0.0.1-alpha",
+  "description": "A quick test to evaluate vuepress",
+  "main": "README.md",
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build",
+    "start": "npm run build && serve .vuepress/dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felicitas Pojtinger",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "vuepress": "^0.10.2"
+  },
+  "dependencies": {
+    "serve": "^9.1.0"
+  }
+}
