@@ -1,0 +1,25 @@
+{
+  "name": "hugo-test",
+  "version": "0.0.1-alpha",
+  "description": "A quick test to evaluate hugo",
+  "main": "content/_index.md",
+  "scripts": {
+    "start": "gulp start",
+    "dev": "gulp dev",
+    "build": "gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hugo"
+  ],
+  "author": "Felix Pojtinger",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "serve": "^9.1.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^4.0.1"
+  }
+}
