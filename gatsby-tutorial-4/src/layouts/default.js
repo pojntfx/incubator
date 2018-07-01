@@ -40,12 +40,30 @@ export default ({ children }) => (
           </h3>
         </Link>
         <Link
-          to={`/about/`}
+          to={`/my-files/`}
           className={css`
             float: right;
           `}
         >
+          My Files
+        </Link>
+        <Link
+          to={`/about/`}
+          className={css`
+            float: right;
+            margin-right: ${rhythm(1)};
+          `}
+        >
           About
+        </Link>
+        <Link
+          to={`/blog/`}
+          className={css`
+            float: right;
+            margin-right: ${rhythm(1)};
+          `}
+        >
+          Blog
         </Link>
         {children}
       </div>
