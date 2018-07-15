@@ -1,0 +1,23 @@
+{
+  "name": "@pojntfx-incubator/react-admin-test",
+  "version": "0.0.1-alpha",
+  "private": true,
+  "dependencies": {
+    "ra-data-json-server": "^2.0.4",
+    "react": "^16.4.1",
+    "react-admin": "^2.0.4",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "description": "A quick evaluation of react-admin",
+  "main": "src/index.js",
+  "devDependencies": {},
+  "author": "Felix Pojtinger",
+  "license": "AGPL-3.0"
+}

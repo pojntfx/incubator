@@ -1,0 +1,24 @@
+{
+  "name": "@pojntfx-incubator/vuepress-test",
+  "version": "0.0.1-alpha",
+  "description": "A quick test to evaluate vuepress",
+  "main": "README.md",
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build",
+    "start": "npm run build && serve .vuepress/dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felix Pojtinger",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "node-sass": "^4.9.0",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^7.0.3",
+    "vuepress": "^0.10.2"
+  },
+  "dependencies": {
+    "serve": "^9.1.0"
+  }
+}

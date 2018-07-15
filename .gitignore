@@ -60,3 +60,6 @@ typings/
 # nextjs output
 /nextjs/*/.next
 /nextjs/*/out
+
+# lerna
+lerna-debug.log
