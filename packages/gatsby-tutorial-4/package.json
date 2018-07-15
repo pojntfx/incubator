@@ -1,0 +1,27 @@
+{
+  "name": "@pojntfx-incubator/gatsby-tutorial-4",
+  "version": "0.0.1-alpha",
+  "description": "Gatsby hello world starter",
+  "license": "MIT",
+  "scripts": {
+    "develop": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "now-start": "gatsby serve"
+  },
+  "dependencies": {
+    "emotion": "^9.2.4",
+    "emotion-server": "^9.2.4",
+    "gatsby": "next",
+    "gatsby-plugin-emotion": "^1.1.17",
+    "gatsby-plugin-typography": "^1.7.19",
+    "gatsby-source-filesystem": "^1.5.39",
+    "gatsby-transformer-remark": "^1.7.44",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-emotion": "^9.2.4",
+    "react-typography": "^0.16.13",
+    "typography": "^0.16.17",
+    "typography-theme-kirkham": "^0.16.3"
+  }
+}

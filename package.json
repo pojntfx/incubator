@@ -1,0 +1,31 @@
+{
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^4.19.1",
+    "lerna": "^2.11.0",
+    "nodemon": "^1.17.5"
+  },
+  "name": "pojntfx-incubator",
+  "description": "@pojntfx's personal projects and experiments.",
+  "version": "0.0.1-alpha",
+  "main": "README.md",
+  "scripts": {
+    "dev": "lerna run dev",
+    "bootstrap": "lerna bootstrap",
+    "test": "lerna run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/pojntfx/incubator.git"
+  },
+  "author": "Felicitas Pojtinger <felicitas@pojtinger.com>",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://gitlab.com/pojntfx/incubator/issues"
+  },
+  "homepage": "https://gitlab.com/pojntfx/incubator#README"
+}
