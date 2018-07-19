@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/nextjs-test",
-  "version": "0.0.1-alpha",
+  "version": "0.0.1-0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "latest",
