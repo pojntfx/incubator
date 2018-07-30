@@ -17,7 +17,7 @@ sudo dnf install haskell-platform git
 
 # Install dependencies
 cabal update
-cabal install gitit
+cabal install gitit --force-reinstalls
 # Build and serve development version on http://localhost:5001
 gitit
 ```
