@@ -18,6 +18,10 @@ echo $(<~/.ssh/id_rsa.pub) > assets/id_rsa.pub
 Then, continue with the normal build process:
 
 ```bash
+# Install dependencies
+npm install
+# Compile CSS and JS
+npm run build-semantic
 # Build the container
 docker build . -t gitit-with-ssh
 # Run the container
