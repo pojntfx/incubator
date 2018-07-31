@@ -18,7 +18,7 @@ RUN cd gitit && stack install
 
 # Setup SSH
 RUN sed -i -e "s/#PubkeyAuth/PubkeyAuth/g" /etc/ssh/sshd_config
-RUN sed -i -e "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
+# RUN sed -i -e "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
 
 # Create git user (for cloning the wiki)
 RUN useradd -m git
