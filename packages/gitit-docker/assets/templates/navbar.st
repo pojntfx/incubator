@@ -58,10 +58,12 @@
         </div>
       </div>
       <div class="item">
-        <div class="ui icon input">
-          <input type="text" placeholder="Search Wiki">
-          <i class="search link icon"></i>
-        </div>
+        <form action="$base$/_search" method="get">
+          <div class="ui icon input">
+            <input placeholder="Search $wikititle$" type="text" name="patterns">
+            <i class="search link icon"></i>
+          </div>
+        </form>
       </div>
     </div>
   </div>
