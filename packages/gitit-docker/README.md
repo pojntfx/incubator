@@ -8,6 +8,15 @@ A Docker container with Gitit, a Haskell-based wiki that uses Git as it's VCS. A
 
 ## Usage
 
+First, copy your public SSH key into `./assets/id_rsa.pub`. On UNIX-like systems (GNU/Linux or macOS), just run the following to do so:
+
+```bash
+# Read the public SSH key and overwrite the contents of assets/id_rsa.pub with it
+echo $(<~/.ssh/id_rsa.pub) > assets/id_rsa.pub
+```
+
+Then, continue with the normal build process:
+
 ```bash
 # Build the container
 docker build . -t gitit-with-ssh
