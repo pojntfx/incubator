@@ -1,4 +1,4 @@
-<div class="ui segment">
+<div class="ui segment navbar">
   <div class="ui secondary menu secondary-nav">
     <a class="item" href="$base$/">
       <b>$wikititle$</b>
@@ -84,6 +84,10 @@
 <style>
   .secondary-nav {
     overflow-x: auto;
+  }
+
+  .navbar {
+    margin-top: 1em !important;
   }
 </style>
 

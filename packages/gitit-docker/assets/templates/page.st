@@ -45,6 +45,17 @@
     .form__button {
       margin-top: 1em !important;
     }
+
+    code,
+    pre {
+      overflow-x: auto;
+    }
+
+    /* Fix unnecessary scrollbar */
+
+    body {
+      height: auto !important;
+    }
   </style>
 </body>
 
