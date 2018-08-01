@@ -42,21 +42,9 @@
       </a>
       <div class="item">
         <div class="ui accordion secondary-nav__dropdown--more">
-          <div class="title">
-            <i class="user icon"></i>
-            pojntfx
-            <i class="dropdown icon"></i>
-          </div>
-          <div class="content">
-            <div class="vertical menu">
-              <a class="item">
-                <i class="sign out icon"></i>
-                Logout
-              </a>
-            </div>
-          </div>
         </div>
       </div>
+      $userbox()$
       <div class="item">
         <form action="$base$/_search" method="get">
           <div class="ui icon input">
@@ -68,6 +56,8 @@
     </div>
   </div>
 </div>
+
+$expire()$ $getuser()$
 
 <style>
   .secondary-nav {
