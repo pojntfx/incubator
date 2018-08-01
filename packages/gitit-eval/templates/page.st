@@ -63,7 +63,7 @@
       </div>
     </div>
   </div>
-  $javascripts$ $expire()$ $getuser()$
+  $javascripts$ $expire()$
 </body>
 
 </html>

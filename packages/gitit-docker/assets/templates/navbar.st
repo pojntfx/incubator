@@ -57,7 +57,7 @@
   </div>
 </div>
 
-$expire()$ $getuser()$
+$expire()$
 
 <style>
   .secondary-nav {
