@@ -64,10 +64,6 @@
         <i class="download icon"></i>
         Download Wiki
       </a>
-      <div class="item">
-        <div class="ui accordion secondary-nav__dropdown--more">
-        </div>
-      </div>
       $userbox()$
       <div class="item">
         <form action="$base$/_search" method="get">
