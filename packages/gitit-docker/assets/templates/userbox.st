@@ -2,7 +2,6 @@
   <a href="$base$/_login">Login</a>
   <a href="$base$/_logout">Logout</a>
 </noscript>
-<!-- Weird markup here is necessary for the inserted scripts to work -->
 <a id="loginlink" href="$base$/_login" class="item" style="display: none;">
   <i class="sign in icon"></i>
   Log in

@@ -57,8 +57,6 @@
   </div>
 </div>
 
-$expire()$
-
 <style>
   .secondary-nav {
     overflow-x: auto;

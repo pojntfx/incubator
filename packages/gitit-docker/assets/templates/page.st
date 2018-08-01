@@ -28,6 +28,24 @@
     <!-- Footer -->
     $footer()$
   </div>
+  <!-- Global Scripts -->
+  <script>
+    jQuery(document).ready(() => {
+      jQuery("form").addClass("ui form");
+      jQuery("fieldset").addClass("field field--borderless");
+      jQuery("input[type='submit']").addClass("ui submit button form__button");
+    })
+  </script>
+  <!-- Global Styles -->
+  <style>
+    .field--borderless {
+      border: 0;
+    }
+
+    .form__button {
+      margin-top: 1em !important;
+    }
+  </style>
 </body>
 
 </html>
