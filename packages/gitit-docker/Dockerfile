@@ -50,9 +50,8 @@ RUN git config --global user.name "${GIT_BOT_NAME}"
 
 # Get the remote repo
 # Add GitLab to known_hosts
-# TODO: Get remote's host dynamically and insert below
-RUN ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
 ENV GIT_REMOTE="git@gitlab.com:pojntfx/git-wikidata-test.git"
+RUN ssh-keyscan -t rsa $(echo $GIT_REMOTE | cut -d"@" -f 2| cut -d":" -f 1) >> ~/.ssh/known_hosts
 RUN git clone ${GIT_REMOTE}
 # Rename the repo to "wikidata"
 RUN mv $(echo $GIT_REMOTE | cut -d"/" -f 2| cut -d"." -f 1) wikidata
