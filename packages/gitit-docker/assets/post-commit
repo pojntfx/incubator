@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Get latest commit's message
+LAST_COMMIT_MESSAGE_WITH_SHA=$(git log --oneline -n 1);
+LAST_COMMIT_MESSAGE_WITHOUT_SHA=${LAST_COMMIT_MESSAGE_WITH_SHA#* };
+
+# Generate feature branch's name
+FEATURE_BRANCH_NAME_NO_LOWERCASE=${LAST_COMMIT_MESSAGE_WITHOUT_SHA//[[:space:]]/};
+FEATURE_BRANCH_NAME=${FEATURE_BRANCH_NAME_NO_LOWERCASE,,};
+
+# Create and use feature branch
+echo "Creating and using feature branch \"${FEATURE_BRANCH_NAME}\" ...";
+git checkout -b ${FEATURE_BRANCH_NAME};
+
+# Checkout master branch
+echo "Checking out master branch ...";
+git checkout master;
+
+# Pull changes from remote
+echo "Pulling changes from remote ...";
+git pull;
+
+# Merge feature branch into master branch with merge message
+echo "Merging feature branch \"${FEATURE_BRANCH_NAME}\" into master branch ...";
+git merge --squash ${FEATURE_BRANCH_NAME};
+git add .;
+# Don't use pre-commit hooks this time, otherwise the "dev" branch would be used again
+git commit --no-verify -m "$(git config --global --get user.name) merged branch \"${FEATURE_BRANCH_NAME}\" with message \"${LAST_COMMIT_MESSAGE_WITHOUT_SHA}\"";
+
+# Push changes to remote
+echo "Pushing changes to remote ...";
+git push;
+
+# Remove feature branch
+git branch -d ${FEATURE_BRANCH_NAME};
