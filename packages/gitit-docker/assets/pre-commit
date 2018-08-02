@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Switch to dev branch
+git checkout dev;
+
+# Pull changes from remote
+echo "Pulling changes from remote ...";
+git pull;
+
+# Merge changes from master
+echo "Merging changes from master ...";
+git stash;
+git rebase master;
+git stash pop;
