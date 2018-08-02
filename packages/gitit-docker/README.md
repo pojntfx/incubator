@@ -11,23 +11,61 @@ A Docker container with Gitit, a Haskell-based wiki that uses Git as it's VCS. A
 First, copy your public SSH key into `./assets/id_rsa.pub`. On UNIX-like systems (GNU/Linux or macOS), just run the following to do so:
 
 ```bash
-# Read the public SSH key and overwrite the contents of assets/id_rsa.pub with it
+# Reads your public SSH key and overwrites the contents of assets/id_rsa.pub with it
 echo $(<~/.ssh/id_rsa.pub) > assets/id_rsa.pub
 ```
 
-Then, continue with the normal build process:
+Now, you should setup the remote repo for the wiki's data:
+
+1.  Create a new account for the merge bot on [GitLab](https://gitlab.com) or any other git host
+2.  Create a repo on [GitLab](https://gitlab.com) or any other git host that you want to save the wiki's data in (and, if you didn't create the repo with the merge bot's account, add the merge bot as a member to the repo (on [GitLab](https://gitlab.com) that's on Repo > Settings > Members) and choose the "Maintainer" role permission). Also, this repo **MUST NOT BE EMPTY** or the build will fail. Add a license file (a `LICENSE.md`, for example, [CC-BY-4.0](https://choosealicense.com/licenses/cc-by-4.0/)) to it first and then continue.
+3.  Open up the SSH keys settings page (on GitLab, that's [https://gitlab.com/profile/keys](https://gitlab.com/profile/keys)) of your new account and keep it open
+4.  Adjust the environment variables in the following `docker run` command to fit your data
+
+| Variable Name | Example Value                                | Description                                               |
+| ------------- | -------------------------------------------- | --------------------------------------------------------- |
+| GIT_BOT_EMAIL | gitit-bot@libresat.space                     | Email to use for the merge bot                            |
+| GIT_BOT_NAME  | LibreSat Gitit Bot                           | Name to use for the merge bot                             |
+| GIT_REMOTE    | git@gitlab.com:pojntfx/git-wikidata-test.git | Remote git repo to store the data in (use SSH, not HTTPS) |
+
+**IMPORTANT**: During the build process, the public SSH key of your merge bot will be logged. It will look something like this:
+
+```bash
+Step 19/40 : RUN echo "\033[0;31m>>> USER ACTION REQUIRED: CREATE A GITLAB/GITHUB USER, GRANT ACCESS TO WIKIDATA REPO, ADD FOLLOWING PUBLIC SSH KEY TO PROFILE <<<\033[0m"
+ ---> Running in 4551ac4580ad
+>>> USER ACTION REQUIRED: CREATE A GITLAB/GITHUB USER, GRANT ACCESS TO WIKIDATA REPO, ADD FOLLOWING PUBLIC SSH KEY TO PROFILE <<<
+ ---> eabc594e8d36
+Removing intermediate container 4551ac4580ad
+Step 20/40 : RUN cat ~/.ssh/id_rsa.pub
+ ---> Running in 740e9fc10384
+# THIS IS THE START OF THE SSH KEY
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKIXi4sTx2LrkYhK2I/35kENDsD5bh6d12ycOVHsVR/LQn0hjitG6j7O/6VTvWqy/Q8sGWcHGJb9oEkuLfMZOsHTOiWQP+Y0m+L1goNGgom+GeQOZ1lciRZjm+p4VEZMH169nJmwrqb8eymFJGj7AYiW9rHM (...) qTFCsk55Yn59LOxPau/CCrA9jo14vHPDhgNbQFBl2QZHsGsGXHauwKTpdowac970HLDtR2nuSSPGr root@f639faccb8ce
+# THIS IS THE END OF THE SSH KEY
+```
+
+In order to allow the merge bot to commit to the repo, you'll have to add that SSH key to your merge bot's account. To do so, open up the SSH keys settings page (on GitLab, that's [https://gitlab.com/profile/keys](https://gitlab.com/profile/keys)) of the merge bot (the one you've opened up earlier), copy-and-paste in the SSH key and hit "Add key". You will only have to do this once during the build process, not for every docker container you launch in the future.
+
+This means that the following is the normal build process:
 
 ```bash
 # Install dependencies
 npm install
 # Compile CSS and JS
 npm run build-semantic
-# Build the container
+# Build the container (don't forget to copy the SSH key as described above)
 docker build . -t gitit-with-ssh
-# Run the container
-docker run -d -p 5001:5001 -p 22:22 gitit-with-ssh
+# Run the container (replace variables with your own ones)
+docker run -d \
+  -p 5001:5001 \
+  -p 22:22 \
+  -e GIT_BOT_NAME="LibreSat Gitit Bot" \
+  -e GIT_BOT_EMAIL="gitit-bot@libresat.space" \
+  -e GIT_REMOTE="git@gitlab.com:pojntfx/git-wikidata-test.git" \
+  gitit-with-ssh
 # Test if the container works
+# Test web interface
 curl localhost:5001
+# Test access to internal git repo
 git clone ssh://git@localhost:/gitit/wikidata
 ```
 
