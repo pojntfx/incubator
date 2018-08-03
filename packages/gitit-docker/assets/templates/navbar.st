@@ -37,7 +37,7 @@
               Upload a file
             </a>
             $endif$ $if(feed)$
-            <a class="item" href="$base$/_feed/" type="application/atom+xml" rel="alternate" title="ATOM Feed">
+            <a class="disabled item" href="$base$/_feed/" type="application/atom+xml" rel="alternate" title="ATOM Feed">
               <i class="feed icon"></i>
               Atom feed
             </a>
