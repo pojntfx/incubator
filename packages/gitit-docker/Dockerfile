@@ -77,8 +77,23 @@ ENV LC_ALL="C.UTF-8"
 ENV LANG="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 
-# Build and serve the wiki over the web interface, start SSH server, link userdata
-CMD /etc/init.d/ssh start && /root/.local/bin/gitit -f gitit.conf
+# Install sendmail and auth services
+RUN apt install -y sendmail sasl2-bin
+
+# Configure sendmail connection details
+ENV EXTERNAL_SMTP_DOMAIN="mail.gandi.net"
+RUN echo "dnl define(\`SMART_HOST', \`${EXTERNAL_SMTP_DOMAIN}')" >> /etc/mail/sendmail.mc
+# Configure sendmail authentication
+ENV EXTERNAL_SMTP_USERNAME="noreply@libresat.space"
+ENV EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234"
+RUN echo "AuthInfo:${EXTERNAL_SMTP_DOMAIN} \"U:${EXTERNAL_SMTP_USERNAME}\" \"P:${EXTERNAL_SMTP_PASSWORD}\" \"M:PLAIN\"" >> /etc/mail/authinfo
+RUN makemap hash /etc/mail/authinfo < /etc/mail/authinfo
+RUN sed -i s/"MAILER_DEFINITIONS"/"FEATURE(\`authinfo')\nMAILER_DEFINITIONS"/g /etc/mail/sendmail.mc
+RUN make -C /etc/mail
+RUN sed -i s/START=no/START=yes/g /etc/default/saslauthd
+
+# Build and serve the wiki over the web interface, start SSH server, start sendmail server
+CMD service saslauthd start && /etc/init.d/ssh start && /root/.local/bin/gitit -f gitit.conf && make -C /etc/mail && /etc/init.d/sendmail start && make -C /etc/mail && /etc/init.d/sendmail start
 
 # Expose the web interface and SSH server
 EXPOSE 5001 22
