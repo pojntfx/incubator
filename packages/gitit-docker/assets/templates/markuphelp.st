@@ -35,7 +35,7 @@
 <script>
   jQuery(".modal--formatting-help").modal("attach events", ".button--formatting-help", "show")
   jQuery(".modal--preview").modal("attach events", ".button--preview", "show")
-
+  // Add code from content.st here!
 </script>
 
 <style>
@@ -43,3 +43,32 @@
     margin-bottom: 1em !important;
   }
 </style>
+
+<script>
+  jQuery(document).ready(() => {
+    // Add preview functionality to edit view
+    updatePreviewPane = () => {
+      jQuery("#previewPane").hide();
+      const url = location.pathname.replace(/_edit/g, "_preview/");
+      jQuery.post(
+        url,
+        { "raw": jQuery("#editedText").val() },
+        (data) => {
+          jQuery('#previewPane').html(data);
+          // Process any mathematics if we're using MathML
+          if (typeof (convert) == 'function') { convert(); }
+          // Process any mathematics if we're using jsMath
+          if (typeof (jsMath) == 'object') { jsMath.ProcessBeforeShowing(); }
+          // Process any mathematics if we're using MathJax
+          if (typeof (window.MathJax) == 'object') {
+            // http://docs.mathjax.org/en/latest/typeset.html
+            const math = document.getElementById("MathExample");
+            MathJax.Hub.Queue(["Typeset", MathJax.Hub, math]);
+          }
+        },
+        "html");
+      jQuery('#previewPane').fadeIn(1000);
+      jQuery('#editedText').focus();
+    };
+  })
+</script>
