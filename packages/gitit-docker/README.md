@@ -54,6 +54,8 @@ npm install
 npm run build-semantic
 # Build the container (don't forget to copy the SSH key as described above)
 docker build . -t gitit-with-ssh
+# Create the volume to store the user data in
+docker volume create gitit-with-ssh
 # Run the container (replace variables with your own ones)
 docker run -d \
   -p 5001:5001 \
@@ -61,6 +63,7 @@ docker run -d \
   -e GIT_BOT_NAME="LibreSat Gitit Bot" \
   -e GIT_BOT_EMAIL="gitit-bot@libresat.space" \
   -e GIT_REMOTE="git@gitlab.com:pojntfx/git-wikidata-test.git" \
+  -v gitit-with-ssh:/gitit/userdata \
   gitit-with-ssh
 # Test if the container works
 # Test web interface

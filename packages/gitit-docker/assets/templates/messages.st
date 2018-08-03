@@ -1,3 +1,3 @@
-<ul class="ui relaxed divided list">
+<div class="ui relaxed divided list">
   $messages:listitem()$
-</ul>
+</div>

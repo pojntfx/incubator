@@ -66,13 +66,19 @@ RUN chmod +x wikidata/.git/hooks/pre-commit
 COPY assets/post-commit wikidata/.git/hooks/post-commit
 RUN chmod +x wikidata/.git/hooks/post-commit
 
+# Create dir and file to save users into, (make sure that user-file) is set to userdata/gitit-users in assets/gitit.conf
+RUN mkdir userdata
+
+# Add gitit config file
+COPY assets/gitit.conf /gitit
+
 # Configure locale
 ENV LC_ALL="C.UTF-8"
 ENV LANG="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 
-# Build and serve the wiki over the web interface, start SSH server
-CMD /etc/init.d/ssh start && /root/.local/bin/gitit
+# Build and serve the wiki over the web interface, start SSH server, link userdata
+CMD /etc/init.d/ssh start && /root/.local/bin/gitit -f gitit.conf
 
 # Expose the web interface and SSH server
 EXPOSE 5001 22
