@@ -22,11 +22,15 @@ Now, you should setup the remote repo for the wiki's data:
 3.  Open up the SSH keys settings page (on GitLab, that's [https://gitlab.com/profile/keys](https://gitlab.com/profile/keys)) of your new account and keep it open
 4.  Adjust the environment variables in the following `docker run` command to fit your data
 
-| Variable Name | Example Value                                | Description                                               |
-| ------------- | -------------------------------------------- | --------------------------------------------------------- |
-| GIT_BOT_EMAIL | gitit-bot@libresat.space                     | Email to use for the merge bot                            |
-| GIT_BOT_NAME  | LibreSat Gitit Bot                           | Name to use for the merge bot                             |
-| GIT_REMOTE    | git@gitlab.com:pojntfx/git-wikidata-test.git | Remote git repo to store the data in (use SSH, not HTTPS) |
+| Variable Name          | Example Value                                | Description                                                                                     |
+| ---------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| GIT_BOT_EMAIL          | gitit-bot@libresat.space                     | Email to use for the merge bot                                                                  |
+| GIT_BOT_NAME           | LibreSat Gitit Bot                           | Name to use for the merge bot                                                                   |
+| GIT_REMOTE             | git@gitlab.com:pojntfx/git-wikidata-test.git | Remote git repo to store the data in (use SSH, not HTTPS)                                       |
+| GIT_REMOTE             | git@gitlab.com:pojntfx/git-wikidata-test.git | Remote git repo to store the data in (use SSH, not HTTPS)                                       |
+| EXTERNAL_SMTP_DOMAIN   | mail.gandi.net                               | SMTP server's domain to send "reset password" mails to with                                     |
+| EXTERNAL_SMTP_USERNAME | noreply@libresat.space                       | Account name of the account on the SMTP server you want to send the "reset password" mails with |
+| EXTERNAL_SMTP_PASSWORD | 249j8923490sdaSf8234ns                       | Password of the account on the SMTP server you want to send the "reset password" mails with     |
 
 **IMPORTANT**: During the build process, the public SSH key of your merge bot will be logged. It will look something like this:
 
@@ -63,6 +67,9 @@ docker run -d \
   -e GIT_BOT_NAME="LibreSat Gitit Bot" \
   -e GIT_BOT_EMAIL="gitit-bot@libresat.space" \
   -e GIT_REMOTE="git@gitlab.com:pojntfx/git-wikidata-test.git" \
+  -e EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
+  -e EXTERNAL_SMTP_USERNAME="noreply@libresat.space" \
+  -e EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234" \
   -v gitit-with-ssh:/gitit/userdata \
   gitit-with-ssh
 # Test if the container works
