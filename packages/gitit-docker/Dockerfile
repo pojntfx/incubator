@@ -78,7 +78,7 @@ ENV LANG="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 
 # Install sendmail and auth services
-RUN apt install -y sendmail sasl2-bin
+RUN apt install -y sendmail sasl2-bin cron
 
 # Configure sendmail connection details
 ENV EXTERNAL_SMTP_DOMAIN="mail.gandi.net"
@@ -92,8 +92,14 @@ RUN sed -i s/"MAILER_DEFINITIONS"/"FEATURE(\`authinfo')\nMAILER_DEFINITIONS"/g /
 RUN make -C /etc/mail
 RUN sed -i s/START=no/START=yes/g /etc/default/saslauthd
 
-# Build and serve the wiki over the web interface, start SSH server, start sendmail server
-CMD service saslauthd start && /etc/init.d/ssh start && /root/.local/bin/gitit -f gitit.conf && make -C /etc/mail && /etc/init.d/sendmail start && make -C /etc/mail && /etc/init.d/sendmail start
+# Add periodical git fetch cron job so that the instances will be kept in sync
+RUN echo "cd /gitit/wikidata/ && git checkout master && git pull && git checkout dev && git merge master && cd /gitit" >> pull_latest_changes.sh
+RUN chmod +x pull_latest_changes.sh
+RUN echo "* * * * * root cd /gitit && ./pull_latest_changes.sh" >> /etc/cron.d/gitit-with-ssh
+RUN /etc/init.d/cron restart
+
+# Pull latest changes from the remote, build and serve the wiki over the web interface, start SSH server, start sendmail server
+CMD ./pull_latest_changes.sh && service saslauthd start && /etc/init.d/ssh start && /root/.local/bin/gitit -f gitit.conf && make -C /etc/mail && /etc/init.d/sendmail start && make -C /etc/mail && /etc/init.d/sendmail start
 
 # Expose the web interface and SSH server
 EXPOSE 5001 22
