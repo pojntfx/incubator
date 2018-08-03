@@ -1,3 +1,31 @@
+<style>
+  /* Capitalize the text of the tertiary nav */
+
+  .tertiary-nav>.item {
+    text-transform: capitalize !important;
+  }
+
+  /* Normalize the height of the tertiary nav */
+
+  .tertiary-nav__dropdown--more__title {
+    padding: 0 !important;
+  }
+</style>
+
+<script>
+  jQuery(document).ready(() => {
+    // Add Semantic UI's styles to the nav
+    jQuery(".tabs").contents().unwrap();
+    jQuery(".tertiary-nav > li:not(.selected) > a").unwrap().addClass("item tertiary-nav__item");
+    jQuery(".tertiary-nav > li.selected > a").unwrap().addClass("item tertiary-nav__item active");
+    jQuery(".tertiary-nav__dropdown--more")
+      .accordion();
+    // Add search functionality to the export menu
+    jQuery("select[name='format']").addClass("ui search selection dropdown tertiary-nav__export-dropdown");
+    jQuery(".tertiary-nav__export-dropdown").dropdown();
+  })
+</script>
+
 <div class="ui top attached stackable tabular menu tertiary-nav">
   $tabs$
   <div class="item">
@@ -36,31 +64,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  /* Capitalize the text of the tertiary nav */
-
-  .tertiary-nav>.item {
-    text-transform: capitalize !important;
-  }
-
-  /* Normalize the height of the tertiary nav */
-
-  .tertiary-nav__dropdown--more__title {
-    padding: 0 !important;
-  }
-</style>
-
-<script>
-  jQuery(document).ready(() => {
-    // Add Semantic UI's styles to the nav
-    jQuery(".tabs").contents().unwrap();
-    jQuery(".tertiary-nav > li:not(.selected) > a").unwrap().addClass("item tertiary-nav__item");
-    jQuery(".tertiary-nav > li.selected > a").unwrap().addClass("item tertiary-nav__item active");
-    jQuery(".tertiary-nav__dropdown--more")
-      .accordion();
-    // Add search functionality to the export menu
-    jQuery("select[name='format']").addClass("ui search selection dropdown tertiary-nav__export-dropdown");
-    jQuery(".tertiary-nav__export-dropdown").dropdown();
-  })
-</script>
