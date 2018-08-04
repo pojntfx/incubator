@@ -22,7 +22,7 @@ Now, you should setup the remote repo for the wiki's data:
 3.  Open up the SSH keys settings page (on GitLab, that's [https://gitlab.com/profile/keys](https://gitlab.com/profile/keys)) of your new account and keep it open
 4.  Adjust the environment variables in the following `docker run` command to fit your data
 
-Also, you should consider putting the URLs for the remote git repo into the templates for your docker container so that the "Download Wiki" button will work. To do so, run the following (using your own data, of course):
+Also, you should consider putting the URLs for the remote git repo into the templates for your docker container so that the "Download Wiki" button will point to the right directions. To do so, run the following (using your own data, of course):
 
 ```bash
 echo "git@gitlab.com:pojntfx/git-wikidata-test.git" > assets/templates/sshgitlink.st
