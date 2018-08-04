@@ -2,10 +2,10 @@
   "name": "@pojntfx-incubator/gitit-docker",
   "version": "0.0.1-1",
   "description": "A Docker container with Gitit, a Haskell-based wiki that uses Git as it's VCS. Also includes an SSH server so that you can clone the Git repo locally.",
-  "main": "Dockerfile",
+  "main": "src/Dockerfile",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-semantic": "cd assets/static/semantic && gulp build"
+    "build-semantic": "cd src/assets/static/semantic && gulp build"
   },
   "author": "Felicitas Pojtinger <felicitas@pojtinger.com>",
   "license": "AGPL-3.0",

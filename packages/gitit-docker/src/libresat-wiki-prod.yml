@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  web:
+    image: "libresat-wiki:latest"
+    restart: "always"
+    ports:
+      - "4000:5001"
+      - "4001:22"
+    networks:
+      - "libresat-wiki"
+    volumes:
+      - "libresat-wiki-web-data:/gitit/userdata"
+networks:
+  libresat-wiki:
+
+volumes:
+  libresat-wiki-web-data:
