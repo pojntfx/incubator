@@ -60,10 +60,7 @@
       </div>
     </div>
     <div class="right menu">
-      <a class="item disabled">
-        <i class="download icon"></i>
-        Download Wiki
-      </a>
+      $downloadmenu()$
       $userbox()$
       <div class="item">
         <form action="$base$/_search" method="get">
