@@ -45,6 +45,8 @@ echo "git@gitlab.com:pojntfx/git-wikidata-test.git" \
 > src/assets/templates/sshgitlink.st
 echo "https://gitlab.com/pojntfx/git-wikidata-test" \
 > src/assets/templates/httpsgitlink.st
+echo "https://gitlab.com/pojntfx/git-wikidata-test/-/archive/master/git-wikidata-test-master.zip" \
+> src/assets/templates/ziplink.st
 ```
 
 Consider editing `src/gitit.conf` for many more configuration options.
