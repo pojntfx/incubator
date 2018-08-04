@@ -126,25 +126,25 @@ git clone ssh://git@localhost:4001/gitit/wikidata
 
 ## Screenshots
 
-![Front Page](/screenshots/front-page.png)
+![Front Page](screenshots/front-page.png)
 
-![Editor](/screenshots/edit.png)
+![Editor](screenshots/edit.png)
 
-![Edit Preview](/screenshots/edit-preview.png)
+![Edit Preview](screenshots/edit-preview.png)
 
-![Generated Commits in GitLab](/screenshots/commits-gitlab.png)
+![Generated Commits in GitLab](screenshots/commits-gitlab.png)
 
-![Export Menu](/screenshots/export-menu.png)
+![Export Menu](screenshots/export-menu.png)
 
-![Atom Feed](/screenshots/atom-feed.png)
+![Atom Feed](screenshots/atom-feed.png)
 
-![History](/screenshots/history.png)
+![History](screenshots/history.png)
 
-![Revision](/screenshots/revision.png)
+![Revision](screenshots/revision.png)
 
-![Download Menu](/screenshots/download-menu.png)
+![Download Menu](screenshots/download-menu.png)
 
-![Responsive Mode](/screenshots/front-page-responsive.png)
+![Responsive Mode](screenshots/front-page-responsive.png)
 
 ## Documentation
 
