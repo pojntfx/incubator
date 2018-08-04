@@ -2,3 +2,5 @@
 gitit-users
 # Gitit cache
 cache/
+# Gitit data
+wikidata/
