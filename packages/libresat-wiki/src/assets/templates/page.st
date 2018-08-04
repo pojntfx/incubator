@@ -12,6 +12,31 @@
   <link href="$base$/_feed$pageUrl$" type="application/atom+xml" rel="alternate" title="$pagetitle$ - $wikititle$" />
   <!-- Semantic CSS -->
   <link rel="stylesheet" href="$base$/semantic/dist/semantic.min.css">
+  <script>
+    /*    
+    @licstart  The following is the entire license notice for the 
+    JavaScript code in this page.
+
+    LibreSat Wiki
+    Copyright (C) 2018 Felicitas Pojtinger
+
+    This program is free software: you can redistribute it and/or modify 
+    it under the terms of the GNU Affero General Public License as published 
+    by the Free Software Foundation, either version 3 of the License, or 
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful, but 
+    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+    or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License 
+    for more details.
+
+    You should have received a copy of the GNU Affero General Public License along 
+    with this program. If not, see <https://www.gnu.org/licenses/>.
+
+    @licend  The above is the entire license notice
+    for the JavaScript code in this page.
+    */
+  </script>
   <!-- Semantic JS, JQuery and MathJax-->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
