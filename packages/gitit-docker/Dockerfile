@@ -78,7 +78,7 @@ ENV LANG="en_US.UTF-8"
 ENV LANGUAGE="en_US.UTF-8"
 
 # Install sendmail and auth services
-RUN apt install -y sendmail sasl2-bin cron
+RUN apt install -y sendmail sendmail-bin sensible-mda sasl2-bin cron
 
 # Configure sendmail connection details
 ENV EXTERNAL_SMTP_DOMAIN="mail.gandi.net"
