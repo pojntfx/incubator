@@ -42,6 +42,8 @@ Visit [forum.libresat.space](https://forum.libresat.space) and take a look at ou
 
 ### Exim Smarthost
 
+> `EXIM_DOMAIN` has to be a FQDN and be publicly reachable, otherwise mail delivery will fail.
+
 ```bash
 # Build the container
 docker build \
