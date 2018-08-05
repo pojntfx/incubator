@@ -56,7 +56,7 @@ exim-smarthost \
 # Run the container
 ID=$(docker run -td -h "mail.libresat.space" libresat-forum-exim-smarthost)
 # Send email using the container
-docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" user@domain.tld"
+docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" goooglehupf007@gmail.com"
 ```
 
 ### Exim without Smarthost
