@@ -42,6 +42,8 @@ Visit [forum.libresat.space](https://forum.libresat.space) and take a look at ou
 
 ### Exim Smarthost
 
+> `EXIM_DOMAIN` has to be a FQDN and be publicly reachable, otherwise mail delivery will fail.
+
 ```bash
 # Build the container
 docker build \
@@ -54,7 +56,7 @@ exim-smarthost \
 # Run the container
 ID=$(docker run -td -h "mail.libresat.space" libresat-forum-exim-smarthost)
 # Send email using the container
-docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" user@domain.tld"
+docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" goooglehupf007@gmail.com"
 ```
 
 ### Exim without Smarthost
