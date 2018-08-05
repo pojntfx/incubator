@@ -46,7 +46,18 @@ Visit [forum.libresat.space](https://forum.libresat.space) and take a look at ou
 
 ### Building
 
-> TODO: Add building
+#### Postfix (Satellite) + Mailman Core
+
+```bash
+docker build \
+--build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
+--build-arg EXTERNAL_SMTP_USERNAME="noreply@libresat.space" \
+--build-arg EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234" \
+--build-arg LIST_DOMAIN="forum.libresat.space" \
+--build-arg LIST_PASSWORD="sad83545dfsdf" \
+postfix-mailman-core \
+-t libresat-forum-postfix-mailman-core
+```
 
 ### Startup
 
