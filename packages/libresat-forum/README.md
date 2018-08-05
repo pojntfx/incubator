@@ -4,6 +4,32 @@
 
 > Consider reading the [infrastructure overview](https://github.com/opensdcp/opensdcp-infrastructure#overview) before continuing.
 
+## Overview
+
+This setup uses a microservice-like architecture, which means that each service is run independendly in it's own Docker container, which allows for them to be scaled individually.
+
+```text
+                                                                                  Postorius
+                                                                                       +
+                                                                                       |
+                                                                                       |
+                                                            +--------------------------+
+                                                            |
+                                                            v
+                               +----------------------------+--------------+
+                               |                                           |
+External SMTP Server  <--------+    Postfix (Satellite) + Mailman Core     |
+                               |                                           |
+                               +----------------------------+--------------+
+                                                            ^
+                                                            |
+                                                            +--------------------------+
+                                                                                       |
+                                                                                       |
+                                                                                       +
+                                                                                  HyperKitty
+```
+
 ## Demo
 
 Visit [forum.libresat.space](https://forum.libresat.space) and take a look at our instance.
