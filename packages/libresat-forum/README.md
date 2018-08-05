@@ -6,28 +6,22 @@
 
 ## Overview
 
-This setup uses a microservice-like architecture, which means that each service is run independendly in it's own Docker container, which allows for them to be scaled individually.
+This setup uses a microservice-like architecture, which means that each service is run independendly in it's own Docker container wherever possible, which allows for them to be scaled individually.
 
 ```text
-                                                                                  Postorius
-                                                                                       +
-                                                                                       |
-                                                                                       |
-                                                            +--------------------------+
-                                                            |
-                                                            v
-                               +----------------------------+--------------+
-                               |                                           |
-External SMTP Server  <--------+    Postfix (Satellite) + Mailman Core     |
-                               |                                           |
-                               +----------------------------+--------------+
-                                                            ^
-                                                            |
-                                                            +--------------------------+
-                                                                                       |
-                                                                                       |
-                                                                                       +
-                                                                                  HyperKitty
+                                                                                 +-------------+
+                                                                                 |             |
+                                                                      +----------+  Postorius  <-----------+
+                                                                      |          |             |           |
++----------------------------------+           +-----------------------------+   +-------------+    +------+-------+
+|                                  |           |                      v      |                      |              |
+| External SMTP Server (Smarthost) <-------------+ Exim <-----+ Mailman Core |                      |     User     |
+|                                  |           |                      ^      |                      |              |
++----------------------------------+           +-----------------------------+   +-------------+    +------+-------+
+                                                                      |          |             |           |
+                                                                      +----------+  Hyperkitty <-----------+
+                                                                                 |             |
+                                                                                 +-------------+
 ```
 
 ## Demo
@@ -46,17 +40,38 @@ Visit [forum.libresat.space](https://forum.libresat.space) and take a look at ou
 
 ### Building
 
-#### Postfix (Satellite) + Mailman Core
+### Exim Smarthost
 
 ```bash
+# Build the container
 docker build \
+--build-arg EXIM_DOMAIN="mail.libresat.space" \
 --build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
 --build-arg EXTERNAL_SMTP_USERNAME="noreply@libresat.space" \
 --build-arg EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234" \
---build-arg LIST_DOMAIN="forum.libresat.space" \
---build-arg LIST_PASSWORD="sad83545dfsdf" \
-postfix-mailman-core \
--t libresat-forum-postfix-mailman-core
+exim-smarthost \
+-t libresat-forum-exim-smarthost
+# Run the container
+ID=$(docker run -td -h "mail.libresat.space" libresat-forum-exim-smarthost)
+# Send email using the container
+docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" user@domain.tld"
+```
+
+### Exim without Smarthost
+
+> Use this if [Exim Smarthost](#exim%20smarthost) does not work. This does not require a smarthost, but is less performant.
+
+```bash
+# Build the container
+docker build \
+--build-arg EXIM_DOMAIN="mail.libresat.space" \
+--build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
+exim-smarthost \
+-t libresat-forum-exim-no-smarthost
+# Run the container
+ID=$(docker run -td -h "mail.libresat.space" libresat-forum-exim-no-smarthost)
+# Send email using the container
+docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" user@domain.tld"
 ```
 
 ### Startup
