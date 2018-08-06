@@ -72,6 +72,7 @@ docker volume create exim-smarthost-mailman-data
 # Run the container (remember: hostname must be FQDN and exist)
 docker run \
 -d \
+-p 8001:8001 \
 -h "mail.domain.tld" \
 -v exim-smarthost-mailmand-data:/var/tmp/mailman/data \
 exim-smarthost-mailman
