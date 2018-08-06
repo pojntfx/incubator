@@ -5,8 +5,8 @@ domainlist mm_domains=list.example.net
 MM3_LMTP_PORT=8024
 
 # MM3_HOME must be set to Mailman's var directory, wherever it is
-# according to your installation.
-MM3_HOME=/path-to-mailman/var/
+# according to your installation (below is the standard for `local`).
+MM3_HOME=/var/tmp/mailman/
 MM3_UID=list
 MM3_GID=list
 

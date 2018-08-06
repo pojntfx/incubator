@@ -52,6 +52,7 @@ ENV MAILMAN_CONFIG_FILE="/etc/mailman.cfg"
 # Configure mailman
 ARG MAILMAN_ADMIN_EMAIL="felicitas@pojtinger.com"
 ARG MAILMAN_ADMIN_USERNAME="pojntfx"
+ARG MAILMAN_ADMIN_PASSWORD="asdfasdf123"
 ARG MAILMAN_DEFAULT_LANGUAGE="en"
 ARG MAILMAN_DOMAIN="forum.libresat.space"
 # ARG MAILMAN_USE_HTTPS="no"
@@ -69,13 +70,31 @@ RUN sed -i -e "s/#configuration: python:mailman.config.exim4/configuration: pyth
 # Install mailman-core
 RUN python3 setup.py install
 
+# Connect exim to mailman
+COPY assets/25_mm3_macros .
+RUN cat 25_mm3_macros >> /etc/exim4/conf.d/main/25_mm3_macros
+RUN sed -i -e "s/list.example.net/${MAILMAN_DOMAIN}/g" /etc/exim4/conf.d/main/25_mm3_macros
+COPY assets/55_mm3_transport .
+RUN cat 55_mm3_transport >> /etc/exim4/conf.d/transport/55_mm3_transport
+COPY assets/455_mm3_router .
+RUN cat 455_mm3_router >> /etc/exim4/conf.d/router/455_mm3_router
+
+# Restart exim
+RUN service exim4 restart
+
+# Add custom templates
+COPY assets/templates /var/tmp/mailman
+
+# Create a volume for mailman's data
+VOLUME /var/tmp/mailman/data
+
 # Test mailman
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 RUN mailman info
 
-# Log the config file
-RUN mailman conf
-
 # Start mailman
-RUN mailman start
+CMD mailman start && tail -f /var/tmp/mailman/logs/mailman.log
+
+# Expose REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.)
+EXPOSE 8001

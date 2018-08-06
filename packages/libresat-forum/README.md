@@ -42,26 +42,48 @@ Visit [forum.libresat.space](https://forum.libresat.space) and take a look at ou
 
 ### Exim Smarthost with Mailman
 
-> `EXIM_DOMAIN` has to be a FQDN and be publicly reachable, otherwise mail delivery will fail.
+#### Build, Run, Test
+
+```bash
+chmod +x exim-smarthost-mailman/run.sh
+exim-smarthost-mailman/run.sh
+```
+
+#### Alternative: Manual
+
+> Container's hostname must be a FQDN and has to be publicly reachable, otherwise mail delivery will fail. The container itself however does not have to be publicly reachable.
 
 ```bash
 # Build the container
 docker build \
---build-arg EXIM_DOMAIN="mail.libresat.space" \
---build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
---build-arg EXTERNAL_SMTP_USERNAME="noreply@libresat.space" \
---build-arg EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234" \
+--build-arg EXIM_DOMAIN="mail.domain.tld" \
+--build-arg EXTERNAL_SMTP_DOMAIN="mail.mailhost.tld" \
+--build-arg EXTERNAL_SMTP_USERNAME="noreply@domain.tld" \
+--build-arg EXTERNAL_SMTP_PASSWORD="securepassword1" \
+--build-arg MAILMAN_DOMAIN="lists.domain.tld" \
+--build-arg MAILMAN_ADMIN_EMAIL="admin@domain.tld" \
+--build-arg MAILMAN_ADMIN_USERNAME="secureusername"  \
+--build-arg MAILMAN_ADMIN_PASSWORD="securepassword2" \
+--build-arg MAILMAN_DEFAULT_LANGUAGE="en" \
 exim-smarthost-mailman \
--t libresat-forum-exim-smarthost-mailman
-# Run the container
-ID=$(docker run -td -h "mail.libresat.space" libresat-forum-exim-smarthost-mailman)
-# Send email using the container
-docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" goooglehupf007@gmail.com"
+-t exim-smarthost-mailman
+# Create volume for data
+docker volume create exim-smarthost-mailman-data
+# Run the container (remember: hostname must be FQDN and exist)
+docker run \
+-d \
+-h "mail.domain.tld" \
+-v exim-smarthost-mailmand-data:/var/tmp/mailman/data \
+exim-smarthost-mailman
+# Test the email capabilities
+docker exec YOUR_CONTAINER_ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" admin@domain.tld"
+# Test the REST API (should return 401)
+docker exec YOUR_CONTAINER_ID bash -c "apt install -y curl && curl http://localhost:8001/3.1 && apt remove -y curl && apt -y autoremove"
 ```
 
 ### Exim Smarthost
 
-> `EXIM_DOMAIN` has to be a FQDN and be publicly reachable, otherwise mail delivery will fail.
+> Container's hostname must be a FQDN and has to be publicly reachable, otherwise mail delivery will fail. The container itself however does not have to be publicly reachable.
 
 ```bash
 # Build the container
@@ -75,12 +97,13 @@ exim-smarthost \
 # Run the container
 ID=$(docker run -td -h "mail.libresat.space" libresat-forum-exim-smarthost)
 # Send email using the container
-docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" goooglehupf007@gmail.com"
+docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" user@domain.tld"
 ```
 
 ### Exim without Smarthost
 
 > Use this if [Exim Smarthost](#exim%20smarthost) does not work. This does not require a smarthost, but is less performant.
+> Container's hostname must be a FQDN and has to be publicly reachable, otherwise mail delivery will fail. The container itself however does not have to be publicly reachable.
 
 ```bash
 # Build the container
