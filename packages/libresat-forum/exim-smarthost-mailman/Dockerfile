@@ -68,6 +68,11 @@ RUN sed -i -e "s/default_language: en/default_language: ${MAILMAN_DEFAULT_LANGUA
 # RUN sed -i -e "s/use_https: no/use_https: ${MAILMAN_USE_HTPPS}/g" /etc/mailman3/mailman.cfg
 RUN sed -i -e "s/admin_user: restadmin/admin_user: ${MAILMAN_ADMIN_USERNAME}/g" /etc/mailman3/mailman.cfg
 RUN sed -i -e "/admin_pass/c\admin_pass: ${MAILMAN_ADMIN_PASSWORD}" /etc/mailman3/mailman.cfg
+RUN sed -i -e "s/incoming: mailman.mta.postfix.LMTP/#incoming: mailman.mta.postfix.LMTP/g" /etc/mailman3/mailman.cfg
+RUN sed -i -e "s/#incoming: mailman.mta.exim4.LMTP/incoming: mailman.mta.exim4.LMTP/g" /etc/mailman3/mailman.cfg
+# Probably lmtp_host: mail.libresat.space and smtp_host: mail.libresat.space, but let's try local first!
+RUN sed -i -e "s/configuration: python:mailman.config.postfix/#configuration: python:mailman.config.postfix/g" /etc/mailman3/mailman.cfg
+RUN sed -i -e "s/#configuration: python:mailman.config.exim4/configuration: python:mailman.config.exim4/g" /etc/mailman3/mailman.cfg
 
 # Setup debconf for mailman
 # RUN bash -c "debconf-set-selections <<< \"mailman mailman/default_server_language select en\""
