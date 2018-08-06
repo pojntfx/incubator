@@ -40,6 +40,25 @@ Visit [forum.libresat.space](https://forum.libresat.space) and take a look at ou
 
 ### Building
 
+### Exim Smarthost with Mailman
+
+> `EXIM_DOMAIN` has to be a FQDN and be publicly reachable, otherwise mail delivery will fail.
+
+```bash
+# Build the container
+docker build \
+--build-arg EXIM_DOMAIN="mail.libresat.space" \
+--build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
+--build-arg EXTERNAL_SMTP_USERNAME="noreply@libresat.space" \
+--build-arg EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234" \
+exim-smarthost-mailman \
+-t libresat-forum-exim-smarthost-mailman
+# Run the container
+ID=$(docker run -td -h "mail.libresat.space" libresat-forum-exim-smarthost-mailman)
+# Send email using the container
+docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" goooglehupf007@gmail.com"
+```
+
 ### Exim Smarthost
 
 > `EXIM_DOMAIN` has to be a FQDN and be publicly reachable, otherwise mail delivery will fail.
