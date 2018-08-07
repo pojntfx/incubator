@@ -93,6 +93,21 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 RUN mailman info
 
+# Add mailman-hyperkitty config
+COPY assets/mailman-hyperkitty.cfg .
+RUN cat mailman-hyperkitty.cfg >> /etc/mailman-hyperkitty.cfg
+
+# Configure mailman-hyperkitty
+ARG HYPERKITTY_API_KEY="asdfasdf474"
+RUN sed -i -e "s/SecretArchiverAPIKey/${HYPERKITTY_API_KEY}/g" /etc/mailman-hyperkitty.cfg
+
+# Get mailman-hyperkitty sources
+RUN git clone https://gitlab.com/mailman/mailman-hyperkitty.git
+WORKDIR mailman-hyperkitty
+
+# Install mailman-hyperkitty
+RUN python3 setup.py install
+
 # Start mailman
 CMD service exim4 restart && mailman start && tail -f /var/tmp/mailman/logs/mailman.log
 
