@@ -49,6 +49,35 @@ chmod +x exim-smarthost-mailman/run.sh
 exim-smarthost-mailman/run.sh
 ```
 
+> When you sign up using hyperkitty, get the verification link with the following (use http, not https):
+
+```bash
+docker exec -it DOCKER_CONTAINER_ID bash -c "less /mailman/mailman-hyperkitty/hyperkitty/example_project/emails/*.log"
+```
+
+##### Logs
+
+###### Exim
+
+```bash
+docker exec -it DOCKER_CONTAINER_ID bash -c "tail -f /var/log/exim4/mainlog"
+# This will log all mail traffic
+```
+
+###### Mailman
+
+```bash
+docker exec -it 178fd5244633 bash -c "tail -f /var/tmp/mailman/logs/mailman.log"
+# When you sign up and verify using hyperkitty, the REST actions will show up here
+```
+
+###### Apache
+
+```bash
+docker exec -it DOCKER_CONTAINER_ID bash -c "tail -f /var/log/apache2/error.log"
+# Hyperkitty's wsgi server logs here
+```
+
 #### Alternative: Manual
 
 > Container's hostname must be a FQDN and has to be publicly reachable, otherwise mail delivery will fail. The container itself however does not have to be publicly reachable.
@@ -69,12 +98,14 @@ exim-smarthost-mailman \
 -t exim-smarthost-mailman
 # Create volume for data
 docker volume create exim-smarthost-mailman-data
+docker volume create exim-smarthost-hyperkitty-data
 # Run the container (remember: hostname must be FQDN and exist)
 docker run \
 -d \
--p 8001:8001 \
+-p 8000:80 \
 -h "mail.domain.tld" \
 -v exim-smarthost-mailmand-data:/var/tmp/mailman/data \
+-v exim-smarthost-hyperkitty-data:/mailman/mailman-hyperkitty/hyperkitty/example_project \
 exim-smarthost-mailman
 # Test the email capabilities
 docker exec YOUR_CONTAINER_ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" admin@domain.tld"
