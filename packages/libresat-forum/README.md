@@ -1,28 +1,12 @@
 # LibreSat Forum
 
-[GNU Mailman](http://www.list.org/) distribution for the [LibreSat](http://libresat.space/) project.
+[LibreSat](http://libresat.space/)'s [GNU Mailman](http://www.list.org/) distribution.
 
 > Consider reading the [infrastructure overview](https://github.com/opensdcp/opensdcp-infrastructure#overview) before continuing.
 
 ## Overview
 
-This setup uses a microservice-like architecture, which means that each service is run independendly in it's own Docker container wherever possible, which allows for them to be scaled individually.
-
-```text
-                                                                                 +-------------+
-                                                                                 |             |
-                                                                      +----------+  Postorius  <-----------+
-                                                                      |          |             |           |
-+----------------------------------+           +-----------------------------+   +-------------+    +------+-------+
-|                                  |           |                      v      |                      |              |
-| External SMTP Server (Smarthost) <-------------+ Exim <-----+ Mailman Core |                      |     User     |
-|                                  |           |                      ^      |                      |              |
-+----------------------------------+           +-----------------------------+   +-------------+    +------+-------+
-                                                                      |          |             |           |
-                                                                      +----------+  Hyperkitty <-----------+
-                                                                                 |             |
-                                                                                 +-------------+
-```
+> TODO: Add overview
 
 ## Demo
 
@@ -32,131 +16,91 @@ Visit [forum.libresat.space](https://forum.libresat.space) and take a look at ou
 
 ### Preparation
 
-> TODO: Add preparation
+```bash
+# Create volume for mailman-core's data
+docker volume create mailman-core-data
+# Create volume for hyperkitty's data
+docker volume create hyperkitty-data
+```
 
 ### Configuraton
 
-> TODO: Add configuration
+You can use [custom templates for Mailman](http://docs.mailman3.org/en/latest/config-core.html#configure-templates) by putting them into the `mailman-suite/assets/mailman-core/templates` folder.
 
 ### Building
 
-### Exim Smarthost with Mailman
+#### With the build script
 
-#### Build, Run, Test
+If you want to customize the containers, consider using the `build-run-test.sh` script:
 
 ```bash
-chmod +x exim-smarthost-mailman/run.sh
-exim-smarthost-mailman/run.sh
+# Make it executable
+chmod +x mailman-suite/build-run-test.sh
+# Run it
+mailman-suite/build-run-test.sh
 ```
 
-> When you sign up using hyperkitty, get the verification link with the following (use http, not https):
+#### Without the build script
 
 ```bash
-docker exec -it DOCKER_CONTAINER_ID bash -c "less /mailman/mailman-hyperkitty/hyperkitty/example_project/emails/*.log"
-```
-
-##### Logs
-
-###### Exim
-
-```bash
-docker exec -it DOCKER_CONTAINER_ID bash -c "tail -f /var/log/exim4/mainlog"
-# This will log all mail traffic
-```
-
-###### Mailman
-
-```bash
-docker exec -it 178fd5244633 bash -c "tail -f /var/tmp/mailman/logs/mailman.log"
-# When you sign up and verify using hyperkitty, the REST actions will show up here
-```
-
-###### Apache
-
-```bash
-docker exec -it DOCKER_CONTAINER_ID bash -c "tail -f /var/log/apache2/error.log"
-# Hyperkitty's wsgi server logs here
-```
-
-#### Alternative: Manual
-
-> Container's hostname must be a FQDN and has to be publicly reachable, otherwise mail delivery will fail. The container itself however does not have to be publicly reachable.
-
-```bash
-# Build the container
-docker build \
---build-arg EXIM_DOMAIN="mail.domain.tld" \
---build-arg EXTERNAL_SMTP_DOMAIN="mail.mailhost.tld" \
---build-arg EXTERNAL_SMTP_USERNAME="noreply@domain.tld" \
---build-arg EXTERNAL_SMTP_PASSWORD="securepassword1" \
---build-arg MAILMAN_DOMAIN="lists.domain.tld" \
---build-arg MAILMAN_ADMIN_EMAIL="admin@domain.tld" \
---build-arg MAILMAN_ADMIN_USERNAME="secureusername"  \
---build-arg MAILMAN_ADMIN_PASSWORD="securepassword2" \
---build-arg MAILMAN_DEFAULT_LANGUAGE="en" \
-exim-smarthost-mailman \
--t exim-smarthost-mailman
-# Create volume for data
-docker volume create exim-smarthost-mailman-data
-docker volume create exim-smarthost-hyperkitty-data
-# Run the container (remember: hostname must be FQDN and exist)
-docker run \
--d \
--p 8000:80 \
--h "mail.domain.tld" \
--v exim-smarthost-mailmand-data:/var/tmp/mailman/data \
--v exim-smarthost-hyperkitty-data:/mailman/mailman-hyperkitty/hyperkitty/example_project \
-exim-smarthost-mailman
-# Test the email capabilities
-docker exec YOUR_CONTAINER_ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" admin@domain.tld"
-# Test the REST API (should return 401)
-docker exec YOUR_CONTAINER_ID bash -c "apt install -y curl && curl http://localhost:8001/3.1 && apt remove -y curl && apt -y autoremove"
-```
-
-### Exim Smarthost
-
-> Container's hostname must be a FQDN and has to be publicly reachable, otherwise mail delivery will fail. The container itself however does not have to be publicly reachable.
-
-```bash
-# Build the container
 docker build \
 --build-arg EXIM_DOMAIN="mail.libresat.space" \
 --build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
 --build-arg EXTERNAL_SMTP_USERNAME="noreply@libresat.space" \
 --build-arg EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234" \
-exim-smarthost \
--t libresat-forum-exim-smarthost
-# Run the container
-ID=$(docker run -td -h "mail.libresat.space" libresat-forum-exim-smarthost)
-# Send email using the container
-docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" user@domain.tld"
-```
-
-### Exim without Smarthost
-
-> Use this if [Exim Smarthost](#exim%20smarthost) does not work. This does not require a smarthost, but is less performant.
-> Container's hostname must be a FQDN and has to be publicly reachable, otherwise mail delivery will fail. The container itself however does not have to be publicly reachable.
-
-```bash
-# Build the container
-docker build \
---build-arg EXIM_DOMAIN="mail.libresat.space" \
---build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
-exim-smarthost \
--t libresat-forum-exim-no-smarthost
-# Run the container
-ID=$(docker run -td -h "mail.libresat.space" libresat-forum-exim-no-smarthost)
-# Send email using the container
-docker exec $ID bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" user@domain.tld"
+--build-arg MAILMAN_DOMAIN="forum.libresat.space" \
+--build-arg MAILMAN_ADMIN_EMAIL="felix@pojtinger.com" \
+--build-arg MAILMAN_ADMIN_USERNAME="pojntfx" \
+--build-arg MAILMAN_ADMIN_PASSWORD="asdfasdf123" \
+--build-arg MAILMAN_DEFAULT_LANGUAGE="en" \
+--build-arg HYPERKITTY_ADMIN_USERNAME="Felix Pojtinger" \
+--build-arg HYPERKITY_ADMIN_EMAIL="felix@pojtinger.com" \
+--build-arg HYPERKITTY_API_KEY="asdfasdf474" \
+mailman-suite \
+-t "libresat-forum"
 ```
 
 ### Startup
 
-> TODO: Add startup
+```bash
+docker run \
+-d \
+-h "mail@domain.tld" \
+-p "8000:80" \
+-v "mailman-core-data:/var/tmp/mailman/data" \
+-v "hyperkitty-data:/hyperkitty/example_project" \
+libresat-forum
+# Now open up http://localhost:8000/hyperkitty and sign up!
+```
 
 ### Setup
 
-> TODO: Add setup
+When signing up, confirm your registration by running the following:
+
+```bash
+docker exec DOCKER_CONTAINER_ID bash -c "less /hyperkitty/example_project/emails/*.log"
+```
+
+Open the verification link, but use `http` instead of `https`.
+
+### Debugging
+
+```bash
+# Get docker container id
+docker ps | grep libresat-forum
+# Test exim by sending a mail
+docker exec DOCKER_CONTAINER_ID bash -c 'echo "Test Message Body" | mail -s "Test Message Subject" user@domain.tld'
+# Test mailman-core REST api (should return "401 Unauthorized")
+docker exec DOCKER_CONTAINER_ID bash -c "apt install -y curl && sleep 15 && curl http://localhost:8001/3.1 && apt remove curl"
+# Look at exim's logs
+docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/log/exim4/mainlog" # This will log all mail traffic
+# Look at mailman-core's logs
+docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/tmp/mailman/logs/mailman.log" # When you sign up and verify using hyperkitty, the REST actions will show up here
+# Look at mailman-core's logs
+docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/log/apache2/error.log" # Hyperkitty's wsgi server logs here
+# Use interactive bash inside the container
+docker exec -it DOCKER_CONTAINER_ID bash
+```
 
 ## Screenshots
 
