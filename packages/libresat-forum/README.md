@@ -19,8 +19,8 @@ Visit [forum.libresat.space](https://forum.libresat.space) and take a look at ou
 ```bash
 # Create volume for mailman-core's data
 docker volume create mailman-core-data
-# Create volume for hyperkitty's data
-docker volume create hyperkitty-data
+# Create volume for mailman-web's data
+docker volume create mailman-web-data
 ```
 
 ### Configuraton
@@ -68,9 +68,9 @@ docker run \
 -h "mail@domain.tld" \
 -p "8000:80" \
 -v "mailman-core-data:/var/tmp/mailman/data" \
--v "hyperkitty-data:/hyperkitty/example_project" \
+-v "mailman-web-data:/opt/mailman-web" \
 libresat-forum
-# Now open up http://localhost:8000/hyperkitty and sign up!
+# Now open up http://localhost:8000//forum/hyperkitty and/or http://localhost:8000//forum/postorius and sign up!
 ```
 
 ### Setup
@@ -78,7 +78,7 @@ libresat-forum
 When signing up, confirm your registration by running the following:
 
 ```bash
-docker exec DOCKER_CONTAINER_ID bash -c "less /hyperkitty/example_project/emails/*.log"
+docker exec DOCKER_CONTAINER_ID bash -c "less /opt/mailman-web/emails/*.log"
 ```
 
 Open the verification link, but use `http` instead of `https`.
@@ -95,9 +95,9 @@ docker exec DOCKER_CONTAINER_ID bash -c "apt install -y curl && sleep 15 && curl
 # Look at exim's logs
 docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/log/exim4/mainlog" # This will log all mail traffic
 # Look at mailman-core's logs
-docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/tmp/mailman/logs/mailman.log" # When you sign up and verify using hyperkitty, the REST actions will show up here
-# Look at mailman-core's logs
-docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/log/apache2/error.log" # Hyperkitty's wsgi server logs here
+docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/tmp/mailman/logs/mailman.log" # When you sign up and verify using hyperkitty/postorius, the REST actions will show up here
+# Look at mailman-web's logs
+docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/log/apache2/error.log" # mailman-web's wsgi server logs here
 # Use interactive bash inside the container
 docker exec -it DOCKER_CONTAINER_ID bash
 ```

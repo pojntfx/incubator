@@ -15,7 +15,6 @@ RUN echo ${EXIM_DOMAIN} > /etc/mailname
 # Setup debconf
 ARG EXTERNAL_SMTP_DOMAIN="mail.gandi.net"
 ENV DEBIAN_FRONTEND="noninteractive"
-# TODO: use '""' instead of \"
 RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/mailname  string ${EXIM_DOMAIN}\""
 RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/dc_minimaldns boolean false\""
 RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/dc_localdelivery select mbox format in /var/mail/\""
@@ -73,7 +72,7 @@ ARG MAILMAN_DOMAIN="forum.libresat.space"
 RUN sed -i -e "s/site_owner: changeme@example.com/site_owner: ${MAILMAN_ADMIN_EMAIL}/g" /etc/mailman.cfg
 RUN sed -i -e "s/default_language: en/default_language: ${MAILMAN_DEFAULT_LANGUAGE}/g" /etc/mailman.cfg
 # RUN sed -i -e "s/use_https: no/use_https: ${MAILMAN_USE_HTPPS}/g" /etc/mailman.cfg
-RUN sed -i -e "s/admin_user: restadmin/admin_user: ${MAILMAN_ADMIN_USERNAME}/g" /etc/mailman.cfg
+RUN sed -i -e "s/admin_user: mailman-rest-admin/admin_user: ${MAILMAN_ADMIN_USERNAME}/g" /etc/mailman.cfg
 RUN sed -i -e "/admin_pass/c\admin_pass: ${MAILMAN_ADMIN_PASSWORD}" /etc/mailman.cfg
 RUN sed -i -e "s/incoming: mailman.mta.postfix.LMTP/#incoming: mailman.mta.postfix.LMTP/g" /etc/mailman.cfg
 RUN sed -i -e "s/#incoming: mailman.mta.exim4.LMTP/incoming: mailman.mta.exim4.LMTP/g" /etc/mailman.cfg
@@ -127,7 +126,7 @@ RUN cat mailman-core-hyperkitty-plugin.cfg >> /etc/mailman-core-hyperkitty-plugi
 
 # Configure mailman-core-hyperkitty-plugin
 ARG HYPERKITTY_API_KEY="asdfasdf474"
-RUN sed -i -e "s/SecretArchiverAPIKey/${HYPERKITTY_API_KEY}/g" /etc/mailman-core-hyperkitty-plugin.cfg
+RUN sed -i -e "s/mailman-archiver-key/${HYPERKITTY_API_KEY}/g" /etc/mailman-core-hyperkitty-plugin.cfg
 
 ### END mailman-core-hyperkitty-plugin ###
 
@@ -181,20 +180,24 @@ COPY assets/mailman-web/apache.conf .
 # Configure mailman-web
 ARG HYPERKITTY_ADMIN_USERNAME="Felicitas Pojtinger"
 ARG HYPERKITY_ADMIN_EMAIL="felicitas@pojtinger.com"
-RUN sed -i -e "s/change-this-on-your-production-server/${HYPERKITTY_API_KEY}/g" settings.py
-RUN sed -i -e "s/HyperKitty Admin/${HYPERKITTY_ADMIN_USERNAME}/g" settings.py
+RUN sed -i -e "s/mailman-web-secret-key/${HYPERKITTY_API_KEY}/g" settings.py
+RUN sed -i -e "s/Mailman Web Admin/${HYPERKITTY_ADMIN_USERNAME}/g" settings.py
 RUN sed -i -e "s/root@localhost/${HYPERKITY_ADMIN_EMAIL}/g" settings.py
-RUN sed -i -e "s/lists.your-domain.org/${MAILMAN_DOMAIN}/g" settings.py
-RUN sed -i -e "s/restadmin/${MAILMAN_ADMIN_USERNAME}/g" settings.py
-RUN sed -i -e "s/restpass/${MAILMAN_ADMIN_PASSWORD}/g" settings.py
-RUN sed -i -e "s/SecretArchiverAPIKey/${HYPERKITTY_API_KEY}/g" settings.py
+RUN sed -i -e "s/forum.libresat.space/${MAILMAN_DOMAIN}/g" settings.py
+RUN sed -i -e "s/mailman-rest-admin/${MAILMAN_ADMIN_USERNAME}/g" settings.py
+RUN sed -i -e "s/mailman-rest-pass/${MAILMAN_ADMIN_PASSWORD}/g" settings.py
+RUN sed -i -e "s/mailman-archiver-key/${HYPERKITTY_API_KEY}/g" settings.py
+RUN sed -i -e "s/localhost.local/${MAILMAN_DOMAIN}/g" settings.py
+RUN sed -i -e "s%http://localhost:8000%${MAILMAN_DOMAIN}%g" settings.py
+RUN sed -i -e "s/mail.gandi.net/${EXTERNAL_SMTP_DOMAIN}/g" settings.py
+RUN sed -i -e "s/noreply@libresat.space/${EXTERNAL_SMTP_USERNAME}/g" settings.py
+RUN sed -i -e "s/249j89aSf8234ns@#234/${EXTERNAL_SMTP_PASSWORD}/g" settings.py
 RUN echo 'Include "/opt/mailman-web/apache.conf"' >> /etc/apache2/apache2.conf
 
 # Setup mailman-web
 RUN django-admin migrate --pythonpath . --settings settings
 RUN django-admin collectstatic --pythonpath . --settings settings
-# TODO: Use non-debug mode
-RUN django-admin compress --force --pythonpath . --settings settings
+RUN django-admin compress --pythonpath . --settings settings
 
 # Add volume for mailman-web's data
 VOLUME /opt/mailman-web 
