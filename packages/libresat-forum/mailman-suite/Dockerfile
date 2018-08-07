@@ -170,6 +170,7 @@ WORKDIR /opt/mailman-web
 
 # Add mailman-web config
 COPY assets/mailman-web/settings.py .
+COPY assets/mailman-web/manage.py .
 COPY assets/mailman-web/urls.py .
 COPY assets/mailman-web/wsgi.py .
 COPY assets/mailman-web/apache.conf .
