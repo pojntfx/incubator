@@ -29,4 +29,4 @@ echo "Testing mail functionality ..."
 send_test_mail $DOCKER_CONTAINER_ID "goooglehupf007@gmail.com"
 echo "Testing REST API (should return 401) ..."
 test_rest_api $DOCKER_CONTAINER_ID
-echo "Now open up http://localhost:8000/hyperkitty to test out hyperkitty!"
+echo "Now open up http://localhost:8000/forum/hyperkitty and/or http://localhost:8000/forum/postorius to test out hyperkitty!"
