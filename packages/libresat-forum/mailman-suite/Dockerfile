@@ -5,6 +5,9 @@ LABEL maintainer="Felicitas Pojtinger <felicitas@pojtinger.com> @pojntfx"
 RUN apt update
 RUN apt upgrade -y
 
+
+### Start exim ###
+
 # Setup mailname
 ARG EXIM_DOMAIN="mail.libresat.space"
 RUN echo ${EXIM_DOMAIN} > /etc/mailname
@@ -40,12 +43,22 @@ RUN service exim4 restart
 # Install dependencies
 RUN apt install -y lynx git python3 python3-setuptools
 
-# Get mailman-core sources
+### END exim ###
+
+
+
+### START mailman-core ###
+
+# Prepare environment
+
+# Setup mailman-core environment and get sources
+WORKDIR /opt
 RUN git clone https://gitlab.com/mailman/mailman.git
-WORKDIR mailman
+RUN mv mailman mailman-core
+WORKDIR mailman-core
 
 # Add mailman config
-COPY assets/mailman.cfg .
+COPY assets/mailman-core/mailman.cfg .
 RUN cat mailman.cfg >> /etc/mailman.cfg
 ENV MAILMAN_CONFIG_FILE="/etc/mailman.cfg"
 
@@ -71,44 +84,58 @@ RUN sed -i -e "s/#configuration: python:mailman.config.exim4/configuration: pyth
 RUN python3 setup.py install
 
 # Connect exim to mailman
-COPY assets/25_mm3_macros .
+COPY assets/exim/25_mm3_macros .
 RUN cat 25_mm3_macros >> /etc/exim4/conf.d/main/25_mm3_macros
 RUN sed -i -e "s/list.example.net/${MAILMAN_DOMAIN}/g" /etc/exim4/conf.d/main/25_mm3_macros
-COPY assets/55_mm3_transport .
+COPY assets/exim/55_mm3_transport .
 RUN cat 55_mm3_transport >> /etc/exim4/conf.d/transport/55_mm3_transport
-COPY assets/455_mm3_router .
+COPY assets/exim/455_mm3_router .
 RUN cat 455_mm3_router >> /etc/exim4/conf.d/router/455_mm3_router
 
 # Restart exim
 RUN service exim4 restart
 
 # Add custom templates
-COPY assets/templates /var/tmp/mailman
+COPY assets/mailman-core/templates /var/tmp/mailman
 
 # Create a volume for mailman's data
 VOLUME /var/tmp/mailman/data
 
-# Test mailman
+# Setup locale
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
-RUN mailman info
 
-# Add mailman-hyperkitty config
-COPY assets/mailman-hyperkitty.cfg .
-RUN cat mailman-hyperkitty.cfg >> /etc/mailman-hyperkitty.cfg
+### END mailman-core ###
 
-# Configure mailman-hyperkitty
-ARG HYPERKITTY_API_KEY="asdfasdf474"
-RUN sed -i -e "s/SecretArchiverAPIKey/${HYPERKITTY_API_KEY}/g" /etc/mailman-hyperkitty.cfg
 
-# Get mailman-hyperkitty sources
+
+### START mailman-core-hyperkitty-plugin ###
+
+# Setup mailman-core-hyperkitty-plugin environment and get sources
+WORKDIR /opt
 RUN git clone https://gitlab.com/mailman/mailman-hyperkitty.git
-WORKDIR mailman-hyperkitty
+RUN mv mailman-hyperkitty mailman-core-hyperkitty-plugin
+WORKDIR mailman-core-hyperkitty-plugin
 
-# Install mailman-hyperkitty
+# Install mailman-core-hyperkitty-plugin
 RUN python3 setup.py install
 
-# Get hyperkitty sources
+# Add mailman-core-hyperkitty-plugin config
+COPY assets/mailman-core-hyperkitty-plugin/mailman-core-hyperkitty-plugin.cfg .
+RUN cat mailman-core-hyperkitty-plugin.cfg >> /etc/mailman-core-hyperkitty-plugin.cfg
+
+# Configure mailman-core-hyperkitty-plugin
+ARG HYPERKITTY_API_KEY="asdfasdf474"
+RUN sed -i -e "s/SecretArchiverAPIKey/${HYPERKITTY_API_KEY}/g" /etc/mailman-core-hyperkitty-plugin.cfg
+
+### END mailman-core-hyperkitty-plugin ###
+
+
+
+### START hyperkitty ###
+
+# Setup hyperkitty environment and get sources
+WORKDIR /opt
 RUN git clone https://gitlab.com/mailman/hyperkitty.git
 WORKDIR hyperkitty
 
@@ -130,12 +157,10 @@ RUN sed -i -e "s/restadmin/${MAILMAN_ADMIN_USERNAME}/g" example_project/settings
 RUN sed -i -e "s/restpass/${MAILMAN_ADMIN_PASSWORD}/g" example_project/settings.py
 RUN sed -i -e "s/SecretArchiverAPIKey/${HYPERKITTY_API_KEY}/g" example_project/settings.py
 # TODO: Use non-debug mode
-
 # Set current location
 RUN sed -i -e "s%/path/to/project%${PWD}/example_project%g" example_project/apache.conf
 RUN sed -i -e "s%/path/to/project/static%${PWD}/example_project/static%g" example_project/apache.conf
-
-# Use new syntax for permissiions
+# Use new syntax for permissions
 RUN sed -i -e "s/Order deny,allow/Require all granted/g" example_project/apache.conf
 RUN sed -i -e "/Allow from all/d" example_project/apache.conf
 
@@ -155,14 +180,22 @@ RUN django-admin collectstatic --pythonpath example_project --settings settings
 RUN django-admin compress --force --pythonpath example_project --settings settings
 
 # Add a volume for hyperkitty's data
-VOLUME /mailman/mailman-hyperkitty/hyperkitty/example_project
+VOLUME /hyperkitty/example_project
 
 # Set permission
 # TODO: This is dangerous and stupid so fix permissions instead
 RUN chmod 777 -R example_project/
 
+### END hyperkitty ###
+
+
+
+### START startup ###
+
 # Start mailman
 CMD service apache2 restart && service exim4 restart && mailman start && tail -f /var/tmp/mailman/logs/mailman.log
 
-# Expose exim and mailman REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.)
-EXPOSE 25 8001 8024
+# Expose exim, mailman-core REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.) and hyperkitty
+EXPOSE 25 80 8001 8024
+
+### END startup ###

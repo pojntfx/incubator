@@ -2,7 +2,7 @@
 
 build_docker_image() {
   docker build \
-  exim-smarthost-mailman \
+  mailman-suite \
   -t $1
   DOCKER_IMAGE_ID=$1
 }
@@ -22,7 +22,7 @@ test_rest_api() {
 }
 
 echo "Building docker image ..."
-build_docker_image "libresat-forum-exim-mailman"
+build_docker_image "libresat-forum"
 echo "Starting docker container ..."
 get_docker_container_id "mail.libresat.space" $DOCKER_IMAGE_ID
 echo "Testing mail functionality ..."
