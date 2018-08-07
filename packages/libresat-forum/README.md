@@ -85,6 +85,17 @@ Open the verification link, but use `http` instead of `https`.
 
 If you are on a real web server, you can login with the DJANGO_ADMIN_USER. If you try to log in using the DJANGO_ADMIN_USER, and you get a `500` error as the response, remove the trailing slash from the end of the url in your browser. Before you can create a mailing list, add a host first. This can be done through the link in the form in the postorius web interface in which you create a domain.
 
+1.  Add `A` record: `mail.libresat.space` -> `138.68.21.3`. (this can take some time)
+2.  `apt update && apt install git curl && curl https://get.docker.com/ | bash`
+3.  `git clone https://gitlab.com/pojntfx/incubator`
+4.  `incubator/packages/libresat-forum/mailman-suite/build-run-test.sh`
+
+Wait some time, and open up `http://mail.libresat.space/forum`. Log in with the credentials you've set for DJANGO_ADMIN_USER. A confirmation mail will be send, in which you need to click the link (and probably use `http` instead of `https`) and login with the credentials again.
+
+Now, visit `http://mail.libresat.space:8000/forum/postorius/domains/` and add a new domain. Create a new site with Django as well, refresh the form and select it.
+
+Once completeted, create a new list
+
 ### Debugging
 
 ```bash

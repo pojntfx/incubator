@@ -12,11 +12,7 @@ ADMINS = (
 
 SITE_ID = 1
 
-ALLOWED_HOSTS = [
-    "localhost",  # mailman's archiving API
-    "forum.libresat.space",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = ['*']
 
 MAILMAN_REST_API_URL = 'http://localhost:8001'
 MAILMAN_REST_API_USER = 'mailman-rest-admin'
