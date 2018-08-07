@@ -196,6 +196,12 @@ RUN django-admin migrate --pythonpath . --settings settings
 RUN django-admin collectstatic --pythonpath . --settings settings
 RUN django-admin compress --pythonpath . --settings settings
 
+# Create superuser
+ARG DJANGO_ADMIN_EMAIL="goooglehupf007@gmail.com"
+ARG DJANGO_ADMIN_USERNAME="pojntfx"
+ARG DJANGO_ADMIN_PASSWORD="supersecurepassword"
+RUN echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('${DJANGO_ADMIN_USERNAME}', '${DJANGO_ADMIN_EMAIL}', '${DJANGO_ADMIN_PASSWORD}')" | python3 manage.py shell
+
 # Add volume for mailman-web's data
 VOLUME /opt/mailman-web 
 
