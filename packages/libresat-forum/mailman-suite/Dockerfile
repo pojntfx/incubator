@@ -1,12 +1,9 @@
-FROM debian:latest
+FROM debian:stretch
 LABEL maintainer="Felix Pojtinger <felix@pojtinger.com> @pojntfx"
 
 # Update the system
 RUN apt update
 RUN apt upgrade -y
-
-
-### Start exim ###
 
 # Setup mailname
 ARG EXIM_DOMAIN="mail.libresat.space"
@@ -32,8 +29,8 @@ RUN bash -c "debconf-set-selections <<< \"exim4-base exim4/purge_spool boolean f
 RUN apt install -y exim4 mailutils
 
 # Add password and username for smarthost
-ARG EXTERNAL_SMTP_USERNAME="noreply@libresat.space"
-ARG EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234"
+ARG EXTERNAL_SMTP_USERNAME="test@libresat.space"
+ARG EXTERNAL_SMTP_PASSWORD="345lkUDfg03jd~"
 RUN echo "${EXTERNAL_SMTP_DOMAIN}:${EXTERNAL_SMTP_USERNAME}:${EXTERNAL_SMTP_PASSWORD}" >> /etc/exim4/passwd.client
 RUN update-exim4.conf
 
