@@ -94,7 +94,7 @@ ENV LANG=C.UTF-8
 RUN mailman info
 
 # Start mailman
-CMD mailman start && tail -f /var/tmp/mailman/logs/mailman.log
+CMD service exim4 restart && mailman start && tail -f /var/tmp/mailman/logs/mailman.log
 
-# Expose REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.)
-EXPOSE 8001
+# Expose exim and mailman REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.)
+EXPOSE 25 8001 8024
