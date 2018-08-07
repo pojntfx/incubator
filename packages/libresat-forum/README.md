@@ -46,8 +46,8 @@ mailman-suite/build-run-test.sh
 docker build \
 --build-arg EXIM_DOMAIN="mail.libresat.space" \
 --build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
---build-arg EXTERNAL_SMTP_USERNAME="noreply@libresat.space" \
---build-arg EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234" \
+--build-arg EXTERNAL_SMTP_USERNAME="test@libresat.space" \
+--build-arg EXTERNAL_SMTP_PASSWORD="345lkUDfg03jd" \
 --build-arg MAILMAN_DOMAIN="forum.libresat.space" \
 --build-arg MAILMAN_ADMIN_EMAIL="felix@pojtinger.com" \
 --build-arg MAILMAN_ADMIN_USERNAME="pojntfx" \
@@ -88,7 +88,7 @@ If you are on a real web server, you can login with the DJANGO_ADMIN_USER. If yo
 1.  Add `A` record: `mail.libresat.space` -> `138.68.21.3`. (this can take some time)
 2.  `apt update && apt install git curl && curl https://get.docker.com/ | bash`
 3.  `git clone https://gitlab.com/pojntfx/incubator`
-4.  `incubator/packages/libresat-forum/mailman-suite/build-run-test.sh`
+4.  `cd incubator/packages/libresat-forum/ && mailman-suite/build-run-test.sh`
 
 Wait some time, and open up `http://mail.libresat.space/forum`. Log in with the credentials you've set for DJANGO_ADMIN_USER. A confirmation mail will be send, in which you need to click the link (and probably use `http` instead of `https`) and login with the credentials again.
 
