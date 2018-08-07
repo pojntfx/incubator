@@ -87,8 +87,8 @@ If you are on a real web server, you can login with the DJANGO_ADMIN_USER. If yo
 
 1.  Add `A` record: `mail.libresat.space` -> `138.68.21.3`. (this can take some time)
 2.  `apt update && apt install git curl && curl https://get.docker.com/ | bash`
-3.  `git clone https://gitlab.com/pojntfx/incubator`
-4.  `cd incubator/packages/libresat-forum/ && mailman-suite/build-run-test.sh`
+3.  `cd ~/ && git clone https://gitlab.com/pojntfx/incubator`
+4.  `cd ~/incubator/packages/libresat-forum/ && mailman-suite/build-run-test.sh`
 
 Wait some time, and open up `http://mail.libresat.space/forum`. Log in with the credentials you've set for DJANGO_ADMIN_USER. A confirmation mail will be send, in which you need to click the link (and probably use `http` instead of `https`) and login with the credentials again.
 
