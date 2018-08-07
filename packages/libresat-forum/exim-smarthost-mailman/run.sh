@@ -8,7 +8,7 @@ build_docker_image() {
 }
 
 get_docker_container_id() {
-  DOCKER_CONTAINER_ID=$(docker run -d -p 8001:8001 -p 25:25 -p 8024:8024 -h $1 $2)
+  DOCKER_CONTAINER_ID=$(docker run -d -p 8000:80 -h $1 $2)
 }
 
 send_test_mail() {
@@ -16,8 +16,8 @@ send_test_mail() {
 }
 
 test_rest_api() {
-  # Sleep 10 seconds so that mailman can start
-  sleep 10
+  # Sleep 15 seconds so that mailman can start
+  sleep 15
   docker exec $1 bash -c "apt install -y curl && curl http://localhost:8001/3.1 && apt remove -y curl && apt -y autoremove"
 }
 
@@ -29,3 +29,4 @@ echo "Testing mail functionality ..."
 send_test_mail $DOCKER_CONTAINER_ID "goooglehupf007@gmail.com"
 echo "Testing REST API (should return 401) ..."
 test_rest_api $DOCKER_CONTAINER_ID
+echo "Now open up http://localhost:8000/hyperkitty to test out hyperkitty!"
