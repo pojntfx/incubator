@@ -15,6 +15,7 @@ RUN echo ${EXIM_DOMAIN} > /etc/mailname
 # Setup debconf
 ARG EXTERNAL_SMTP_DOMAIN="mail.gandi.net"
 ENV DEBIAN_FRONTEND="noninteractive"
+# TODO: use '""' instead of \"
 RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/mailname  string ${EXIM_DOMAIN}\""
 RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/dc_minimaldns boolean false\""
 RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/dc_localdelivery select mbox format in /var/mail/\""
@@ -146,54 +147,71 @@ RUN pip3 install Whoosh
 # Install hyperkitty
 RUN python3 setup.py install
 
-# Configure hyperkitty django project
+### END hyperkitty ###
+
+
+
+### START postorius ###
+
+# Setup postorius environment and get sources
+WORKDIR /opt
+RUN git clone https://gitlab.com/mailman/postorius.git
+WORKDIR postorius
+
+# Install postorius
+RUN python3 setup.py install
+
+### END postorius ###
+
+
+
+### START mailman-web ###
+
+# Setup mailman-web environment
+WORKDIR /opt
+RUN mkdir mailman-web
+WORKDIR /opt/mailman-web
+
+# Add mailman-web config
+COPY assets/mailman-web/settings.py .
+COPY assets/mailman-web/urls.py .
+COPY assets/mailman-web/wsgi.py .
+COPY assets/mailman-web/apache.conf .
+
+# Configure mailman-web
 ARG HYPERKITTY_ADMIN_USERNAME="Felix Pojtinger"
 ARG HYPERKITY_ADMIN_EMAIL="felix@pojtinger.com"
-RUN sed -i -e "s/change-this-on-your-production-server/${HYPERKITTY_API_KEY}/g" example_project/settings.py
-RUN sed -i -e "s/HyperKitty Admin/${HYPERKITTY_ADMIN_USERNAME}/g" example_project/settings.py
-RUN sed -i -e "s/root@localhost/${HYPERKITY_ADMIN_EMAIL}/g" example_project/settings.py
-RUN sed -i -e "s/lists.your-domain.org/${MAILMAN_DOMAIN}/g" example_project/settings.py
-RUN sed -i -e "s/restadmin/${MAILMAN_ADMIN_USERNAME}/g" example_project/settings.py
-RUN sed -i -e "s/restpass/${MAILMAN_ADMIN_PASSWORD}/g" example_project/settings.py
-RUN sed -i -e "s/SecretArchiverAPIKey/${HYPERKITTY_API_KEY}/g" example_project/settings.py
-# TODO: Use non-debug mode
-# Set current location
-RUN sed -i -e "s%/path/to/project%${PWD}/example_project%g" example_project/apache.conf
-RUN sed -i -e "s%/path/to/project/static%${PWD}/example_project/static%g" example_project/apache.conf
-# Use new syntax for permissions
-RUN sed -i -e "s/Order deny,allow/Require all granted/g" example_project/apache.conf
-RUN sed -i -e "/Allow from all/d" example_project/apache.conf
+RUN sed -i -e "s/change-this-on-your-production-server/${HYPERKITTY_API_KEY}/g" settings.py
+RUN sed -i -e "s/HyperKitty Admin/${HYPERKITTY_ADMIN_USERNAME}/g" settings.py
+RUN sed -i -e "s/root@localhost/${HYPERKITY_ADMIN_EMAIL}/g" settings.py
+RUN sed -i -e "s/lists.your-domain.org/${MAILMAN_DOMAIN}/g" settings.py
+RUN sed -i -e "s/restadmin/${MAILMAN_ADMIN_USERNAME}/g" settings.py
+RUN sed -i -e "s/restpass/${MAILMAN_ADMIN_PASSWORD}/g" settings.py
+RUN sed -i -e "s/SecretArchiverAPIKey/${HYPERKITTY_API_KEY}/g" settings.py
+RUN echo 'Include "/opt/mailman-web/apache.conf"' >> /etc/apache2/apache2.conf
 
-# Add project's apache conf to main apache conf
-RUN echo "Include \"${PWD}/example_project/apache.conf\"" >> /etc/apache2/apache2.conf
-# TODO: Use actual FQDN for mailman
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# Setup mailman-web
+RUN django-admin migrate --pythonpath . --settings settings
+RUN django-admin collectstatic --pythonpath . --settings settings
+# TODO: Use non-debug mode
+RUN django-admin compress --force --pythonpath . --settings settings
+
+# Add volume for mailman-web's data
+VOLUME /opt/mailman-web 
 
 # Restart apache
 RUN mkdir /var/log/httpd/
 RUN a2enmod wsgi
 RUN service apache2 restart
 
-# Setup hyperkitty django project
-RUN django-admin migrate --pythonpath example_project --settings settings
-RUN django-admin collectstatic --pythonpath example_project --settings settings
-RUN django-admin compress --force --pythonpath example_project --settings settings
-
-# Add a volume for hyperkitty's data
-VOLUME /hyperkitty/example_project
-
-# Set permission
-# TODO: This is dangerous and stupid so fix permissions instead
-RUN chmod 777 -R example_project/
-
-### END hyperkitty ###
+### END mailman-web ###
 
 
 
 ### START startup ###
 
-# Start mailman
-CMD service apache2 restart && service exim4 restart && mailman start && tail -f /var/tmp/mailman/logs/mailman.log
+# Start mailman (TODO: This is dangerous and stupid so _fix_ permissions instead of establishing anarchy)
+CMD service exim4 restart && mailman start && service apache2 restart && chmod 777 -R /opt/mailman-web && tail -f /var/tmp/mailman/logs/mailman.log
 
 # Expose exim, mailman-core REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.) and hyperkitty
 EXPOSE 25 80 8001 8024
