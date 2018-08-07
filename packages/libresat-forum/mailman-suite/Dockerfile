@@ -64,7 +64,7 @@ ARG MAILMAN_ADMIN_EMAIL="felix@pojtinger.com"
 ARG MAILMAN_ADMIN_USERNAME="pojntfx"
 ARG MAILMAN_ADMIN_PASSWORD="asdfasdf123"
 ARG MAILMAN_DEFAULT_LANGUAGE="en"
-ARG MAILMAN_DOMAIN="forum.libresat.space"
+ARG MAILMAN_DOMAIN="mail.libresat.space"
 # ARG MAILMAN_USE_HTTPS="no"
 RUN sed -i -e "s/site_owner: changeme@example.com/site_owner: ${MAILMAN_ADMIN_EMAIL}/g" /etc/mailman.cfg
 RUN sed -i -e "s/default_language: en/default_language: ${MAILMAN_DEFAULT_LANGUAGE}/g" /etc/mailman.cfg
