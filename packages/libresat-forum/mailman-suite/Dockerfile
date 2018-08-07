@@ -188,8 +188,8 @@ RUN sed -i -e "s/mailman-archiver-key/${HYPERKITTY_API_KEY}/g" settings.py
 RUN sed -i -e "s/localhost.local/${MAILMAN_DOMAIN}/g" settings.py
 RUN sed -i -e "s%http://localhost:8000%${MAILMAN_DOMAIN}%g" settings.py
 RUN sed -i -e "s/mail.gandi.net/${EXTERNAL_SMTP_DOMAIN}/g" settings.py
-RUN sed -i -e "s/noreply@libresat.space/${EXTERNAL_SMTP_USERNAME}/g" settings.py
-RUN sed -i -e "s/249j89aSf8234ns@#234/${EXTERNAL_SMTP_PASSWORD}/g" settings.py
+RUN sed -i -e "s/test@libresat.space/${EXTERNAL_SMTP_USERNAME}/g" settings.py
+RUN sed -i -e "s/345lkUDfg03jd/${EXTERNAL_SMTP_PASSWORD}/g" settings.py
 RUN echo 'Include "/opt/mailman-web/apache.conf"' >> /etc/apache2/apache2.conf
 
 # Setup mailman-web
@@ -221,6 +221,6 @@ RUN service apache2 restart
 CMD service exim4 restart && mailman start && service apache2 restart && chmod 777 -R /opt/mailman-web && tail -f /var/tmp/mailman/logs/mailman.log
 
 # Expose exim, mailman-core REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.) and hyperkitty
-EXPOSE 25 80 8001 8024
+EXPOSE 587 80 8001 8024
 
 ### END startup ###
