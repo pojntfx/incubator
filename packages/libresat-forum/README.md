@@ -83,6 +83,8 @@ docker exec DOCKER_CONTAINER_ID bash -c "less /opt/mailman-web/emails/*.log"
 
 Open the verification link, but use `http` instead of `https`.
 
+If you are on a real web server, you can login with the DJANGO_ADMIN_USER. If you try to log in using the DJANGO_ADMIN_USER, and you get a `500` error as the response, remove the trailing slash from the end of the url in your browser. Before you can create a mailing list, add a host first. This can be done through the link in the form in the postorius web interface in which you create a domain.
+
 ### Debugging
 
 ```bash
