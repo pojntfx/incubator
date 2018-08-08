@@ -8,7 +8,7 @@ build_docker_image() {
 }
 
 get_docker_container_id() {
-  DOCKER_CONTAINER_ID=$(docker run -d -p 587:587 -p 8000:80 -p 8024:8024 -h $1 $2)
+  DOCKER_CONTAINER_ID=$(docker run -d -p 25:25 -p 8000:80 -p 8024:8024 -h $1 $2)
 }
 
 send_test_mail() {
