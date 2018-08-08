@@ -75,16 +75,6 @@ libresat-forum
 
 ### Setup
 
-When signing up, confirm your registration by running the following:
-
-```bash
-docker exec DOCKER_CONTAINER_ID bash -c "less /opt/mailman-web/emails/*.log"
-```
-
-Open the verification link, but use `http` instead of `https`.
-
-If you are on a real web server, you can login with the DJANGO_ADMIN_USER. If you try to log in using the DJANGO_ADMIN_USER, and you get a `500` error as the response, remove the trailing slash from the end of the url in your browser. Before you can create a mailing list, add a host first. This can be done through the link in the form in the postorius web interface in which you create a domain.
-
 First, add `A` record: `mail.libresat.space` -> `138.68.21.3`. (this can take some time).
 Then, secondly, run the following:
 
@@ -122,7 +112,7 @@ Once completed, create a new list, subscribe to it and test it.
 ```bash
 # Get docker container id
 docker ps | grep libresat-forum
-# Test postfix by sending a mail
+# Test postfix by sending a mail (THIS WILL NOT WORK IF YOU HAVE NOT YET SET UP DOMAIN AS DESCRIBED ABOVE)
 docker exec DOCKER_CONTAINER_ID bash -c 'echo "Test Message Body" | mail -s "Test Message Subject" user@domain.tld'
 # Test mailman-core REST api (should return "401 Unauthorized")
 docker exec DOCKER_CONTAINER_ID bash -c "apt install -y curl && sleep 15 && curl http://localhost:8001/3.1 && apt remove curl"
