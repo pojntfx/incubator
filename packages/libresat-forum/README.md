@@ -44,7 +44,7 @@ mailman-suite/build-run-test.sh
 
 ```bash
 docker build \
---build-arg EXIM_DOMAIN="mail.libresat.space" \
+--build-arg POSTFIX_DOMAIN="mail.libresat.space" \
 --build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
 --build-arg EXTERNAL_SMTP_USERNAME="test@libresat.space" \
 --build-arg EXTERNAL_SMTP_PASSWORD="345lkUDfg03jd" \
@@ -100,17 +100,34 @@ Now, visit `http://mail.libresat.space:8000/forum/postorius/domains/` and add a 
 
 Once completed, create a new list, subscribe to it and test it.
 
+1.  Visit `http://mail.libresat.space:8000/forum` and sign in with the Django admin user's credentials
+2.  Confirm the mail for the Django admin user (use `http` instead of `https` if necessary)
+3.  Log in again
+4.  Click on "Manage lists" (top right)
+5.  Click on "Domains"
+6.  Click on "Create New Domain" and create new Web Host (blue link)
+7.  Add site `mail.libresat.space` for both domain and display name
+8.  Go back and refresh
+9.  Enter `mail.libresat.space` as mail host and select `mail.libresat.space` as web host
+10. Click "Create domain"
+11. Click "Lists"
+12. Click "Create New List"
+13. Enter all-lowercase, no spaces list name, select `mail.libresat.space` as mail host
+14. Click "Create list"
+15. Enter your name, click "Subscribe"
+16. Check inbox for the account you've selected, reply to mail with 'help' in body
+
 ### Debugging
 
 ```bash
 # Get docker container id
 docker ps | grep libresat-forum
-# Test exim by sending a mail
+# Test postfix by sending a mail
 docker exec DOCKER_CONTAINER_ID bash -c 'echo "Test Message Body" | mail -s "Test Message Subject" user@domain.tld'
 # Test mailman-core REST api (should return "401 Unauthorized")
 docker exec DOCKER_CONTAINER_ID bash -c "apt install -y curl && sleep 15 && curl http://localhost:8001/3.1 && apt remove curl"
-# Look at exim's logs
-docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/log/exim4/mainlog" # This will log all mail traffic
+# Look at postfix's logs
+# docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/log/exim4/mainlog" # This will log all mail traffic, but doesn't currently work
 # Look at mailman-core's logs
 docker exec DOCKER_CONTAINER_ID bash -c "tail -f /var/tmp/mailman/logs/mailman.log" # When you sign up and verify using hyperkitty/postorius, the REST actions will show up here
 # Look at mailman-web's logs
