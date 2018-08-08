@@ -222,6 +222,6 @@ RUN service apache2 restart
 CMD service exim4 restart && mailman start && service apache2 restart && chmod 777 -R /opt/mailman-web && tail -f /var/tmp/mailman/logs/mailman.log
 
 # Expose exim, mailman-core REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.) and hyperkitty
-EXPOSE 587 80 8001 8024
+EXPOSE 25 80 8001 8024
 
 ### END startup ###

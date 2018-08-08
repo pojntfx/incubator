@@ -216,7 +216,7 @@ if DEBUG == True:
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "mail.gandi.net"
-EMAIL_PORT = 587
+EMAIL_PORT = 25
 EMAIL_HOST_USER = "test@libresat.space"
 EMAIL_HOST_PASSWORD = "345lkUDfg03jd"
 # EMAIL_USE_TLS = True
