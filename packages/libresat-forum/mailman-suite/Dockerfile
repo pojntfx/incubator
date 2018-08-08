@@ -22,7 +22,8 @@ RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/dc_smarthost string
 RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/dc_other_hostnames string ${EXIM_DOMAIN}\""
 RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/use_split_config boolean false\""
 RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/no_config boolean true\""
-RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/dc_local_interfaces string 127.0.0.1\""
+# Allow listening for mail
+RUN bash -c "debconf-set-selections <<< \"exim4-config exim4/dc_local_interfaces string\""
 RUN bash -c "debconf-set-selections <<< \"exim4-base exim4/purge_spool boolean false\""
 
 # Install dependencies
@@ -185,7 +186,7 @@ RUN sed -i -e "s/forum.libresat.space/${MAILMAN_DOMAIN}/g" settings.py
 RUN sed -i -e "s/mailman-rest-admin/${MAILMAN_ADMIN_USERNAME}/g" settings.py
 RUN sed -i -e "s/mailman-rest-pass/${MAILMAN_ADMIN_PASSWORD}/g" settings.py
 RUN sed -i -e "s/mailman-archiver-key/${HYPERKITTY_API_KEY}/g" settings.py
-RUN sed -i -e "s/localhost.local/${MAILMAN_DOMAIN}/g" settings.py
+RUN sed -i -e "s/localhost.local/${EXIM_DOMAIN}/g" settings.py
 RUN sed -i -e "s%http://localhost:8000%${MAILMAN_DOMAIN}%g" settings.py
 RUN sed -i -e "s/mail.gandi.net/${EXTERNAL_SMTP_DOMAIN}/g" settings.py
 RUN sed -i -e "s/test@libresat.space/${EXTERNAL_SMTP_USERNAME}/g" settings.py
