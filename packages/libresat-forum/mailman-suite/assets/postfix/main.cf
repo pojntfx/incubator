@@ -1,0 +1,13 @@
+smtp_use_tls=yes
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/relay_passwords
+smtp_sasl_security_options =
+
+unknown_local_recipient_reject_code = 550
+owner_request_special = no
+transport_maps =
+    hash:/var/tmp/mailman/data/postfix_lmtp
+local_recipient_maps =
+    hash:/var/tmp/mailman/data/postfix_lmtp
+relay_domains =
+    hash:/var/tmp/mailman/data/postfix_domains
