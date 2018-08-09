@@ -3,7 +3,8 @@
 # To start this on any system with Debian >= 9 (stretch), run:
 # wget -q -O - https://gitlab.com/snippets/1741965/raw | bash
 # If you don't even want log in, run the following (replace your IP, of course):
-# ssh root@142.93.140.189 "wget -q -O - https://gitlab.com/snippets/1741965/raw | bash"
+# ssh root@142.93.112.103 "wget -q -O - https://gitlab.com/snippets/1741965/raw | bash"
+# See https://gitlab.com/snippets/1742885 for Ingress Controller and StorageClass
 
 LIBRESAT_PLATFORM_VERSION="0.0.1-0"
 
@@ -82,25 +83,44 @@ install_dashboard() {
   kubectl create -f https://gitlab.com/snippets/1741993/raw
 }
 
-show_node_token() {
-  printf "\033[0;32mRun this on all additional nodes you wish to use (expires in 24h):\n"
+show_finished_notice() {
+  printf "\033[0;32mLibreSat Platform v.${LIBRESAT_PLATFORM_VERSION} has been installed on host with IP ${LIBRESAT_PLATFORM_HOST_IP}.\033[0m\n"
+}
+
+show_join_token() {
+  printf "\033[0;32mRun this on another node to join it to the cluster within the next 24 hours:\033[0m\n"
   LIBRESAT_PLATFORM_JOIN_TOKEN=$(kubeadm token list | awk '/TOKEN/{getline; print}' | cut -d" " -f1)
   LIBRESAT_PLATFORM_HOST_IP=$(hostname -I | cut -d" " -f1)
-  LIBRESAT_PLATFORM_JOIN_CERTIFICATE=$(openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
-   openssl dgst -sha256 -hex | sed 's/^.* //')
-  printf "kubeadm join \ \n--token ${LIBRESAT_PLATFORM_JOIN_TOKEN} \ \n${LIBRESAT_PLATFORM_HOST_IP}:10250 \ \n--discovery-token-ca-cert-hash sha256:${LIBRESAT_PLATFORM_JOIN_CERTIFICATE}\033[0m\n"
+  LIBRESAT_PLATFORM_JOIN_CERTIFICATE=$(openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //')
+  printf "\033[0;34mkubeadm join \ \n--token ${LIBRESAT_PLATFORM_JOIN_TOKEN} \ \n${LIBRESAT_PLATFORM_HOST_IP}:10250 \ \n--discovery-token-ca-cert-hash sha256:${LIBRESAT_PLATFORM_JOIN_CERTIFICATE}\033[0m\n\n"
 }
 
-show_kubectl_local_instructions() {
-  printf "\033[0;32mRun this to connect to the cluster using kubectl from your workstation:\033[0m\n"
-  printf "\033[0;32mscp root@${LIBRESAT_PLATFORM_HOST_IP}:/etc/kubernetes/admin.conf . && kubectl --kubeconfig ./admin.conf get nodes\033[0m\n"
+show_kubectl_config_instructions() {
+  printf "\033[0;32mTo setup kubectl on your local machine:\033[0m\n"
+  printf "\033[0;34mscp root@${LIBRESAT_PLATFORM_HOST_IP}:/etc/kubernetes/admin.conf \${HOME}/.kube/config-${LIBRESAT_PLATFORM_HOST_IP}.conf\033[0m\n"
+  printf "\033[0;34mexport KUBECONFIG=\${HOME}/.kube/config-${LIBRESAT_PLATFORM_HOST_IP}.conf\033[0m\n\n"
 }
 
-proxy_api_server_to_localhost() {
-  printf "\033[0;32mRun this to proxy the API server your workstation at http://localhost:8001/api/v1:\033[0m\n"
-  printf "\033[0;32mscp root@\${LIBRESAT_PLATFORM_HOST_IP}:/etc/kubernetes/admin.conf . && kubectl --kubeconfig ./admin.conf proxy\033[0m\n\n"
-  printf "\033[0;32mAfterwards, you can access the Kubernetes Dashboard at http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/\033[0m\n"
-  printf "\033[0;32mGet the access token by running: kubectl --kubeconfig admin.conf -n kube-system describe secret \$(kubectl --kubeconfig admin.conf -n kube-system get secret | grep admin-user | awk '{print \$1}')\033[0m\n"
+show_proxy_instructions() {
+  printf "\033[0;32mTo proxy to your local machine:\033[0m\n"
+  printf "\033[0;34mkubectl proxy\033[0m\n\n"
+}
+
+show_dashboard_instructions() {
+  printf "\033[0;32mTo open up the dashboard:\033[0m\n"
+  printf "\033[0;34mkubectl proxy\033[0m\n"
+  printf "\033[0;32mOpen up \033[0;34mhttp://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/\033[0m\n\n"
+  printf "\033[0;32mGet dashboard access token:\033[0m\n"
+  printf "\033[0;34mkubectl -n kube-system describe secret \$(kubectl -n kube-system get secret | grep admin-user | awk '{print \$1}')\033[0m\n\n"
+}
+
+show_helm_instructions() {
+  printf "\033[0;32mTo install helm:\033[0m\n"
+  printf "\033[0;34mkubectl create serviceaccount --namespace kube-system tiller\033[0m\n"
+  printf "\033[0;34mkubectl create serviceaccount --namespace kube-system tiller\033[0m\n"
+  printf "\033[0;34mkubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller\033[0m\n"
+  printf "\033[0;34mhelm init --service-account tiller\033[0m\n"
+  printf "\033[0;34mhelm repo update\033[0m\n\n"
 }
 
 start() {
@@ -110,9 +130,12 @@ start() {
   install_pod_network_addon
   enable_pod_scheduling_on_master
   install_dashboard
-  show_node_token
-  show_kubectl_local_instructions
-  proxy_api_server_to_localhost
+  show_finished_notice
+  show_join_token
+  show_kubectl_config_instructions
+  show_proxy_instructions
+  show_dashboard_instructions
+  show_helm_instructions
   printf "\033[0;32mLibreSat Platform Setup v.${LIBRESAT_PLATFORM_VERSION} finished successfully.\033[0m\n"
   printf '\033[0;32mHave a nice day!\033[0m\n'
 }
