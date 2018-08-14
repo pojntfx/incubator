@@ -50,3 +50,21 @@ satctl apply -f https://git.libresat.space/snippets/3423.yml
 satctl apply -f deployment.yml
 satctl apply -f cloud.yml
 satctl apply -f cluster.yml
+
+satctl microplatform create cluster \
+  --storage.digitalocean.apikey="asdf1" \
+  --https.email="you@example.com" \
+  --https.domains="*.example.com" \
+  --https.gandiv5.apikey="asdf2" \
+  --with-examples
+
+storage.provider="digitalocean" # or NFS
+storage.apikey="apikey1" # Or username:password
+
+dns.provider="gandi" # Or HTTPS
+dns.apikey="apikey2" # Or nothing
+
+https.email="user@example.com"
+https.domains="*.staging1.example.com" # Or single domain
+
+starter.yaml="https://gitlab.com/snippets/1742851/raw"
