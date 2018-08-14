@@ -1,9 +1,9 @@
 # Add Traefik ingress by default? To use, following variables would work:
 satctl create cluster cloud1 \
-  --host 142.93.112.103
-  --user root
-  --domain libresat.space
-  --email test@libresat.space
+	--host 142.93.112.103
+--user root
+--domain libresat.space
+--email test@libresat.space
 
 satctl create cloud cloud1
 satctl get clouds
@@ -19,7 +19,7 @@ satctl delete cloud
 # metadata:
 # spec:
 
-# cloud | cluster | 
+# cloud | cluster |
 
 # cloud1 | cluster1 | node1 | storage1 | network1
 
@@ -52,14 +52,14 @@ satctl apply -f cloud.yml
 satctl apply -f cluster.yml
 
 satctl microplatform create cluster \
-  --storage.digitalocean.apikey="asdf1" \
-  --https.email="you@example.com" \
-  --https.domains="*.example.com" \
-  --https.gandiv5.apikey="asdf2" \
-  --with-examples
+	--storage.digitalocean.apikey="asdf1" \
+	--https.email="you@example.com" \
+	--https.domains="*.example.com" \
+	--https.gandiv5.apikey="asdf2" \
+	--with-examples
 
 storage.provider="digitalocean" # or NFS
-storage.apikey="apikey1" # Or username:password
+storage.apikey="apikey1"        # Or username:password
 
 dns.provider="gandi" # Or HTTPS
 dns.apikey="apikey2" # Or nothing
@@ -68,6 +68,8 @@ https.email="user@example.com"
 https.domains="*.staging1.example.com" # Or single domain
 
 starter.yaml="https://gitlab.com/snippets/1742851/raw"
+
+# -> One-click deployment script!
 
 satctl update
 satctl upgrade
