@@ -3,7 +3,7 @@ apt update && apt install -y curl docker-compose && curl https://get.docker.com/
 mkdir -p /opt/traefik/
 
 echo \
-'
+	'
 [[acme.domains]]
   main = "libresat.space"
 
@@ -28,10 +28,10 @@ endpoint = "unix:///var/run/docker.sock"
 domain = "test.libresat.space"
 watch = true
 exposedByDefault = false
-' > /opt/traefik/traefik.toml
+' >/opt/traefik/traefik.toml
 
 echo \
-'version: "2"
+	'version: "2"
 
 services:
   traefik:
@@ -52,7 +52,7 @@ services:
 networks:
   web:
     external: true
-' > stack.yml
+' >stack.yml
 
 touch /opt/traefik/acme.json && chmod 600 /opt/traefik/acme.json
 
@@ -73,18 +73,18 @@ docker-compose -f stack.yml up
 wget https://github.com/containous/traefik/releases/download/v1.7.0-rc3/traefik && chmod +x traefik
 
 ./traefik \
-    --acme \
-    --acme.storage=/etc/traefik/acme/acme.json \
-    --acme.entryPoint=https \
-    --acme.httpChallenge.entryPoint=http \
-    --acme.email=felicitas@pojtinger.com
+	--acme \
+	--acme.storage=/etc/traefik/acme/acme.json \
+	--acme.entryPoint=https \
+	--acme.httpChallenge.entryPoint=http \
+	--acme.email=felicitas@pojtinger.com
 
 ./traefik \
-  --entryPoints=Name:http Address::80 Redirect.EntryPoint:https \
-  --acme.email="felicitas@pojtinger.com" \
-  --acme.storage="/opt/traefik/acme.json" \
-  --acme.entrypoint="https" \
-  --acme.httpchallenge.entrypoint="http"
+	--entryPoints=Name:http Address::80 Redirect.EntryPoint:https \
+	--acme.email="felicitas@pojtinger.com" \
+	--acme.storage="/opt/traefik/acme.json" \
+	--acme.entrypoint="https" \
+	--acme.httpchallenge.entrypoint="http"
 
 ./traefik \
-  --acme.domains=libresat.space \
+	--acme.domains=libresat.space
