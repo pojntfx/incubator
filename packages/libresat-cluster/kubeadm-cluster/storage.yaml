@@ -1,0 +1,8 @@
+# Persistent Volume Support
+apiVersion: v1
+kind: Secret
+metadata:
+  name: digitalocean
+  namespace: kube-system
+stringData:
+  access-token: aea49b44153366a99dc0c4d(...)2af92ee932ea8e88d16a7 # Use your own API key here

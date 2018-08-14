@@ -1,0 +1,209 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: stilton
+  labels:
+    app: example
+    example: stilton
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example
+      task: stilton
+  template:
+    metadata:
+      labels:
+        app: example
+        task: stilton
+        version: v0.0.1
+    spec:
+      containers:
+        - name: example
+          image: errm/cheese:stilton
+          ports:
+            - containerPort: 80
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: cheddar
+  labels:
+    app: example
+    example: cheddar
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example
+      task: cheddar
+  template:
+    metadata:
+      labels:
+        app: example
+        task: cheddar
+        version: v0.0.1
+    spec:
+      containers:
+        - name: example
+          image: errm/cheese:cheddar
+          ports:
+            - containerPort: 80
+---
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: wensleydale
+  labels:
+    app: example
+    example: wensleydale
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: example
+      task: wensleydale
+  template:
+    metadata:
+      labels:
+        app: example
+        task: wensleydale
+        version: v0.0.1
+    spec:
+      containers:
+        - name: example
+          image: errm/cheese:wensleydale
+          ports:
+            - containerPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: homepage
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: homepage
+    spec:
+      containers:
+        - image: pojntfx/opensdcp-website
+          imagePullPolicy: Always
+          name: web
+          ports:
+            - containerPort: 5000
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stilton
+spec:
+  ports:
+    - name: http
+      targetPort: 80
+      port: 80
+  selector:
+    app: example
+    task: stilton
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cheddar
+spec:
+  ports:
+    - name: http
+      targetPort: 80
+      port: 80
+  selector:
+    app: example
+    task: cheddar
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wensleydale
+spec:
+  ports:
+    - name: http
+      targetPort: 80
+      port: 80
+  selector:
+    app: example
+    task: wensleydale
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homepage
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: 5000
+  selector:
+    app: homepage
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: traefik-web-ui
+  namespace: kube-system
+spec:
+  selector:
+    k8s-app: traefik-ingress-lb
+  ports:
+    - port: 80
+      targetPort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example
+spec:
+  rules:
+    - host: stg1.libresat.space
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: homepage
+              servicePort: web
+    - host: stilton.stg1.libresat.space
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: stilton
+              servicePort: http
+    - host: cheddar.stg1.libresat.space
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: cheddar
+              servicePort: http
+    - host: wensleydale.stg1.libresat.space
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: wensleydale
+              servicePort: http
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: traefik-web-ui
+  namespace: kube-system
+spec:
+  rules:
+    - host: traefik-ui.stg1.libresat.space
+      http:
+        paths:
+          - backend:
+              serviceName: traefik-web-ui
+              servicePort: 80

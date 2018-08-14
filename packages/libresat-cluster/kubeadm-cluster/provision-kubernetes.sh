@@ -3,7 +3,7 @@
 # To start this on any system with Debian >= 9 (stretch), run:
 # wget -q -O - https://gitlab.com/snippets/1741965/raw | bash
 # If you don't even want log in, run the following (replace your IP, of course):
-# ssh root@142.93.112.103 "wget -q -O - https://gitlab.com/snippets/1741965/raw | bash"
+# ssh root@165.227.12.110 "wget -q -O - https://gitlab.com/snippets/1741965/raw | bash"
 # See https://gitlab.com/snippets/1742885 for Ingress Controller and StorageClass
 
 LIBRESAT_PLATFORM_VERSION="0.0.1-0"
