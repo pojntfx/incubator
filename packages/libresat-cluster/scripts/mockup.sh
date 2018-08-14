@@ -68,3 +68,26 @@ https.email="user@example.com"
 https.domains="*.staging1.example.com" # Or single domain
 
 starter.yaml="https://gitlab.com/snippets/1742851/raw"
+
+satctl update
+satctl upgrade
+satctl connect role:token@cloud
+satctl status
+
+satctl create connection -f resource.yaml
+satctl create role -f resource.yaml
+satctl create token -f resource.yaml
+
+satctl create cloud -f resource.yaml
+satctl create host -f resource.yaml
+satctl create driver -f resource.yaml
+satctl create cluster -f resource.yaml
+
+satctl create deployment -f resource.yaml
+satctl create persistentvolumeclaim -f resource.yaml
+satctl create service -f resource.yaml
+satctl create ingress -f resource.yaml
+
+satctl bootstrap platform
+satctl bootstrap driver
+satctl bootstrap service
