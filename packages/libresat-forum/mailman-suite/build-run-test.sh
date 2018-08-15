@@ -12,8 +12,8 @@ get_docker_container_id() {
 }
 
 send_test_mail() {
-	# Sleep 30 seconds so that mailman can start
-	sleep 30
+	# Sleep 60 seconds so that mailman can start
+	sleep 60
 	docker exec $1 bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" $2"
 }
 
