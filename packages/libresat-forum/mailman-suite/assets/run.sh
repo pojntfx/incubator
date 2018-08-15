@@ -69,8 +69,9 @@ setup_mailman_web() {
 
 reload_and_start_services() {
 	printf "\033[0;32mReloading and starting services, then listening to mailman's log (until forever) ...\033[0m\n"
-	postfix stop
+	postfix start
 	postfix reload
+	postfix stop
 	postfix start
 	mailman start
 	service apache2 restart
