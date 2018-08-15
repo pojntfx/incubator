@@ -128,7 +128,7 @@ WORKDIR hyperkitty
 
 # Install dependencies
 RUN apt install -y gcc sassc python3-dev python3-pip apache2 libapache2-mod-wsgi-py3
-RUN pip3 install Whoosh
+RUN pip3 install Whoosh django-q==0.9.4
 
 # Install hyperkitty
 RUN python3 setup.py install
