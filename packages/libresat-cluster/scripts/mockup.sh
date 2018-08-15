@@ -58,18 +58,29 @@ satctl microplatform create cluster \
 	--https.gandiv5.apikey="asdf2" \
 	--with-examples
 
-storage.provider="digitalocean" # or NFS
-storage.apikey="apikey1"        # Or username:password
+satctl microplatform create cluster \
 
-dns.provider="gandi" # Or HTTPS
-dns.apikey="apikey2" # Or nothing
+--storage.provider="digitalocean" # or NFS
+--storage.apikey="apikey1"        # Or username:password
 
-https.email="user@example.com"
-https.domains="*.staging1.example.com" # Or single domain
+--dns.provider="gandi" # Or HTTPS
+--dns.apikey="apikey2" # Or nothing
 
-starter.yaml="https://gitlab.com/snippets/1742851/raw"
+--https.email="user@example.com"
+--https.domains="*.staging1.example.com" # Or single domain
+
+--script.beforeStarter="https://gitlab.com/snippets/234234/raw"
+--starter.yaml="https://gitlab.com/snippets/1742851/raw"
+--script.afterStarter="https://gitlab.com/snippets/234235/raw"
 
 # -> One-click deployment script!
+# Multiple small scripts that get called from the main script
+
+# - Install kubeadm
+# - Install ...
+# - Run user-defined scripts from URL before starter
+# - Install starter
+# - Run user-defined scripts from URL before starter
 
 satctl update
 satctl upgrade
