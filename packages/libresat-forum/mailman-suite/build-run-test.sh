@@ -20,7 +20,7 @@ test_rest_api() {
 echo "Building docker image ..."
 build_docker_image "libresat-forum"
 echo "Starting docker container ..."
-get_docker_container_id "mail.libresat.space" $DOCKER_IMAGE_ID
+get_docker_container_id "forum.stg1.libresat.space" $DOCKER_IMAGE_ID
 echo "Testing REST API (should return 401) ..."
 test_rest_api $DOCKER_CONTAINER_ID
 echo "Now open up http://localhost:8000/forum/hyperkitty and/or http://localhost:8000/forum/postorius to test out hyperkitty!"

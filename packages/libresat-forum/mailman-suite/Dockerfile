@@ -8,7 +8,7 @@ RUN apt upgrade -y
 ### START postfix ###
 
 # Setup mailname
-ENV POSTFIX_DOMAIN="mail.libresat.space"
+ENV POSTFIX_DOMAIN="forum.stg1.libresat.space"
 
 # Setup debconf
 ENV EXTERNAL_SMTP_DOMAIN="mail.gandi.net"
@@ -33,7 +33,7 @@ ENV MAILMAN_ADMIN_EMAIL="felix@pojtinger.com"
 ENV MAILMAN_ADMIN_USERNAME="pojntfx"
 ENV MAILMAN_ADMIN_PASSWORD="asdfasdf123"
 ENV MAILMAN_DEFAULT_LANGUAGE="en"
-ENV MAILMAN_DOMAIN="mail.libresat.space"
+ENV MAILMAN_DOMAIN="forum.stg1.libresat.space"
 
 # Install dependencies
 RUN apt install -y lynx git python3 python3-setuptools
