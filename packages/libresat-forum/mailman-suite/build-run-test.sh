@@ -1,24 +1,24 @@
 #! /bin/bash
 
 build_docker_image() {
-  docker build \
-  mailman-suite \
-  -t $1
-  DOCKER_IMAGE_ID=$1
+	docker build \
+		mailman-suite \
+		-t $1
+	DOCKER_IMAGE_ID=$1
 }
 
 get_docker_container_id() {
-  DOCKER_CONTAINER_ID=$(docker run -d -p 25:25 -p 8000:80 -p 8024:8024 -h $1 $2)
+	DOCKER_CONTAINER_ID=$(docker run -d -p 25:25 -p 8000:80 -p 8024:8024 -h $1 $2)
 }
 
 send_test_mail() {
-  docker exec $1 bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" $2"
+	# Sleep 30 seconds so that mailman can start
+	sleep 30
+	docker exec $1 bash -c "echo \"Test Message Body\" | mail -s \"Test Message Subject\" $2"
 }
 
 test_rest_api() {
-  # Sleep 15 seconds so that mailman can start
-  sleep 15
-  docker exec $1 bash -c "apt install -y curl && curl http://localhost:8001/3.1 && apt remove -y curl && apt -y autoremove"
+	docker exec $1 bash -c "apt install -y curl && curl http://localhost:8001/3.1 && apt remove -y curl && apt -y autoremove"
 }
 
 echo "Building docker image ..."
