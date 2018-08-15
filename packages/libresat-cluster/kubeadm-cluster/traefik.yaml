@@ -144,11 +144,20 @@ metadata:
   namespace: kube-system
 spec:
   ports:
+    - name: smtp
+      port: 25
+      protocol: TCP
     - name: http
       port: 80
       protocol: TCP
     - name: https
       port: 443
+      protocol: TCP
+    - name: mailman
+      port: 8001
+      protocol: TCP
+    - name: lmtp
+      port: 8024
       protocol: TCP
     - name: admin
       port: 8080

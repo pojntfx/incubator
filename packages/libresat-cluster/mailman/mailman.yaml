@@ -1,0 +1,93 @@
+# Mailman on Kubernetes
+# See: https://gitlab.com/pojntfx/incubator/tree/master/packages/libresat-forum
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mailman
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web
+  namespace: mailman
+  labels:
+    app: web
+spec:
+  subdomain: stg1
+  hostname: forum
+  containers:
+    - name: web
+      image: pojntfx/libresat-forum
+      ports:
+        - containerPort: 25
+        - containerPort: 80
+        - containerPort: 8001
+        - containerPort: 8024
+      volumeMounts:
+        - name: data
+          mountPath: "/opt/mailman-web/mailman-web.db"
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data
+  namespace: mailman
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: mailman
+spec:
+  ports:
+    - name: smtp
+      port: 25
+      targetPort: 25
+    - name: web
+      port: 80
+      targetPort: 80
+    - name: mailman-api
+      port: 8001
+      targetPort: 8001
+    - name: lmtp
+      port: 8024
+      targetPort: 8024
+  selector:
+    app: web
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web
+  namespace: mailman
+spec:
+  rules:
+    - host: forum.stg1.libresat.space
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: web
+              servicePort: smtp
+          - path: /
+            backend:
+              serviceName: web
+              servicePort: web
+          - path: /
+            backend:
+              serviceName: web
+              servicePort: mailman-api
+          - path: /
+            backend:
+              serviceName: web
+              servicePort: lmtp
