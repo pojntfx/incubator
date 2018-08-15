@@ -79,7 +79,7 @@ spec:
             backend:
               serviceName: web
               servicePort: smtp
-          - path: /
+          - path: /forum
             backend:
               serviceName: web
               servicePort: web
