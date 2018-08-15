@@ -58,6 +58,8 @@ satctl microplatform create cluster \
 	--https.gandiv5.apikey="asdf2" \
 	--with-examples
 
+# -> OCLIF! Simple scripts, `libresat-microplatform`
+
 satctl microplatform create cluster \
 
 --storage.provider="digitalocean" # or NFS
