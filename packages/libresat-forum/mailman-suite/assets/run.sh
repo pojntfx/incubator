@@ -20,11 +20,14 @@ setup_postfix() {
 
 	echo "${EXTERNAL_SMTP_DOMAIN} ${EXTERNAL_SMTP_USERNAME}:${EXTERNAL_SMTP_PASSWORD}" >>/etc/postfix/relay_passwords
 
-	dpkg-reconfigure -f noninteractive postfix
+	# Install postfix
+	apt install -y postfix mailutils
+
+	# Configure postfix
+	cat /main.cf >>/etc/postfix/main.cf
 
 	# Add password and username for smarthost
 	postmap /etc/postfix/relay_passwords
-	service postfix restart
 }
 
 setup_mailman_core() {
@@ -67,7 +70,9 @@ setup_mailman_web() {
 
 reload_and_start_services() {
 	printf "\033[0;32mReloading and starting services, then listening to mailman's log (until forever) ...\033[0m\n"
-	service postfix restart
+	postfix stop
+	postfix reload
+	postfix start
 	mailman start
 	service apache2 restart
 	chmod 777 -R /opt/mailman-web

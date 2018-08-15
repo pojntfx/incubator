@@ -14,12 +14,8 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV EXTERNAL_SMTP_USERNAME="test@libresat.space"
 ENV EXTERNAL_SMTP_PASSWORD="345lkUDfg03jd~"
 
-# Install dependencies
-RUN apt install -y postfix mailutils
-
 # Configure postfix
 COPY assets/postfix/main.cf .
-RUN cat main.cf >>/etc/postfix/main.cf
 
 ### END postfix ###
 
