@@ -95,8 +95,8 @@ Once completed, create a new list, subscribe to it and test it.
 3.  Log in again
 4.  Click on "Manage lists" (top right)
 5.  Click on "Domains"
-6.  Click on "Create New Domain" and create new Web Host (blue link)
-7.  Add site `mail.libresat.space` for both domain and display name
+6.  Click on "Add Domain" and create new Web Host (blue link)
+7.  Add site `mail.libresat.space` for both domain and display name, click save
 8.  Go back and refresh
 9.  Enter `mail.libresat.space` as mail host and select `mail.libresat.space` as web host
 10. Click "Create domain"

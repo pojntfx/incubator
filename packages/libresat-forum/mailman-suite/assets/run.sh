@@ -18,12 +18,11 @@ setup_postfix() {
 	bash -c "debconf-set-selections <<< \"postfix postfix/protocols select ipv4\""
 	bash -c "debconf-set-selections <<< \"postfix postfix/relayhost string ${EXTERNAL_SMTP_DOMAIN}\""
 
-	echo "${EXTERNAL_SMTP_DOMAIN} ${EXTERNAL_SMTP_USERNAME}:${EXTERNAL_SMTP_PASSWORD}" >>/etc/postfix/relay_passwords
-
 	# Install postfix
 	apt install -y postfix mailutils
 
 	# Configure postfix
+	echo "${EXTERNAL_SMTP_DOMAIN} ${EXTERNAL_SMTP_USERNAME}:${EXTERNAL_SMTP_PASSWORD}" >>/etc/postfix/relay_passwords
 	cat /main.cf >>/etc/postfix/main.cf
 
 	# Add password and username for smarthost
