@@ -1,5 +1,36 @@
 #! /bin/bash
 
+setup_postfix() {
+	# Setup mailname
+	echo ${POSTFIX_DOMAIN} >/etc/mailname
+
+	# Setup debconf
+	bash -c "debconf-set-selections <<< \"postfix postfix/recipient_delim string +\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/procmail boolean false\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/chattr boolean false\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/root_address string root\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/destinations string ${POSTFIX_DOMAIN}, localhost\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/mailbox_limit string 0\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/rfc1035_violation boolean false\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/mailname string ${POSTFIX_DOMAIN}\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/main_mailer_type select Internet with smarthost\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/protocols select ipv4\""
+	bash -c "debconf-set-selections <<< \"postfix postfix/relayhost string ${EXTERNAL_SMTP_DOMAIN}\""
+
+	# Install dependencies
+	apt install -y postfix mailutils
+
+	# Add password and username for smarthost
+	echo "${EXTERNAL_SMTP_DOMAIN} ${EXTERNAL_SMTP_USERNAME}:${EXTERNAL_SMTP_PASSWORD}" >>/etc/postfix/relay_passwords
+	postmap /etc/postfix/relay_passwords
+
+	# Configure postfix
+	cat /main.cf >>/etc/postfix/main.cf
+
+	# Restart postfix
+	service postfix start
+}
+
 setup_mailman_core() {
 	printf "\033[0;32mSetting up mailman-core ...\033[0m\n"
 	# MAILMAN_USE_HTTPS="no"
@@ -48,6 +79,7 @@ reload_and_start_services() {
 }
 
 start() {
+	setup_postfix
 	setup_mailman_core
 	setup_mailman_core_hyperkitty_plugin
 	setup_mailman_web

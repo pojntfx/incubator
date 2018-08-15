@@ -9,45 +9,24 @@ RUN apt upgrade -y
 
 # Setup mailname
 ENV POSTFIX_DOMAIN="mail.libresat.space"
-RUN echo ${POSTFIX_DOMAIN} >/etc/mailname
 
 # Setup debconf
 ENV EXTERNAL_SMTP_DOMAIN="mail.gandi.net"
 ENV DEBIAN_FRONTEND="noninteractive"
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/recipient_delim string +\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/procmail boolean false\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/chattr boolean false\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/root_address string root\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/destinations string ${POSTFIX_DOMAIN}, localhost\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/mailbox_limit string 0\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/rfc1035_violation boolean false\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/mailname string ${POSTFIX_DOMAIN}\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/main_mailer_type select Internet with smarthost\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/protocols select ipv4\""
-RUN bash -c "debconf-set-selections <<< \"postfix postfix/relayhost string ${EXTERNAL_SMTP_DOMAIN}\""
-
-# Install dependencies
-RUN apt install -y postfix mailutils
 
 # Add password and username for smarthost
 ENV EXTERNAL_SMTP_USERNAME="test@libresat.space"
 ENV EXTERNAL_SMTP_PASSWORD="345lkUDfg03jd~"
-RUN echo "${EXTERNAL_SMTP_DOMAIN} ${EXTERNAL_SMTP_USERNAME}:${EXTERNAL_SMTP_PASSWORD}" >>/etc/postfix/relay_passwords
-RUN postmap /etc/postfix/relay_passwords
 
 # Configure postfix
 COPY assets/postfix/main.cf .
-RUN cat main.cf >>/etc/postfix/main.cf
-
-# Restart postfix
-RUN service postfix start
-
-# Install dependencies
-RUN apt install -y lynx git python3 python3-setuptools
 
 ### END postfix ###
 
 ### START mailman-core ###
+
+# Install dependencies
+RUN apt install -y lynx git python3 python3-setuptools
 
 # Configure mailman
 ENV MAILMAN_ADMIN_EMAIL="felix@pojtinger.com"
