@@ -125,7 +125,7 @@ You may test if it is working by running the following:
 # Test if web interface works
 curl localhost:4000
 # Test access to internal git repo
-git clone ssh://git@localhost:4001/gitit/wikidata
+git clone ssh://git@localhost:4001/opt/gitit/wikidata
 ```
 
 ### Setup

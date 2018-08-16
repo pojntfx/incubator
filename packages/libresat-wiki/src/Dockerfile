@@ -18,9 +18,9 @@ COPY assets/ssh/id_rsa_container.pub .
 COPY assets/ssh/id_rsa_repo_access.pub .
 COPY assets/pre-commit .
 COPY assets/post-commit .
-COPY assets/static .
 COPY assets/gitit.conf .
 COPY assets/templates ./templates
+COPY assets/static ./static
 
 # Expose the web interface and SSH server
 EXPOSE 5001 22
@@ -29,6 +29,9 @@ EXPOSE 5001 22
 ENV GIT_BOT_EMAIL="gitit-bot@libresat.space"
 ENV GIT_BOT_NAME="LibreSat Gitit Bot"
 ENV GIT_REMOTE="git@gitlab.com:pojntfx/git-wikidata-test.git"
+ENV EXTERNAL_SMTP_DOMAIN="mail.gandi.net"
+ENV EXTERNAL_SMTP_USERNAME="noreply@libresat.space"
+ENV EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234"
 
 # Setup environment
 WORKDIR /opt
