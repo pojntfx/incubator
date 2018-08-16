@@ -43,12 +43,9 @@ INSTALLED_APPS = (
     'allauth.account',
     'allauth.socialaccount',
     'django_mailman3.lib.auth.fedora',
-    'allauth.socialaccount.providers.openid',
-    'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.gitlab',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.twitter',
-    'allauth.socialaccount.providers.stackexchange',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.openid',
 )
 
 MIDDLEWARE = (
@@ -160,20 +157,6 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 ACCOUNT_UNIQUE_EMAIL = True
-
-SOCIALACCOUNT_PROVIDERS = {
-    'openid': {
-        'SERVERS': [
-            dict(id='yahoo',
-                 name='Yahoo',
-                 openid_url='http://me.yahoo.com'),
-        ],
-    },
-    'google': {
-        'SCOPE': ['profile', 'email'],
-        'AUTH_PARAMS': {'access_type': 'online'},
-    }
-}
 
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'sassc -t compressed {infile} {outfile}'),
