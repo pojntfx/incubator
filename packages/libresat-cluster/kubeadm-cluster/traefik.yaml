@@ -118,7 +118,6 @@ spec:
               hostPort: 443
               name: https
             - containerPort: 8080
-              hostPort: 8080
               name: admin
           securityContext:
             capabilities:
@@ -144,23 +143,11 @@ metadata:
   namespace: kube-system
 spec:
   ports:
-    - name: smtp
-      port: 25
-      protocol: TCP
     - name: http
       port: 80
       protocol: TCP
     - name: https
       port: 443
-      protocol: TCP
-    - name: mailman
-      port: 8001
-      protocol: TCP
-    - name: lmtp
-      port: 8024
-      protocol: TCP
-    - name: admin
-      port: 8080
       protocol: TCP
   selector:
     k8s-app: traefik-ingress-lb

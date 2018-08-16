@@ -86,23 +86,23 @@ cd ~/incubator/packages/libresat-forum/ && mailman-suite/build-run-test.sh
 
 Wait some time, and open up `http://forum.stg1.libresat.space/forum`. Log in with the credentials you've set for DJANGO_ADMIN_USER. A confirmation mail will be send, in which you need to click the link (and probably use `http` instead of `https`) and login with the credentials again.
 
-Now, visit `http://forum.stg1.libresat.space:8000/forum/postorius/domains/` and add a new domain. Create a new site with Django as well, refresh the form and select it.
+Now, visit `http://forum.stg1.libresat.space/forum/postorius/domains/` and add a new domain. Create a new site with Django as well, refresh the form and select it.
 
 Once completed, create a new list, subscribe to it and test it.
 
-1.  Visit `http://forum.stg1.libresat.space:8000/forum` and sign in with the Django admin user's credentials
+1.  Visit `http://forum.stg1.libresat.space/forum` and sign in with the Django admin user's credentials
 2.  Confirm the mail for the Django admin user (use `http` instead of `https` if necessary)
 3.  Log in again
 4.  Click on "Manage lists" (top right)
 5.  Click on "Domains"
 6.  Click on "Add Domain" and create new Web Host (blue link at the bottom right)
-7.  Add site `forum.stg1.libresat.space` for both domain and display name, click save
+7.  Add site `stg1.libresat.space` for both domain and display name, click save
 8.  Go back and refresh
-9.  Enter `forum.stg1.libresat.space` as mail host and select `forum.stg1.libresat.space` as web host
+9.  Enter `stg1.libresat.space` as mail host and select `stg1.libresat.space` as web host
 10. Click "Create domain"
 11. Click "Lists"
 12. Click "Create New List"
-13. Enter all-lowercase, no spaces list name, select `forum.stg1.libresat.space` as mail host
+13. Enter all-lowercase, no spaces list name, select `stg1.libresat.space` as mail host
 14. Click "Create list"
 15. Enter your name, click "Subscribe"
 16. Check inbox for the account you've selected, reply to mail with 'help' in body
