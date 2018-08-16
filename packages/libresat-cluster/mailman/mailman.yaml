@@ -64,7 +64,7 @@ spec:
             - name: web-data
               mountPath: "/opt/mailman-web/databases"
             - name: core-data
-              mountPath: "/var/tmp/mailman/data"
+              mountPath: "/var/tmp/mailman"
 ---
 apiVersion: v1
 kind: Service
