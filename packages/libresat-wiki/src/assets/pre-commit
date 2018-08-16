@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # Pull changes from remote
-echo "Pulling changes from remote master branch ...";
-git pull;
+echo "Pulling changes from remote master branch ..."
+git pull
 
 # Switch to dev branch
-git checkout dev;
+git checkout dev
 
 # Pull changes from remote
-echo "Pulling changes from remote dev branch ...";
-git pull;
+echo "Pulling changes from remote dev branch ..."
+git pull
 
 # Merge changes from master
-echo "Merging changes from master ...";
-git stash;
-git rebase master;
-git stash pop;
+echo "Merging changes from master ..."
+git stash
+git rebase master
+git stash pop

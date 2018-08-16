@@ -1,11 +1,11 @@
-FROM debian:latest
+FROM debian:stretch
 
 # Update the system
 RUN apt update
 RUN apt upgrade -y
 
 # Install dependencies
-RUN apt install -y wget git openssh-server sendmail sendmail-bin sensible-mda sasl2-bin cron
+RUN apt install -y wget git openssh-server sendmail sendmail-bin sensible-mda sasl2-bin cron clang
 RUN wget -qO- https://get.haskellstack.org/ | sh
 
 # Setup environment
@@ -51,10 +51,10 @@ RUN git config --global user.name "${GIT_BOT_NAME}"
 # Get the remote repo
 # Add GitLab to known_hosts
 ARG GIT_REMOTE="git@gitlab.com:pojntfx/git-wikidata-test.git"
-RUN ssh-keyscan -t rsa $(echo $GIT_REMOTE | cut -d"@" -f 2| cut -d":" -f 1) >> ~/.ssh/known_hosts
+RUN ssh-keyscan -t rsa $(echo $GIT_REMOTE | cut -d"@" -f 2 | cut -d":" -f 1) >>~/.ssh/known_hosts
 RUN git clone ${GIT_REMOTE}
 # Rename the repo to "wikidata"
-RUN mv $(echo $GIT_REMOTE | cut -d"/" -f 2| cut -d"." -f 1) wikidata
+RUN mv $(echo $GIT_REMOTE | cut -d"/" -f 2 | cut -d"." -f 1) wikidata
 # Create master branch
 RUN cd wikidata && git checkout -b dev && cd ..
 
@@ -79,20 +79,20 @@ ARG LANGUAGE="en_US.UTF-8"
 
 # Configure sendmail connection details
 ARG EXTERNAL_SMTP_DOMAIN="mail.gandi.net"
-RUN echo "dnl define(\`SMART_HOST', \`${EXTERNAL_SMTP_DOMAIN}')" >> /etc/mail/sendmail.mc
+RUN echo "dnl define(\`SMART_HOST', \`${EXTERNAL_SMTP_DOMAIN}')" >>/etc/mail/sendmail.mc
 # Configure sendmail authentication
 ARG EXTERNAL_SMTP_USERNAME="noreply@libresat.space"
 ARG EXTERNAL_SMTP_PASSWORD="249j89aSf8234ns@#234"
-RUN echo "AuthInfo:${EXTERNAL_SMTP_DOMAIN} \"U:${EXTERNAL_SMTP_USERNAME}\" \"P:${EXTERNAL_SMTP_PASSWORD}\" \"M:PLAIN\"" >> /etc/mail/authinfo
-RUN makemap hash /etc/mail/authinfo < /etc/mail/authinfo
+RUN echo "AuthInfo:${EXTERNAL_SMTP_DOMAIN} \"U:${EXTERNAL_SMTP_USERNAME}\" \"P:${EXTERNAL_SMTP_PASSWORD}\" \"M:PLAIN\"" >>/etc/mail/authinfo
+RUN makemap hash /etc/mail/authinfo </etc/mail/authinfo
 RUN sed -i s/"MAILER_DEFINITIONS"/"FEATURE(\`authinfo')\nMAILER_DEFINITIONS"/g /etc/mail/sendmail.mc
 RUN make -C /etc/mail
 RUN sed -i s/START=no/START=yes/g /etc/default/saslauthd
 
 # Add periodical git fetch cron job so that the instances will be kept in sync
-RUN echo "cd /gitit/wikidata/ && git checkout master && git pull && git checkout dev && git merge master && cd /gitit" >> pull_latest_changes.sh
+RUN echo "cd /gitit/wikidata/ && git checkout master && git pull && git checkout dev && git merge master && cd /gitit" >>pull_latest_changes.sh
 RUN chmod +x pull_latest_changes.sh
-RUN echo "* * * * * root cd /gitit && ./pull_latest_changes.sh" >> /etc/cron.d/libresat-wiki
+RUN echo "* * * * * root cd /gitit && ./pull_latest_changes.sh" >>/etc/cron.d/libresat-wiki
 RUN /etc/init.d/cron restart
 
 # Pull latest changes from the remote, build and serve the wiki over the web interface, start SSH server, start sendmail server
