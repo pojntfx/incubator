@@ -1,0 +1,99 @@
+# Mailman on Kubernetes
+# See: https://gitlab.com/pojntfx/incubator/tree/master/packages/libresat-forum
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mailman
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: web-data
+  namespace: mailman
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: core-data
+  namespace: mailman
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: web
+  namespace: mailman
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      hostNetwork: true
+      volumes:
+        - name: web-data
+          persistentVolumeClaim:
+            claimName: web-data
+        - name: core-data
+          persistentVolumeClaim:
+            claimName: core-data
+      containers:
+        - name: web
+          image: pojntfx/libresat-forum:latest
+          ports:
+            - containerPort: 25
+              hostPort: 25
+            - containerPort: 7000
+            - containerPort: 8024
+              hostPort: 8024
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: web-data
+              mountPath: "/opt/mailman-web/databases"
+            - name: core-data
+              mountPath: "/var/tmp/mailman"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: mailman
+spec:
+  ports:
+    - name: web
+      port: 80
+      targetPort: 7000
+  selector:
+    app: web
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web
+  namespace: mailman
+spec:
+  rules:
+    - host: forum.stg1.libresat.space
+      http:
+        paths:
+          - path: /forum
+            backend:
+              serviceName: web
+              servicePort: web
+          - path: /static
+            backend:
+              serviceName: web
+              servicePort: web
