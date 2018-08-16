@@ -68,7 +68,7 @@ docker run \
 -h "mail@domain.tld" \
 -p "8000:80" \
 -v "mailman-core-data:/var/tmp/mailman/data" \
--v "mailman-web-data:/opt/mailman-web" \
+-v "mailman-web-data:/opt/mailman-web/databases" \
 libresat-forum
 # Now open up http://localhost:8000//forum/hyperkitty and/or http://localhost:8000//forum/postorius and sign up!
 ```
@@ -86,11 +86,11 @@ cd ~/incubator/packages/libresat-forum/ && mailman-suite/build-run-test.sh
 
 Wait some time, and open up `http://forum.stg1.libresat.space/forum`. Log in with the credentials you've set for DJANGO_ADMIN_USER. A confirmation mail will be send, in which you need to click the link (and probably use `http` instead of `https`) and login with the credentials again.
 
-Now, visit `http://forum.stg1.libresat.space:8000/forum/postorius/domains/` and add a new domain. Create a new site with Django as well, refresh the form and select it.
+Now, visit `http://forum.stg1.libresat.space/forum/postorius/domains/` and add a new domain. Create a new site with Django as well, refresh the form and select it.
 
 Once completed, create a new list, subscribe to it and test it.
 
-1.  Visit `http://forum.stg1.libresat.space:8000/forum` and sign in with the Django admin user's credentials
+1.  Visit `http://forum.stg1.libresat.space/forum` and sign in with the Django admin user's credentials
 2.  Confirm the mail for the Django admin user (use `http` instead of `https` if necessary)
 3.  Log in again
 4.  Click on "Manage lists" (top right)

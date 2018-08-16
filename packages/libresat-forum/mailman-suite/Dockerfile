@@ -67,7 +67,7 @@ ENV LANG=C.UTF-8
 ### START mailman-core-hyperkitty-plugin ###
 
 # Configure mailman-core-hyperkitty-plugin
-ENV HYPERKITTY_API_KEY="asdfasdf474"
+ENV HYPERKITTY_API_KEY="asdfasdf123456"
 
 # Setup mailman-core-hyperkitty-plugin environment and get sources
 WORKDIR /opt
@@ -93,7 +93,7 @@ WORKDIR hyperkitty
 
 # Install dependencies
 RUN apt install -y gcc sassc python3-dev python3-pip apache2 libapache2-mod-wsgi-py3
-RUN pip3 install Whoosh django-q==0.9.4 # django_q now uses AsyncTask instead of Async, but this will be fixed soon (see https://gitlab.com/mailman/hyperkitty/issues/190)
+RUN pip3 install Whoosh
 
 # Install hyperkitty
 RUN python3 setup.py install
@@ -134,9 +134,10 @@ COPY assets/mailman-web/wsgi.py .
 COPY assets/mailman-web/apache.conf .
 
 # Setup mailman-web
+RUN mkdir -p /opt/mailman-web/databases
 
 # Add volume for mailman-web's data
-VOLUME /opt/mailman-web
+VOLUME /opt/mailman-web/databases
 
 # Restart apache
 RUN mkdir /var/log/httpd/
@@ -146,8 +147,8 @@ RUN a2enmod wsgi
 
 ### START startup ###
 
-# Expose postfix, mailman-core REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.) and hyperkitty
-EXPOSE 25 80 8001 8024
+# Expose postfix, hyperkitty and mailman-core
+EXPOSE 25 7000 8024
 
 # Start everything
 WORKDIR /opt

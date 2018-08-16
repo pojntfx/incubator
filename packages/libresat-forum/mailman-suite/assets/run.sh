@@ -60,6 +60,7 @@ setup_mailman_web() {
 	sed -i -e "s/mail.gandi.net/${EXTERNAL_SMTP_DOMAIN}/g" /opt/mailman-web/settings.py
 	sed -i -e "s/test@libresat.space/${EXTERNAL_SMTP_USERNAME}/g" /opt/mailman-web/settings.py
 	sed -i -e "s/345lkUDfg03jd/${EXTERNAL_SMTP_PASSWORD}/g" /opt/mailman-web/settings.py
+	sed -i -e "s/80/7000/g" /etc/apache2/ports.conf
 	echo 'Include "/opt/mailman-web/apache.conf"' >>/etc/apache2/apache2.conf
 
 	cd /opt/mailman-web && django-admin migrate --pythonpath . --settings settings
