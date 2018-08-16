@@ -8,19 +8,19 @@ A 1GB RAM & 1 CPU host should be enough.
 
 ### Configuration
 
-> Use your own IP (or domain) instead of `159.65.230.26` in the following.
+> Use your own IP (or domain) instead of `206.189.226.226` in the following.
 
 ### Setup DNS
 
 | Type  | Hostname | Value                |
 | ----- | -------- | -------------------- |
-| A     | stg1     | 159.65.230.26        |
+| A     | stg1     | 206.189.226.226      |
 | CNAME | \*.stg1  | stg1.libresat.space. |
 
 ### Create Cluster
 
 ```bash
-ssh root@159.65.230.26 "wget -q -O - https://gitlab.com/snippets/1741965/raw | bash"
+ssh root@206.189.226.226 "wget -q -O - https://gitlab.com/snippets/1741965/raw | bash"
 ```
 
 ### Setup `kubectl`
@@ -29,8 +29,8 @@ ssh root@159.65.230.26 "wget -q -O - https://gitlab.com/snippets/1741965/raw | b
 
 ```bash
 # To setup kubectl on your local machine:
-scp root@159.65.230.26:/etc/kubernetes/admin.conf ${HOME}/.kube/config-159.65.230.26.conf
-export KUBECONFIG=${HOME}/.kube/config-159.65.230.26.conf
+scp root@206.189.226.226:/etc/kubernetes/admin.conf ${HOME}/.kube/config-206.189.226.226.conf
+export KUBECONFIG=${HOME}/.kube/config-206.189.226.226.conf
 ```
 
 ### Enable Persistent Volumes
@@ -39,6 +39,7 @@ export KUBECONFIG=${HOME}/.kube/config-159.65.230.26.conf
 # You can use another storage provider (i.e. NFS) instead of DigitalOcean here
 kubectl apply -f https://raw.githubusercontent.com/digitalocean/csi-digitalocean/master/deploy/kubernetes/releases/csi-digitalocean-latest-stable.yaml
 kubectl apply -f kubeadm-cluster/storage.yaml
+kubectl --namespace=kube-system get pods -w # -> csi-provisioner-doplugin-0-(...)          1/1       Running   0          2m
 ```
 
 ### Create Ingress Controller
