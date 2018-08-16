@@ -146,8 +146,8 @@ RUN a2enmod wsgi
 
 ### START startup ###
 
-# Expose postfix, mailman-core REST API (DO. NOT. MAKE. THIS. PUBLIC. Use an internal network instead.) and hyperkitty
-EXPOSE 25 80 8001 8024
+# Expose postfix, hyperkitty and mailman-core
+EXPOSE 25 7000 8024
 
 # Start everything
 WORKDIR /opt
