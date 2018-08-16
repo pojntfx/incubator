@@ -22,11 +22,17 @@ sudo apt install npm docker.io docker-compose
 
 ### Configuraton
 
+#### Create SSH key
+
+```bash
+ssh-keygen -t rsa -N "" -f "src/assets/ssh/id_rsa_container"
+```
+
 #### Set SSH Key
 
 ```bash
 # Reads your public SSH key and overwrites the contents of assets/id_rsa.pub with it
-echo $(<~/.ssh/id_rsa.pub) > src/assets/id_rsa.pub
+echo $(<~/.ssh/id_rsa.pub) > src/assets/ssh/id_rsa_repo_access.pub
 ```
 
 #### Create Bot Account and Remote Git Repository
@@ -100,8 +106,8 @@ docker build \
 --build-arg GIT_BOT_NAME="LibreSat Gitit Bot" \
 --build-arg GIT_REMOTE="git@gitlab.com:pojntfx/git-wikidata-test.git" \
 --build-arg EXTERNAL_SMTP_DOMAIN="mail.gandi.net" \
---build-arg EXTERNAL_SMTP_USERNAME="noreply@libresat.space" \
---build-arg EXTERNAL_SMTP_PASSWORD="249j8923490sdaSf8234ns" \
+--build-arg EXTERNAL_SMTP_USERNAME="test@libresat.space" \
+--build-arg EXTERNAL_SMTP_PASSWORD="345lkUDfg03jd~" \
 src/ \
 -t libresat-wiki
 ```
