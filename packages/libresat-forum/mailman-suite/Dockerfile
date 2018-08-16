@@ -134,9 +134,10 @@ COPY assets/mailman-web/wsgi.py .
 COPY assets/mailman-web/apache.conf .
 
 # Setup mailman-web
+RUN mkdir -p /opt/mailman-web/databases
 
 # Add volume for mailman-web's data
-VOLUME /opt/mailman-web
+VOLUME /opt/mailman-web/databases
 
 # Restart apache
 RUN mkdir /var/log/httpd/
