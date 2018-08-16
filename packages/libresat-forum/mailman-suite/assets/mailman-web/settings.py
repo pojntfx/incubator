@@ -10,7 +10,8 @@ ADMINS = (
     ('Mailman Web Admin', 'root@localhost'),
 )
 
-SITE_ID = 1
+# 2nd domain that has been set up using the Django Admin (first is example.com), will be displayed in the navbar
+SITE_ID = 2
 
 ALLOWED_HOSTS = ['*']
 
