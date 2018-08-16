@@ -68,7 +68,7 @@ docker run \
 -h "mail@domain.tld" \
 -p "8000:80" \
 -v "mailman-core-data:/var/tmp/mailman/data" \
--v "mailman-web-data:/opt/mailman-web" \
+-v "mailman-web-data:/opt/mailman-web/databases" \
 libresat-forum
 # Now open up http://localhost:8000//forum/hyperkitty and/or http://localhost:8000//forum/postorius and sign up!
 ```
@@ -96,13 +96,13 @@ Once completed, create a new list, subscribe to it and test it.
 4.  Click on "Manage lists" (top right)
 5.  Click on "Domains"
 6.  Click on "Add Domain" and create new Web Host (blue link at the bottom right)
-7.  Add site `stg1.libresat.space` for both domain and display name, click save
+7.  Add site `forum.stg1.libresat.space` for both domain and display name, click save
 8.  Go back and refresh
-9.  Enter `stg1.libresat.space` as mail host and select `stg1.libresat.space` as web host
+9.  Enter `forum.stg1.libresat.space` as mail host and select `forum.stg1.libresat.space` as web host
 10. Click "Create domain"
 11. Click "Lists"
 12. Click "Create New List"
-13. Enter all-lowercase, no spaces list name, select `stg1.libresat.space` as mail host
+13. Enter all-lowercase, no spaces list name, select `forum.stg1.libresat.space` as mail host
 14. Click "Create list"
 15. Enter your name, click "Subscribe"
 16. Check inbox for the account you've selected, reply to mail with 'help' in body
