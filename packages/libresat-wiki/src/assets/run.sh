@@ -22,10 +22,32 @@ get_wiki_data_repo() {
 	cd wikidata && git checkout -b dev && cd ..
 }
 
+setup_pre_post_commit_hooks() {
+	echo "Setting up pre- and post-commit hooks ..."
+	cp /opt/assets/pre-commit ./wikidata/.git/hooks/pre-commit
+	chmod +x ./wikidata/.git/hooks/pre-commit
+	cp /opt/assets/post-commit ./wikidata/.git/hooks/post-commit
+	chmod +x ./wikidata/.git/hooks/post-commit
+}
+
+setup_userdata() {
+	echo "Setting up userdata ..."
+	mkdir userdata
+}
+
+add_templates_and_config() {
+	echo "Adding templates and config ..."
+	cp /opt/assets/gitit.conf .
+	cp -r /opt/assets/templates .
+}
+
 start() {
 	setup_ssh
 	configure_git_bot
-  get_wiki_data_repo
+	get_wiki_data_repo
+	setup_pre_post_commit_hooks
+	setup_userdata
+  add_templates_and_config
 }
 
 start

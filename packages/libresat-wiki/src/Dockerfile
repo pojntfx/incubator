@@ -19,7 +19,8 @@ COPY assets/ssh/id_rsa_repo_access.pub .
 COPY assets/pre-commit .
 COPY assets/post-commit .
 COPY assets/static .
-COPY assets/templates .
+COPY assets/gitit.conf .
+COPY assets/templates ./templates
 
 # Expose the web interface and SSH server
 EXPOSE 5001 22
