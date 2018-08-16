@@ -118,7 +118,6 @@ spec:
               hostPort: 443
               name: https
             - containerPort: 8080
-              hostPort: 8080
               name: admin
           securityContext:
             capabilities:
@@ -149,9 +148,6 @@ spec:
       protocol: TCP
     - name: https
       port: 443
-      protocol: TCP
-    - name: admin
-      port: 8080
       protocol: TCP
   selector:
     k8s-app: traefik-ingress-lb
