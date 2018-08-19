@@ -1,0 +1,24 @@
+{
+  "name": "@pojntfx-incubator/node-gtk-learning",
+  "version": "0.0.1-1",
+  "description": "Trying out node-gtk",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felix Pojtinger <felix@pojtinger.com>",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "node-gtk": "^0.2.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "nodemon": "^1.17.5"
+  }
+}
