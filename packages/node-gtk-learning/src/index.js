@@ -1,8 +1,8 @@
-import { App } from "./utils";
-import { Grid, Label, Button, HeaderBar } from "./components";
+import { View, Orientation } from "./utils";
+import { Label, Button, HeaderBar, Grid } from "./components";
 
 // Initialize the window
-const { app, window } = new App({
+const { view, window } = new View({
   title: "Note Manager",
   width: 1024,
   height: 600,
@@ -19,12 +19,15 @@ headerBar.setShowCloseButton(true);
 const createNewNoteButton = new Button();
 createNewNoteButton.add(new Label({ label: "Create New Note" }));
 
+const helloWorldLabel = new Label({ label: "Hello, world!" });
+
 // Add the components to the layout
 headerBar.add(createNewNoteButton);
+grid.add(helloWorldLabel);
 
-// Add the components to the window and app
+// Add the components to the window and view
 window.add(grid);
 window.setTitlebar(headerBar);
 
-// Display the app
-app.show();
+// Display the view
+view.show();
