@@ -1,17 +1,30 @@
 import { App } from "./utils";
-import { Label } from "./components";
+import { Grid, Label, Button, HeaderBar } from "./components";
 
 // Initialize the window
-const { window, canvas } = new App({
-  width: 200,
-  height: 80
+const { app, window } = new App({
+  title: "Note Manager",
+  width: 1024,
+  height: 600,
+  position: "center"
 });
 
-// Create some components
-const helloWorldLabel = new Label({ label: "Hello, world!" });
+// Create a layout
+const grid = new Grid();
 
-// Add the components to the window
-canvas.add(helloWorldLabel);
+// Create and configure some components
+const headerBar = new HeaderBar({ title: window.title });
+headerBar.setShowCloseButton(true);
 
-// Display the window
-window.show();
+const createNewNoteButton = new Button();
+createNewNoteButton.add(new Label({ label: "Create New Note" }));
+
+// Add the components to the layout
+headerBar.add(createNewNoteButton);
+
+// Add the components to the window and app
+window.add(grid);
+window.setTitlebar(headerBar);
+
+// Display the app
+app.show();
