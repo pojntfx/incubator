@@ -1,22 +1,49 @@
 // Imports
 import { require as loadGTK, startLoop } from "node-gtk";
-const { init, Window: GtkWindow, mainQuit, Label, main } = loadGTK(
-  "Gtk",
-  "3.0"
-);
+const {
+  init,
+  Window: GtkWindow,
+  mainQuit,
+  Label,
+  HeaderBar,
+  Button,
+  Grid,
+  main,
+  WindowPosition: { NONE, CENTER, MOUSE, CENTER_ON_PARENT }
+} = loadGTK("Gtk", "3.0");
 
 class App {
-  constructor({ height, width }) {
+  constructor({ title, height, width, position }) {
     this.initializeNodeGtk();
     this.window = new GtkWindow();
     this.addDefaultEvents();
     this.setDefaultSize({ height, width });
+    this.setTitle(title);
+    this.setPosition(position);
     return {
-      window: this,
-      canvas: this.window
+      app: this,
+      window: this.window
     };
   }
 
+  setTitle = title => (this.window.title = title);
+
+  setPosition = position => {
+    const getPosition = position => {
+      switch (position) {
+        case "none":
+          return NONE;
+        case "center":
+          return CENTER;
+        case "mouse":
+          return MOUSE;
+        case "centerOnParent":
+          return CENTER_ON_PARENT;
+      }
+    };
+
+    this.window.windowPosition = getPosition(position);
+  };
   initializeNodeGtk = () => {
     startLoop();
     init();
@@ -36,4 +63,4 @@ class App {
   };
 }
 
-export { App, Label };
+export { App, Grid, Label, HeaderBar, Button };
