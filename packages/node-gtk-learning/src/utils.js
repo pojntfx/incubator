@@ -9,10 +9,12 @@ const {
   Button,
   Grid,
   main,
-  WindowPosition: { NONE, CENTER, MOUSE, CENTER_ON_PARENT }
+  Box,
+  WindowPosition: { NONE, CENTER, MOUSE, CENTER_ON_PARENT },
+  Orientation
 } = loadGTK("Gtk", "3.0");
 
-class App {
+class View {
   constructor({ title, height, width, position }) {
     this.initializeNodeGtk();
     this.window = new GtkWindow();
@@ -21,7 +23,7 @@ class App {
     this.setTitle(title);
     this.setPosition(position);
     return {
-      app: this,
+      view: this,
       window: this.window
     };
   }
@@ -63,4 +65,6 @@ class App {
   };
 }
 
-export { App, Grid, Label, HeaderBar, Button };
+const getComponent = (version = "3") => loadGTK("Gtk", version);
+
+export { View, Grid, Label, HeaderBar, Button, Box, Orientation, getComponent };
