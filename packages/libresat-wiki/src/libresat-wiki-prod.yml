@@ -10,7 +10,7 @@ services:
     networks:
       - "libresat-wiki"
     volumes:
-      - "libresat-wiki-web-data:/gitit/userdata"
+      - "libresat-wiki-web-data:/opt/gitit/userdata"
 networks:
   libresat-wiki:
 
