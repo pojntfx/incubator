@@ -1,0 +1,7 @@
+site:
+  title: LibreSat
+  description: The Free/Libre and Open Source Satellite Development and Control Platform
+  data:
+    lang: en
+default:
+  layout: default.liquid

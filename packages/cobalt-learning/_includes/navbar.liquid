@@ -1,0 +1,44 @@
+<div class="ui fixed borderless menu navbar">
+  <a href="/" class="item navbar__item--side">LibreSDCP</a>
+  <div class="navbar__menu--center">
+    <a href="/" class="item active">Home</a>
+    <a href="/" class="item">Software</a>
+    <a href="/" class="item">Hardware</a>
+    <a href="/" class="item">Network</a>
+    <a href="/" class="item">Docs</a>
+    <div class="right menu">
+      <a href="/" class="item">Blog</a>
+      <a href="/" class="item">Demo</a>
+      <a href="/" class="item">Wiki</a>
+      <a href="/" class="item">Forum</a>
+      <a href="/" class="item">Chat</a>
+    </div>
+  </div>
+  <a href="/" class="item navbar__item--side">Source Code</a>
+</div>
+
+<style>
+  .navbar {
+    overflow-x: auto;
+    position: sticky !important;
+    top: 0;
+  }
+
+  .navbar__menu--center {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .navbar__menu--center {
+      width: 1127px;
+    }
+  }
+
+  .navbar__item--side {
+    width: 10rem;
+    text-align: center;
+    display: inline-block !important;
+  }
+</style>
