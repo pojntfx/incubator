@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/typescript-cli-eval",
-  "version": "0.0.1-1",
+  "version": "0.0.1-3",
   "description": "A simple CLI to test out wether TypeScript is a good choice for building CLIs",
   "main": "lib/index.js",
   "scripts": {
