@@ -1,0 +1,10 @@
+apiVersion: https://standards.libresat.space/satctl/v0.0.1-0
+kind: User
+metadata:
+  name: user1
+  description: User 1
+  cloud: cloud1
+  # Later, a role should be specified here (user implements role)
+spec:
+  email: user1@example.com
+  publicKey: ssh-rsa AAA3Dx(...)== felicitas@pojtinger.com
