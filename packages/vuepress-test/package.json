@@ -20,5 +20,8 @@
   },
   "dependencies": {
     "serve": "^9.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

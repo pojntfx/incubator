@@ -1,7 +1,7 @@
 {
   "name": "@pojntfx-incubator/microservice-mockups-frontend-identity",
   "version": "0.0.1-alpha",
-  "private": true,
+  
   "dependencies": {
     "eslint-plugin-react": "^7.9.1",
     "react": "^16.4.1",

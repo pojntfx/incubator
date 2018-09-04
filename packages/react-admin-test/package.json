@@ -1,7 +1,7 @@
 {
   "name": "@pojntfx-incubator/react-admin-test",
   "version": "0.0.1-0",
-  "private": true,
+  
   "dependencies": {
     "ra-data-json-server": "^2.0.4",
     "react": "^16.4.1",
@@ -18,5 +18,8 @@
   "description": "A quick evaluation of react-admin",
   "main": "src/index.js",
   "author": "Felix Pojtinger",
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0",
+  "publishConfig": {
+    "access": "public"
+  }
 }
