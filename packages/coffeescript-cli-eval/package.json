@@ -1,0 +1,27 @@
+{
+  "name": "@pojntfx-incubator/coffeescript-cli-eval",
+  "version": "0.0.1",
+  "description": "A simple CLI to test out whether CoffeeScript is a good choice for CLIs",
+  "main": "src/index.coffee",
+  "scripts": {
+    "dev": "coffee -t -o dist/ -c -w src/index.coffee",
+    "start": "chmod +x bin/run && bin/run",
+    "build": "coffee -t -o dist/ -c src/index.coffee",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felix Pojtinger <felix@pojtinger.com>",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "@oclif/command": "^1.5.0",
+    "@oclif/config": "^1.7.4",
+    "@oclif/plugin-help": "^2.1.1"
+  },
+  "oclif": {
+    "bin": "cscli"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "coffeescript": "^2.3.1"
+  }
+}
