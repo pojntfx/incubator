@@ -1,0 +1,9 @@
+apiVersion: https://standards.libresat.space/satctl/v0.0.1-0
+kind: Cloud
+metadata:
+  name: cloud1
+  description: Cloud 1
+spec:
+  domain: stg1.libresat.space
+  hosts:
+    - name: host1

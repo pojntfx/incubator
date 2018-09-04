@@ -10,16 +10,16 @@ class CLI extends Command
     # { flags } = @parse Example
     # name = flags.name or "world"
     @log "Hello Test!"
+  
+  description: """
+    Describe the command here
 
-CLI.description = """
-Describe the command here
+    Extra documentation goes here
+    """
+  
+  flags:
+    version: flags.version { char: "v" }
+    help: flags.help { char: "h" }
+    name: flags.string { char: "n" }, description: "Name to print"
 
-Extra documentation goes here
-"""
-
-CLI.flags =
-  version: flags.version { char: "v" }
-  help: flags.help { char: "h" }
-  name: flags.string { char: "n" }, description: "Name to print"
-
-export CLI
+export { CLI }

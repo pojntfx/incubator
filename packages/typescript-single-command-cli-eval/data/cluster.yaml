@@ -1,0 +1,17 @@
+apiVersion: https://standards.libresat.space/satctl/v0.0.1-0
+kind: Cluster
+metadata:
+  name: cluster1
+  description: Cluster 1
+  cloud: cloud1
+spec:
+  domain: cluster1.stg1.libresat.space
+  hosts:
+    - name: host1
+      role: master
+  storage:
+    provider: https://www.digitalocean.com
+    token: 2344j90sjf23j423ij3
+  acme:
+    provider: https://www.gandi.net
+    token: 9234jsjdf82344i23ik3
