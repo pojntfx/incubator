@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/featherjs-basics",
-  "version": "0.0.1-1",
+  "version": "0.0.1-2",
   "description": "A quick test of featherjs",
   "main": "src/index.js",
   "scripts": {
