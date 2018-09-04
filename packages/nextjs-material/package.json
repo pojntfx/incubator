@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/nextjs-material",
-  "version": "0.0.1-0",
+  "version": "0.0.1-1",
   "description": "A quick nextjs material test",
   "main": "pages/index.js",
   "scripts": {

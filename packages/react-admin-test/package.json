@@ -1,7 +1,6 @@
 {
   "name": "@pojntfx-incubator/react-admin-test",
-  "version": "0.0.1-0",
-  
+  "version": "0.0.1-1",
   "dependencies": {
     "ra-data-json-server": "^2.0.4",
     "react": "^16.4.1",
