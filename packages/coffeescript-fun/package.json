@@ -20,5 +20,8 @@
     "apollo-server": "^2.0.0",
     "babel-runtime": "^6.26.0",
     "graphql": "^0.13.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

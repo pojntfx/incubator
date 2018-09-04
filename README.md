@@ -1,14 +1,17 @@
-# Incubator
+# pojntfx Incubator
 
-@pojntfx's personal projects and experiments.
+[@pojntfx](https://www.twitter.com/pojntfx)'s personal projects and experiments.
 
-## Content
+![Comic On Side Projects](screenshots/on-side-projects.jpg)
 
-> TODO: Add TOC
+[![GitLab](https://img.shields.io/badge/GitLab-pojntfx%2fincubator-fc6d26.svg?logo=gitlab)](https://gitlab.com/pojntfx/incubator)
+[![GitHub](https://img.shields.io/badge/GitHub-pojntfx%2fincubator-181717.svg?logo=github&logoColor=ffffff)](https://github.com/pojntfx/incubator)
+[![NPM](https://img.shields.io/badge/npm-%7epojntfx--incubator-CB3837.svg?logo=npm)](https://www.npmjs.com/~pojntfx-incubator)
 
-## Demos
+[![Code License AGPL-3.0](https://img.shields.io/badge/Code%20License-AGPL--3.0-brightgreen.svg)](https://www.gnu.org/licenses/agpl-3.0.en.html)
+[![Media License CC-BY-SA-4.0](https://img.shields.io/badge/Media%20License-CC--BY--SA--4.0-brightgreen.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
-> TODO: Add demos
+---
 
 ## Usage
 
@@ -17,40 +20,45 @@
 npm install
 # Install dependencies #2
 npm run bootstrap
-# Start development services (check out the individual packages for more details)
+# Start inidividual package
+npm run dev -- --scope @pojntfx-incubator/coffeescript-react
+# Start all packages
 npm run dev
-# Now make your changes! Updated services will automatically restart on save.
-# Start individual package (take a look at each service's `package.json` for more details)
-npx lerna run start --scope @pojntfx-incubator/react-admin-test
 ```
-
-## Screenshots
-
-> TODO: Add screenshots
-
-## Documentation
-
-> TODO: Add docs
 
 ## Deployment
 
-> TODO: Add deployment
+```bash
+# Publish packages to npm
+npm run publish
+```
 
 ## License
 
-### Source Code
+These licenses do, if not otherwise specified, apply to all packages in this repository.
 
-Incubator
+### Code
+
+[![AGPL-3.0 License](https://www.gnu.org/graphics/agplv3-155x51.png)](https://www.gnu.org/licenses/agpl.html)
+
+pojntfx Incubator
 Copyright (C) 2018 Felicitas Pojtinger
+
+SPDX-License-Identifier: AGPL-3.0
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 
-You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+You should have received a copy of the GNU Affero General Public License along with this program. If not, see [https://www.gnu.org/licenses/](https://www.gnu.org/licenses/).
 
 ### Media
 
-Media of Incubator (C) 2018 Felicitas Pojtinger
+[![CC-BY-4.0 License](https://licensebuttons.net/l/by-sa/4.0/88x31.png)](https://creativecommons.org/licenses/by-sa/4.0/)
 
-<a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+Media of pojntfx Incubator
+Copyright (C) 2018 Felicitas Pojtinger
+
+SPDX-License-Identifier: CC-BY-SA-4.0
+
+This work is licensed under a [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/).

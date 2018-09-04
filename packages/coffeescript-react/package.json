@@ -1,7 +1,7 @@
 {
-  "name": "coffee-app",
+  "name": "@pojntfx-incubator/coffeescript-react",
   "version": "0.1.0",
-  "private": true,
+  
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -26,5 +26,8 @@
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-plugin-transform-remove-strict-mode": "0.0.2",
     "babel-runtime": "^6.26.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
