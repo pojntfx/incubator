@@ -4,6 +4,7 @@ import { Button } from "../components/Button";
 
 const Index = (props: any) => (
   <DefaultLayout {...props}>
+    <h1>Dashboard</h1>
     <Button />
   </DefaultLayout>
 );
