@@ -3,8 +3,8 @@ import { DefaultLayout } from "../layouts/Default";
 import { Button } from "../components/Button";
 
 const Index = (props: any) => (
-  <DefaultLayout {...props}>
-    <h1>Dashboard</h1>
+  <DefaultLayout dismissible={true} open={true} {...props}>
+    <h1>Organisations</h1>
     <Button />
   </DefaultLayout>
 );
