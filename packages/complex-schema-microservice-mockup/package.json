@@ -1,0 +1,21 @@
+{
+  "name": "@pojntfx-incubator/complex-schema-microservice-mockup",
+  "version": "0.0.1-0",
+  "description": "A test of how to implement a complex schema in GraphQL by developing as a monoplatform",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec json-graphql-server src/data.js",
+    "serve:rest": "nodemon --exec json-server src/data.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felix Pojtinger <felix@pojtinger.com>",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "json-graphql-server": "^2.1.1",
+    "json-server": "^0.14.0",
+    "nodemon": "^1.18.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
