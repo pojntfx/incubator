@@ -1,19 +1,8 @@
 import * as puppeteer from "puppeteer";
-import { endpoint, username, password } from "./config.json";
-import { login } from "./login";
-import { init } from "./init";
-import { getImgSrcs } from "./getImgSrcs";
-import { writeImage } from "./writeImage";
-import { writeImages } from "./writeImages";
-
-(async () => {
-  const { browser, page } = await init(puppeteer);
-
-  await login(page, endpoint, username, password);
-
-  const imgSrcs = await getImgSrcs(page);
-
-  await writeImages(imgSrcs, writeImage);
-
-  await browser.close();
-})();
+export { puppeteer };
+export { endpoint, username, password } from "./config.json";
+export { login } from "./login";
+export { init } from "./init";
+export { getImgSrcs } from "./getImgSrcs";
+export { writeImage } from "./writeImage";
+export { writeImages } from "./writeImages";
