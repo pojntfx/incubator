@@ -3,6 +3,7 @@
     "target": "esnext",
     "module": "commonjs",
     "outDir": "dist/",
+    "resolveJsonModule": true,
     "lib": ["esnext", "dom"]
   }
 }
