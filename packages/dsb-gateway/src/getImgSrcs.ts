@@ -29,7 +29,10 @@ const getDocumentUrls = async (page, amountOfDocuments) => {
         sel => document.querySelector(sel).getAttribute("src"),
         IMG_SELECTOR
       );
-      imgSrcs.push(imgSrc);
+      imgSrcs.push({
+        imgSrc,
+        amountOfPages: await getAmountOfSubDocuments(page)
+      });
       await page.click(CLOSE_PREVIEW_SELECTOR);
     } catch (e) {
       return imgSrcs;
@@ -39,8 +42,8 @@ const getDocumentUrls = async (page, amountOfDocuments) => {
   return imgSrcs;
 };
 
-const getAllPreviews = async page => {
+const getImgSrcs = async page => {
   return await getDocumentUrls(page, await getAmountOfDocuments(page));
 };
 
-export { getAllPreviews };
+export { getImgSrcs };
