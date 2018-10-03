@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/neoservice-mockup",
-  "version": "0.0.1-3",
+  "version": "0.0.1-4",
   "description": "A quick Apollo test",
   "main": "src/index.js",
   "scripts": {
