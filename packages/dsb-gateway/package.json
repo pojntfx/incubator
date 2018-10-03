@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx/dsb-gateway",
-  "version": "0.0.1-0",
+  "version": "0.0.1-4",
   "description": "A simple gateway API to the proprietary \"Digitales Schwarzes Brett\" service used in German schools",
   "main": "src/index.ts",
   "scripts": {
@@ -17,5 +17,8 @@
   "dependencies": {
     "@types/node": "^10.11.4",
     "puppeteer": "^1.8.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

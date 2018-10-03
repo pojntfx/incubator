@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/coffeescript-react",
-  "version": "0.0.1-3",
+  "version": "0.0.1-4",
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-runtime": "^6.23.0",
