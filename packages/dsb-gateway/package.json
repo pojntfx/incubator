@@ -1,0 +1,17 @@
+{
+  "name": "@pojntfx/dsb-gateway",
+  "version": "0.0.1-0",
+  "description": "A simple gateway API to the proprietary \"Digitales Schwarzes Brett\" service used in German schools",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "nodemon --exec ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felicitas Pojtinger <felicitas@pojtinger.com>",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "nodemon": "^1.18.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.1"
+  }
+}
