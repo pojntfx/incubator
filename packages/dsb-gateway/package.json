@@ -4,7 +4,7 @@
   "description": "A simple gateway API to the proprietary \"Digitales Schwarzes Brett\" service used in German schools",
   "main": "src/index.ts",
   "scripts": {
-    "start": "mkdir -p output && nodemon --exec ts-node src/index.ts",
+    "start": "mkdir -p output && nodemon --exec ts-node src/start.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Felix Pojtinger <felix@pojtinger.com>",
