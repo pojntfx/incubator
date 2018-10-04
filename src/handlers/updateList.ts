@@ -5,6 +5,7 @@ const updateList = async (req, res, { db, dataFetcher, send }) =>
         .then(({ lastFetchFromDSBDate }) =>
           send(res, 200, { lastFetchFromDSBDate })
         )
+        .error(e => send(res, 400, `Could not fetch latest fetch date: ${e}`))
     : send(res, 200, {
         lastFetchFromDSBDate: db.get("lastFetchFromDSBDate")
       });
