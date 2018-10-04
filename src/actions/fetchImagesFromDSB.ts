@@ -10,7 +10,7 @@ import {
   writeImages
 } from "@pojntfx-incubator/dsb-gateway-core";
 
-const fetchDataFromDSB = async () =>
+const fetchImagesFromDSB = async imagesPath =>
   await init(puppeteer)
     .then(async ({ page, ...rest }) => {
       await login(page, endpoint, username, password);
@@ -24,9 +24,9 @@ const fetchDataFromDSB = async () =>
       };
     })
     .then(async ({ imgSrcs, ...rest }) => {
-      await writeImages(imgSrcs, "static/img/", writeImage);
+      await writeImages(imgSrcs, imagesPath, writeImage);
       return { ...rest };
     })
     .then(async ({ browser }) => await browser.close());
 
-export { fetchDataFromDSB };
+export { fetchImagesFromDSB };
