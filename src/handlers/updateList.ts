@@ -1,5 +1,5 @@
-const updateList = async (req, res, { db, dataFetcher, query, send }) =>
-  query(req).nocache
+const updateList = async (req, res, { db, dataFetcher, send }) =>
+  req.query.nocache
     ? await dataFetcher()
         .then(() => db.update("lastFetchFromDSBDate", new Date()).write())
         .then(({ lastFetchFromDSBDate }) =>

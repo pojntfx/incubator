@@ -1,7 +1,6 @@
 import { send } from "micro";
 import { router, get } from "micro-fork";
 import { fetchImagesFromDSB } from "./actions/fetchImagesFromDSB";
-import * as query from "micro-query";
 import { startDatabase } from "./utils/db";
 import { updateList } from "./handlers/updateList";
 import * as low from "lowdb";
@@ -16,7 +15,6 @@ export default router()(
   get("/info", updateList, {
     db,
     dataFetcher,
-    query,
     send
   })
 );
