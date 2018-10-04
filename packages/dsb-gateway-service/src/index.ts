@@ -10,6 +10,7 @@ import * as FileSync from "lowdb/adapters/FileSync";
 import { endpoint, dsb, imagesPath, dbFilePath } from "./config.json";
 import { getList } from "./handlers/getList";
 import { getInfo } from "./handlers/getInfo";
+import { enableCORS } from "./utils/enableCORS";
 
 const db = startDatabase(dbFilePath, low, FileSync);
 const dataFetcher = () =>
@@ -21,7 +22,8 @@ const fileStatisticsGetter = promisify(stat);
 export default router()(
   get("/info", getInfo, {
     db,
-    send
+    send,
+    enableCORS
   }),
   get("/list", getList, {
     db,
@@ -30,7 +32,8 @@ export default router()(
     endpoint,
     send,
     dirReader,
-    fileStatisticsGetter
+    fileStatisticsGetter,
+    enableCORS
   }),
   get("/img/*", handler, {
     public: "static/"
