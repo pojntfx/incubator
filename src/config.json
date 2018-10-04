@@ -1,4 +1,5 @@
 {
+  "endpoint": "http://localhost:3000",
   "dsb": {
     "endpoint": "https://www.dsbmobile.de/Login.aspx",
     "username": "296501",
