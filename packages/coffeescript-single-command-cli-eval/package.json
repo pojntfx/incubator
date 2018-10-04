@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/coffeescript-cli-eval",
-  "version": "0.0.1-4",
+  "version": "0.0.1-5",
   "description": "A simple CLI to test out whether CoffeeScript is a good choice for CLIs",
   "main": "src/index.coffee",
   "scripts": {
