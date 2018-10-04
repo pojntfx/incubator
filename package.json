@@ -1,0 +1,29 @@
+{
+  "name": "@pojntfx/dsb-gateway-service",
+  "version": "0.0.1-0",
+  "description": "A simple gateway microservice to the proprietary \"Digitales Schwarzes Brett\" service used in German schools. Uses @pojntfx-incubator/dsb-gateway-core to get the data.",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "npm run build & micro-dev dist/index.js",
+    "build": "tsc -w",
+    "start": "micro dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Felix Pojtinger <felix@pojtinger.com>",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "micro-dev": "^3.0.0",
+    "nodemon": "^1.18.4",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@pojntfx-incubator/dsb-gateway-core": "0.0.1-5",
+    "micro": "^9.3.3",
+    "@types/micro": "^7.3.2",
+    "@types/node": "^10.11.4"
+  }
+}
