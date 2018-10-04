@@ -6,6 +6,7 @@ const getList = async (
   {
     db,
     dataFetcher,
+    authenticator,
     imagesPath,
     endpoint,
     send,
@@ -16,32 +17,42 @@ const getList = async (
 ) =>
   enableCORS(res).then(
     async () =>
-      req.query.nocache
-        ? await dataFetcher()
-            .then(() => db.update("lastFetchFromDSBDate", new Date()).write())
-            .then(
-              async () =>
-                await getImageNames(
-                  imagesPath,
-                  endpoint,
-                  dirReader,
-                  fileStatisticsGetter
+      req.query.username && req.query.password
+        ? authenticator(endpoint, req.query.username, req.query.password)
+          ? req.query.nocache
+            ? await dataFetcher(req.query.username, req.query.password)
+                .then(() =>
+                  db.update("lastFetchFromDSBDate", new Date()).write()
                 )
-            )
-            .then(fileNamesWithStatistics =>
-              send(res, 200, fileNamesWithStatistics)
-            )
-            .catch(e => send(res, 400, `Could not get list of images: ${e}`))
-        : await getImageNames(
-            imagesPath,
-            endpoint,
-            dirReader,
-            fileStatisticsGetter
-          )
-            .then(fileNamesWithStatistics =>
-              send(res, 200, fileNamesWithStatistics)
-            )
-            .catch(e => send(res, 400, `Could not get list of images: ${e}`))
+                .then(
+                  async () =>
+                    await getImageNames(
+                      imagesPath,
+                      endpoint,
+                      dirReader,
+                      fileStatisticsGetter
+                    )
+                )
+                .then(fileNamesWithStatistics =>
+                  send(res, 200, fileNamesWithStatistics)
+                )
+                .catch(e =>
+                  send(res, 400, `Could not get list of images: ${e}`)
+                )
+            : await getImageNames(
+                imagesPath,
+                endpoint,
+                dirReader,
+                fileStatisticsGetter
+              )
+                .then(fileNamesWithStatistics =>
+                  send(res, 200, fileNamesWithStatistics)
+                )
+                .catch(e =>
+                  send(res, 400, `Could not get list of images: ${e}`)
+                )
+          : send(res, 403, "Wrong credentials")
+        : send(res, 403, "Missing credentials!")
   );
 
 export { getList };

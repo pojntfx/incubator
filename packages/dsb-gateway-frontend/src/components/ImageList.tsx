@@ -5,7 +5,13 @@ import { ImageCard } from "./ImageCard";
 const ImageList = ({ images }) => (
   <CardColumns>
     {images.map(({ src, alt, lastUpdate }, index) => (
-      <ImageCard alt={alt} src={src} lastUpdate={lastUpdate} key={index} />
+      <ImageCard
+        wait={1200} // Let the server respond
+        alt={alt}
+        src={src}
+        lastUpdate={lastUpdate}
+        key={index}
+      />
     ))}
   </CardColumns>
 );
