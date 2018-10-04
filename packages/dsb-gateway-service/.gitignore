@@ -2,3 +2,5 @@ node_modules/
 dist/
 # Fetched data
 static/
+# JSON database
+data/
