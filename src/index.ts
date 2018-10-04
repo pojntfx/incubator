@@ -6,6 +6,7 @@ import { updateList } from "./handlers/updateList";
 import * as low from "lowdb";
 import * as FileSync from "lowdb/adapters/FileSync";
 import { dsb, imagesPath, dbFilePath } from "./config.json";
+import { getList } from "./handlers/getList";
 
 const db = startDatabase(dbFilePath, low, FileSync);
 const dataFetcher = () =>
@@ -15,6 +16,10 @@ export default router()(
   get("/info", updateList, {
     db,
     dataFetcher,
+    send
+  }),
+  get("/list", getList, {
+    imagesPath,
     send
   })
 );
