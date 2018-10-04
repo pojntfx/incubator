@@ -1,13 +1,15 @@
 import * as React from "react";
 import { Card } from "react-bootstrap";
 
-const ImageCard = ({ src, lastUpdate }) => (
+const ImageCard = ({ src, alt, lastUpdate }) => (
   <a href={src}>
-    <Card className="bg-primary text-white">
-      <Card.Img src={src} alt="Card image" />
-      <Card.ImgOverlay>
-        <Card.Text>Last updated {lastUpdate}</Card.Text>
-      </Card.ImgOverlay>
+    <Card>
+      <Card.Img variant="top" src={src} alt={alt} />
+      <Card.Footer>
+        <small className="text-muted">
+          Last updated {new Date(lastUpdate).toLocaleString()}
+        </small>
+      </Card.Footer>
     </Card>
   </a>
 );
