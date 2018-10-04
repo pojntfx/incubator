@@ -4,7 +4,7 @@ import "./scss/main.scss";
 import { App } from "./components/App";
 
 render(
-  <App endpoint="http://localhost:3000/list?nocache=true&username=296501&password=vplan2018" />,
+  <App endpoint="http://localhost:3000/list?username=296501&password=vplan2018" />,
   document.getElementById("root")
 );
 

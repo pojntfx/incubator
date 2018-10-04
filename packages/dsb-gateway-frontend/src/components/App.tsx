@@ -20,7 +20,7 @@ const App = ({ endpoint }) => (
           {loading && (
             <Alert variant="info">
               <b>Loading ...</b> <br />
-              DSB gateway API endpoint: {endpoint}
+              DSB Gateway API Endpoint: <a href={endpoint}>{endpoint}</a>
             </Alert>
           )}
           {error && (
