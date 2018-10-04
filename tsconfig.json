@@ -4,6 +4,6 @@
     "module": "commonjs",
     "outDir": "dist/",
     "resolveJsonModule": true,
-    "lib": ["esnext"]
+    "lib": ["esnext", "dom"]
   }
 }
