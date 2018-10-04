@@ -1,20 +1,39 @@
 import * as React from "react";
-import { Container, Card, CardColumns } from "react-bootstrap";
+import { Container, Alert } from "react-bootstrap";
+import Fetch from "react-fetch-component";
 import { Navbar } from "./Navbar";
 import { ImageList } from "./ImageList";
 
-const images = [
-  {
-    src:
-      "https://images.unsplash.com/photo-1538593315427-b14435fc9d3c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3058532fd7e4f7ef35b4c159890cf82e&auto=format&fit=crop&w=400&h=400",
-    lastUpdate: "3 mins ago"
-  }
-];
+const transformToImageList = rawList =>
+  rawList.map(({ url, fileName, lastUpdate }) => ({
+    src: url,
+    alt: fileName,
+    lastUpdate
+  }));
 
-const App = () => (
+const App = ({ endpoint }) => (
   <Container>
     <Navbar />
-    <ImageList images={images} />
+    <Fetch url={endpoint}>
+      {({ loading, error, data }) => (
+        <div>
+          {loading && (
+            <Alert variant="info">
+              <b>Loading ...</b> <br />
+              DSB gateway API endpoint: {endpoint}
+            </Alert>
+          )}
+          {error && (
+            <Alert variant="danger">
+              <b>Oh no, an error occured!</b> Report this to{" "}
+              <a href="https://www.twitter.com/@pojntfx">Felicitas Pojtinger</a> :
+              <br /> {error.toString()}
+            </Alert>
+          )}
+          {data && <ImageList images={transformToImageList(data)} />}
+        </div>
+      )}
+    </Fetch>
   </Container>
 );
 
