@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/complex-schema-microservice-mockup",
-  "version": "0.0.1-4",
+  "version": "0.0.1-5",
   "description": "A test of how to implement a complex schema in GraphQL by developing as a monoplatform",
   "main": "index.js",
   "scripts": {

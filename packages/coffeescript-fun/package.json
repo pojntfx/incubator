@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/coffeescript-fun",
-  "version": "0.0.1-4",
+  "version": "0.0.1-5",
   "description": "Trying out CoffeeScript",
   "main": "src/index.js",
   "scripts": {

@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/node-gtk-learning",
-  "version": "0.0.1-4",
+  "version": "0.0.1-5",
   "description": "Trying out node-gtk",
   "main": "src/index.js",
   "scripts": {
