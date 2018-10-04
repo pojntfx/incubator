@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "outDir": "dist/",
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "lib": ["esnext", "dom"]
+  }
+}
