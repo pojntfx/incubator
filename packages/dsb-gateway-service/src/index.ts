@@ -8,7 +8,7 @@ import { fetchImagesFromDSB } from "./actions/fetchImagesFromDSB";
 import { startDatabase } from "./utils/db";
 import { updateList } from "./handlers/updateList";
 import * as FileSync from "lowdb/adapters/FileSync";
-import { dsb, imagesPath, dbFilePath } from "./config.json";
+import { endpoint, dsb, imagesPath, dbFilePath } from "./config.json";
 import { getList } from "./handlers/getList";
 
 const db = startDatabase(dbFilePath, low, FileSync);
@@ -26,6 +26,7 @@ export default router()(
   }),
   get("/list", getList, {
     imagesPath,
+    endpoint,
     send,
     dirReader,
     fileStatisticsGetter
