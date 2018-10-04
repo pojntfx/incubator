@@ -4,9 +4,11 @@
   "description": "A simple gateway microservice to the proprietary \"Digitales Schwarzes Brett\" service used in German schools. Uses @pojntfx-incubator/dsb-gateway-core to get the data.",
   "main": "src/index.ts",
   "scripts": {
-    "dev": "npm run build & micro-dev dist/index.js",
-    "build": "tsc -w",
-    "start": "micro dist/index.js",
+    "dev": "mkdir -p static/img && npm run build & micro-dev dist/index.js --watch dist/",
+    "build:watch": "tsc -w",
+    "build": "tsc",
+    "start": "mkdir -p static/img && micro dist/index.js",
+    "preinstall": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Felix Pojtinger <felix@pojtinger.com>",
