@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/vuepress-test",
-  "version": "0.0.1-5",
+  "version": "0.0.1-6",
   "description": "A quick test to evaluate vuepress",
   "main": "README.md",
   "scripts": {
