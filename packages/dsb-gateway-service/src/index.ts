@@ -1,4 +1,5 @@
 import { send } from "micro";
+import * as handler from "serve-handler";
 import { router, get } from "micro-fork";
 import { readdir, stat } from "fs";
 import { promisify } from "util";
@@ -28,5 +29,8 @@ export default router()(
     send,
     dirReader,
     fileStatisticsGetter
+  }),
+  get("/img/*", handler, {
+    public: "static/"
   })
 );
