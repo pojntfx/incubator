@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/mary-learning",
-  "version": "0.0.1-6",
+  "version": "0.0.1-7",
   "description": "A basic JavaScript introduction",
   "main": "index.js",
   "scripts": {
