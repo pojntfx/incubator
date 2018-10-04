@@ -1,4 +1,9 @@
 {
+  "dsb": {
+    "endpoint": "https://www.dsbmobile.de/Login.aspx",
+    "username": "296501",
+    "password": "vplan2018"
+  },
   "imagesPath": "static/img/",
   "dbFilePath": "data/db.json"
 }
