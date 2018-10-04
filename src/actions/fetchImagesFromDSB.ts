@@ -2,15 +2,12 @@ import {
   puppeteer,
   init,
   login,
-  endpoint,
-  username,
-  password,
   getImgSrcs,
   writeImage,
   writeImages
 } from "@pojntfx-incubator/dsb-gateway-core";
 
-const fetchImagesFromDSB = async imagesPath =>
+const fetchImagesFromDSB = async (endpoint, username, password, imagesPath) =>
   await init(puppeteer)
     .then(async ({ page, ...rest }) => {
       await login(page, endpoint, username, password);
