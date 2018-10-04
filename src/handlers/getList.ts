@@ -10,29 +10,38 @@ const getList = async (
     endpoint,
     send,
     dirReader,
-    fileStatisticsGetter
+    fileStatisticsGetter,
+    enableCORS
   }
 ) =>
-  req.query.nocache
-    ? await dataFetcher()
-        .then(() => db.update("lastFetchFromDSBDate", new Date()).write())
-        .then(
-          async () =>
-            await getImageNames(
-              imagesPath,
-              endpoint,
-              dirReader,
-              fileStatisticsGetter
+  enableCORS(res).then(
+    async () =>
+      req.query.nocache
+        ? await dataFetcher()
+            .then(() => db.update("lastFetchFromDSBDate", new Date()).write())
+            .then(
+              async () =>
+                await getImageNames(
+                  imagesPath,
+                  endpoint,
+                  dirReader,
+                  fileStatisticsGetter
+                )
             )
-        )
-        .then(fileNamesWithStatistics =>
-          send(res, 200, fileNamesWithStatistics)
-        )
-        .catch(e => send(res, 400, `Could not get list of images: ${e}`))
-    : await getImageNames(imagesPath, endpoint, dirReader, fileStatisticsGetter)
-        .then(fileNamesWithStatistics =>
-          send(res, 200, fileNamesWithStatistics)
-        )
-        .catch(e => send(res, 400, `Could not get list of images: ${e}`));
+            .then(fileNamesWithStatistics =>
+              send(res, 200, fileNamesWithStatistics)
+            )
+            .catch(e => send(res, 400, `Could not get list of images: ${e}`))
+        : await getImageNames(
+            imagesPath,
+            endpoint,
+            dirReader,
+            fileStatisticsGetter
+          )
+            .then(fileNamesWithStatistics =>
+              send(res, 200, fileNamesWithStatistics)
+            )
+            .catch(e => send(res, 400, `Could not get list of images: ${e}`))
+  );
 
 export { getList };
