@@ -4,7 +4,7 @@
   "description": "A simple gateway microservice to the proprietary \"Digitales Schwarzes Brett\" service used in German schools. Uses @pojntfx-incubator/dsb-gateway-core to get the data.",
   "main": "src/json-server.ts",
   "scripts": {
-    "dev": "mkdir -p data/ && touch data/db.json && mkdir -p static/img && npm run build:watch & micro-dev --listen tcp://localhost:3000 dist/json-server.js --watch dist/ & micro-dev --listen tcp://localhost:4000 dist/static-server.js --watch dist/",
+    "dev": "mkdir -p data/ && touch data/db.json && mkdir -p static/img && npm run build:watch & micro-dev --port 3000 dist/json-server.js --watch dist/ & micro-dev --port 4000 dist/static-server.js --watch dist/",
     "build:watch": "tsc -w",
     "build": "tsc",
     "start": "mkdir -p data/ && touch data/db.json && mkdir -p static/img & micro --listen tcp://localhost:3000 dist/json-server.js & micro --listen tcp://localhost:4000 dist/static-server.js",
