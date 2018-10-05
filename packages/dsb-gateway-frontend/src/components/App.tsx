@@ -6,7 +6,7 @@ import { Navbar } from "./Navbar";
 import { ImageList } from "./ImageList";
 import low from "lowdb";
 import { Error } from "./Error";
-import { Warning } from "./Warning";
+import { Loading } from "./Loading";
 import { Settings } from "./Settings";
 import { endpointTransformer } from "../transformers/endpoint.transformer";
 import { imageListTransformer } from "../transformers/imageList.transformer";
@@ -14,6 +14,7 @@ import { writeToDBHelper } from "../helpers/writeToDB.helper";
 import { writeMultipleToDBHelper } from "../helpers/writeMultipleToDB.helper";
 import { getAllFromDBHelper } from "../helpers/getAllFromDB.helper";
 import { getFromDBHelper } from "../helpers/getFromDB.helper";
+import { ImageCard } from "./ImageCard";
 
 interface IAppProps {
   db: low;
@@ -102,7 +103,7 @@ class App extends Component<IAppProps> {
           <Fetch url={endpoint}>
             {({ loading, error, data }) => (
               <>
-                {loading && <Warning endpoint={endpoint} />}
+                {loading && <Loading endpoint={endpoint} />}
                 {error && (
                   <Error
                     message="Oh no, an error occured!"
@@ -111,7 +112,20 @@ class App extends Component<IAppProps> {
                     error={error}
                   />
                 )}
-                {data && <ImageList images={imageListTransformer(data)} />}
+                {data && (
+                  <ImageList images={imageListTransformer(data)}>
+                    {({ alt, src, lastUpdate, index }) => (
+                      <ImageCard
+                        wait={1200} // Let the server respond
+                        alt={alt}
+                        src={src}
+                        lastUpdate={lastUpdate}
+                        loading={() => <Loading endpoint={endpoint} lite />}
+                        key={index}
+                      />
+                    )}
+                  </ImageList>
+                )}
               </>
             )}
           </Fetch>
