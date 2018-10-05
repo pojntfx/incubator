@@ -1,5 +1,5 @@
 {
-  "staticEndpoint": "http://localhost:4000",
+  "staticEndpoint": "https://dsb-gateway-api.now.sh:4000",
   "dsb": {
     "endpoint": "https://www.dsbmobile.de/Login.aspx"
   },
