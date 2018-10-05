@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component } from "react";
-import { Form, Button, Collapse, Modal } from "react-bootstrap";
+import { Form, Button, Collapse, Modal, Row, Col } from "react-bootstrap";
 
 interface ISettings {
   isOpen: boolean;
@@ -48,14 +48,15 @@ class Settings extends Component<ISettings> {
             <Button
               variant="outline-primary"
               onClick={this.toggleAdvancedSettings}
+              active={this.state.advancedSettings}
             >
               {this.state.advancedSettings
                 ? "Hide advanced settings"
                 : "Show advanced settings"}
             </Button>
             <Collapse in={this.state.advancedSettings}>
-              <div>
-                <Form.Group controlId="formDSBGatewayListEndpoint" className="mt-3">
+              <div className="mt-3">
+                <Form.Group controlId="formDSBGatewayListEndpoint">
                   <Form.Label>DSB Gateway's List Endpoint</Form.Label>
                   <Form.Control
                     type="text"
@@ -90,6 +91,26 @@ class Settings extends Component<ISettings> {
                 </Form.Group>
               </div>
             </Collapse>
+            <Row className="mt-3">
+              <Col sm={12} lg="auto" className="mb-3 mb-lg-0">
+                <Button
+                  variant="success"
+                  size="block"
+                  onClick={this.props.onHide}
+                >
+                  Save changes to settings
+                </Button>
+              </Col>
+              <Col sm={12} lg="auto">
+                <Button
+                  variant="danger"
+                  size="block"
+                  onClick={this.props.onHide}
+                >
+                  Discard changes to settings
+                </Button>
+              </Col>
+            </Row>
           </Form>
         </Modal.Body>
       </Modal>
