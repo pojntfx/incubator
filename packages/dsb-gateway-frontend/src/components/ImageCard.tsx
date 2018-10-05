@@ -12,16 +12,15 @@ interface IImageCardProps {
 class ImageCard extends Component<IImageCardProps> {
   state = { visible: false };
 
-  componentDidMount() {
+  componentDidMount = () =>
     setTimeout(() => {
       this.show();
     }, this.props.wait);
-  }
 
   show = () => this.setState({ visible: true });
 
-  render() {
-    return this.state.visible ? (
+  render = () =>
+    this.state.visible ? (
       <a href={this.props.src}>
         <Card>
           <Card.Img variant="top" src={this.props.src} alt={this.props.alt} />
@@ -35,7 +34,6 @@ class ImageCard extends Component<IImageCardProps> {
     ) : (
       false
     );
-  }
 }
 
 export { ImageCard };
