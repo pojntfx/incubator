@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/dsb-gateway-service",
-  "version": "0.0.1-7",
+  "version": "0.0.1-8",
   "description": "A simple gateway microservice to the proprietary \"Digitales Schwarzes Brett\" service used in German schools. Uses @pojntfx-incubator/dsb-gateway-core to get the data.",
   "main": "src/json-server.ts",
   "scripts": {
@@ -24,7 +24,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@pojntfx-incubator/dsb-gateway-core": "^0.0.1-7",
+    "@pojntfx-incubator/dsb-gateway-core": "^0.0.1-8",
     "@types/micro": "^7.3.2",
     "@types/node": "^10.11.4",
     "lowdb": "^1.0.0",

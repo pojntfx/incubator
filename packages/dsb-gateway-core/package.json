@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/dsb-gateway-core",
-  "version": "0.0.1-7",
+  "version": "0.0.1-8",
   "description": "A simple gateway library to the proprietary \"Digitales Schwarzes Brett\" service used in German schools",
   "main": "dist/index.js",
   "scripts": {
