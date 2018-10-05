@@ -8,7 +8,7 @@ const getList = async (
     dataFetcher,
     authenticator,
     imagesPath,
-    endpoint,
+    staticEndpoint,
     send,
     dirReader,
     fileStatisticsGetter,
@@ -17,10 +17,18 @@ const getList = async (
 ) =>
   enableCORS(res).then(
     async () =>
-      req.query.username && req.query.password
-        ? authenticator(endpoint, req.query.username, req.query.password)
+      req.query.endpoint && req.query.username && req.query.password
+        ? authenticator(
+            req.query.endpoint,
+            req.query.username,
+            req.query.password
+          )
           ? req.query.nocache
-            ? await dataFetcher(req.query.username, req.query.password)
+            ? await dataFetcher(
+                req.query.endpoint,
+                req.query.username,
+                req.query.password
+              )
                 .then(() =>
                   db.update("lastFetchFromDSBDate", new Date()).write()
                 )
@@ -28,7 +36,7 @@ const getList = async (
                   async () =>
                     await getImageNames(
                       imagesPath,
-                      endpoint,
+                      staticEndpoint,
                       dirReader,
                       fileStatisticsGetter
                     )
@@ -41,7 +49,7 @@ const getList = async (
                 )
             : await getImageNames(
                 imagesPath,
-                endpoint,
+                staticEndpoint,
                 dirReader,
                 fileStatisticsGetter
               )

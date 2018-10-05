@@ -6,15 +6,15 @@ import * as low from "lowdb";
 import { fetchImagesFromDSB } from "./actions/fetchImagesFromDSB";
 import { startDatabase } from "./utils/db";
 import * as FileSync from "lowdb/adapters/FileSync";
-import { staticEndpoint, dsb, imagesPath, dbFilePath } from "./config.json";
+import { staticEndpoint, imagesPath, dbFilePath } from "./config.json";
 import { getList } from "./handlers/getList";
 import { getInfo } from "./handlers/getInfo";
 import { enableCORS } from "./utils/enableCORS";
 import { isLoggedIn } from "./actions/isLoggedIn";
 
 const db = startDatabase(dbFilePath, low, FileSync);
-const dataFetcher = (username, password) =>
-  fetchImagesFromDSB(dsb.endpoint, username, password, imagesPath);
+const dataFetcher = (endpoint, username, password) =>
+  fetchImagesFromDSB(endpoint, username, password, imagesPath);
 const authenticator = (endpoint, username, password) =>
   isLoggedIn(endpoint, username, password);
 
@@ -32,7 +32,7 @@ export default router()(
     dataFetcher,
     authenticator,
     imagesPath,
-    endpoint: staticEndpoint,
+    staticEndpoint,
     send,
     dirReader,
     fileStatisticsGetter,
