@@ -3,7 +3,6 @@ import { Container, Alert } from "react-bootstrap";
 import Fetch from "react-fetch-component";
 import { Navbar } from "./Navbar";
 import { ImageList } from "./ImageList";
-import { Settings } from "./Settings";
 
 const transformToImageList = rawList =>
   rawList.map(({ url, fileName, lastUpdate }) => ({
@@ -15,7 +14,6 @@ const transformToImageList = rawList =>
 const App = ({ endpoint }) => (
   <Container>
     <Navbar />
-    <Settings />
     <Fetch url={endpoint}>
       {({ loading, error, data }) => (
         <div>
