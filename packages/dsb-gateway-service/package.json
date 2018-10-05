@@ -8,7 +8,7 @@
     "build:watch": "tsc -w",
     "build": "tsc",
     "start": "mkdir -p data/ && touch data/db.json && mkdir -p static/img & micro --listen tcp://localhost:3000 dist/json-server.js & micro --listen tcp://localhost:4000 dist/static-server.js",
-    "preinstall": "npm run build",
+    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Felix Pojtinger <felix@pojtinger.com>",
