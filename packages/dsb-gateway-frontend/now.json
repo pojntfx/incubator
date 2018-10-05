@@ -1,6 +1,0 @@
-{
-  "alias": "dsb-gateway.now.sh",
-  "engines": {
-    "node": "^10"
-  }
-}
