@@ -8,26 +8,13 @@ import low from "lowdb";
 import { Error } from "./Error";
 import { Warning } from "./Warning";
 import { Settings } from "./Settings";
-
-const transformToImageList = rawList =>
-  rawList.map(({ url, fileName, lastUpdate }) => ({
-    src: url,
-    alt: fileName,
-    lastUpdate
-  }));
+import { endpointTransformer } from "../transformers/endpoint.transformer";
+import { imageListTransformer } from "../transformers/imageList.transformer";
+import { writeToDBHelper } from "../helpers/writeToDB.helper";
 
 interface IApp {
   db: low;
 }
-
-const getEndpoint = (
-  listEndpoint,
-  dsbEndpoint,
-  staticEndpoint,
-  username,
-  password
-) =>
-  `${listEndpoint}?endpoint=${dsbEndpoint}&staticendpoint=${staticEndpoint}&username=${username}&password=${password}`;
 
 class App extends Component<IApp> {
   state = {
@@ -49,12 +36,12 @@ class App extends Component<IApp> {
     });
   }
 
-  toggleSettings = () => {
-    this.props.db.set("settingsAreOpen", false).write();
-    this.setState({
-      settingsAreOpen: !this.state.settingsAreOpen
-    });
-  };
+  toggleSettings = () =>
+    writeToDBHelper("settingsAreOpen", false, this.props.db).then(() =>
+      this.setState({
+        settingsAreOpen: !this.state.settingsAreOpen
+      })
+    );
 
   handleSave = data => {
     this.setState({
@@ -69,7 +56,7 @@ class App extends Component<IApp> {
   };
 
   render() {
-    const endpoint = getEndpoint(
+    const endpoint = endpointTransformer(
       this.state.data.listEndpoint,
       this.state.data.dsbEndpoint,
       this.state.data.staticEndpoint,
@@ -110,7 +97,7 @@ class App extends Component<IApp> {
                     error={error}
                   />
                 )}
-                {data && <ImageList images={transformToImageList(data)} />}
+                {data && <ImageList images={imageListTransformer(data)} />}
               </>
             )}
           </Fetch>
