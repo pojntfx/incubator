@@ -5,6 +5,8 @@ import Fetch from "react-fetch-component";
 import { Navbar } from "./Navbar";
 import { ImageList } from "./ImageList";
 import low from "lowdb";
+import { Error } from "./Error";
+import { Warning } from "./Warning";
 
 const transformToImageList = rawList =>
   rawList.map(({ url, fileName, lastUpdate }) => ({
@@ -110,25 +112,18 @@ class App extends Component<IApp> {
         {this.state.settingsAreOpen ? null : (
           <Fetch url={endpoint}>
             {({ loading, error, data }) => (
-              <div>
-                {loading && (
-                  <Alert variant="info">
-                    <b>Loading ...</b> <br />
-                    DSB Gateway API Endpoint:{" "}
-                    <a href={this.state.endpoint}>{this.state.endpoint}</a>
-                  </Alert>
-                )}
+              <>
+                {loading && <Warning endpoint={endpoint} />}
                 {error && (
-                  <Alert variant="danger">
-                    <b>Oh no, an error occured!</b> Report this to{" "}
-                    <a href="https://www.twitter.com/@pojntfx">
-                      Felix Pojtinger
-                    </a>{" "}
-                    :<br /> {error.toString()}
-                  </Alert>
+                  <Error
+                    message="Oh no, an error occured!"
+                    supportLink="https://www.twitter.com/@pojntfx"
+                    supportPerson="Felix Pojtinger"
+                    error={error}
+                  />
                 )}
                 {data && <ImageList images={transformToImageList(data)} />}
-              </div>
+              </>
             )}
           </Fetch>
         )}
