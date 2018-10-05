@@ -10,25 +10,26 @@ const NavbarWrapper = styled.div`
   align-items: center;
 `;
 
-class Navbar extends Component {
-  state = {
-    settingsIsOpen: false
-  };
+interface INavbar {
+  settingsIsOpen: boolean;
+  onToggleSettings: any;
+}
 
-  toggleSettings = () =>
-    this.setState({
-      settingsIsOpen: !this.state.settingsIsOpen
-    });
-
+class Navbar extends Component<INavbar> {
   render() {
     return (
       <NavbarWrapper className="my-3">
-        <Button active={this.state.settingsIsOpen} onClick={this.toggleSettings} variant="outline-primary" className="mr-auto">
+        <Button
+          active={this.props.settingsIsOpen}
+          onClick={this.props.onToggleSettings}
+          variant="outline-primary"
+          className="mr-auto"
+        >
           Settings
         </Button>
         <Settings
-          isOpen={this.state.settingsIsOpen}
-          onHide={this.toggleSettings}
+          isOpen={this.props.settingsIsOpen}
+          onHide={this.props.onToggleSettings}
         />
         <Button variant="outline-primary" className="ml-auto">
           Logout
