@@ -11,8 +11,10 @@ const NavbarWrapper = styled.div`
 `;
 
 interface INavbar {
+  data: any;
   settingsIsOpen: boolean;
   onToggleSettings: any;
+  onSettingsSave: any;
 }
 
 class Navbar extends Component<INavbar> {
@@ -28,8 +30,10 @@ class Navbar extends Component<INavbar> {
           Settings
         </Button>
         <Settings
+          data={this.props.data}
           isOpen={this.props.settingsIsOpen}
           onHide={this.props.onToggleSettings}
+          onSave={this.props.onSettingsSave}
         />
         <Button variant="outline-primary" className="ml-auto">
           Logout

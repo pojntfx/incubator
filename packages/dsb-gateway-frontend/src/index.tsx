@@ -10,11 +10,12 @@ const db = low(adapter);
 
 db.defaults({
   settingsAreOpen: true,
-  username: "",
-  password: "",
+  username: "296501",
+  password: "vplan2018",
   listEndpoint: "http://localhost:3000/list",
   staticEndpoint: "http://localhost:4000",
-  dsbEndpoint: "https://www.dsbmobile.de/Login.aspx"
+  dsbEndpoint: "https://www.dsbmobile.de/Login.aspx",
+  endpoint: undefined
 }).write();
 
 render(<App db={db} />, document.getElementById("root"));
