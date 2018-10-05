@@ -11,7 +11,7 @@ const NavbarWrapper = styled.div`
 const Navbar = () => (
   <NavbarWrapper className="my-3">
     <Button variant="outline-primary" className="mr-auto">
-      Reload
+      Settings
     </Button>
     <Button variant="outline-primary" className="ml-auto">
       Logout
