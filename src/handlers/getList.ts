@@ -8,7 +8,6 @@ const getList = async (
     dataFetcher,
     authenticator,
     imagesPath,
-    staticEndpoint,
     send,
     dirReader,
     fileStatisticsGetter,
@@ -17,7 +16,10 @@ const getList = async (
 ) =>
   enableCORS(res).then(
     async () =>
-      req.query.endpoint && req.query.username && req.query.password
+      req.query.endpoint &&
+      req.query.staticendpoint &&
+      req.query.username &&
+      req.query.password
         ? authenticator(
             req.query.endpoint,
             req.query.username,
@@ -36,7 +38,7 @@ const getList = async (
                   async () =>
                     await getImageNames(
                       imagesPath,
-                      staticEndpoint,
+                      req.query.staticendpoint,
                       dirReader,
                       fileStatisticsGetter
                     )
@@ -49,7 +51,7 @@ const getList = async (
                 )
             : await getImageNames(
                 imagesPath,
-                staticEndpoint,
+                req.query.staticendpoint,
                 dirReader,
                 fileStatisticsGetter
               )
