@@ -6,7 +6,7 @@ import * as low from "lowdb";
 import { fetchImagesFromDSB } from "./actions/fetchImagesFromDSB";
 import { startDatabase } from "./utils/db";
 import * as FileSync from "lowdb/adapters/FileSync";
-import { staticEndpoint, imagesPath, dbFilePath } from "./config.json";
+import { imagesPath, dbFilePath } from "./config.json";
 import { getList } from "./handlers/getList";
 import { getInfo } from "./handlers/getInfo";
 import { enableCORS } from "./utils/enableCORS";
@@ -32,7 +32,6 @@ export default router()(
     dataFetcher,
     authenticator,
     imagesPath,
-    staticEndpoint,
     send,
     dirReader,
     fileStatisticsGetter,
