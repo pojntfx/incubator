@@ -1,12 +1,13 @@
 import * as React from "react";
 import { Component } from "react";
-import { Container, Alert } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import Fetch from "react-fetch-component";
 import { Navbar } from "./Navbar";
 import { ImageList } from "./ImageList";
 import low from "lowdb";
 import { Error } from "./Error";
 import { Warning } from "./Warning";
+import { Settings } from "./Settings";
 
 const transformToImageList = rawList =>
   rawList.map(({ url, fileName, lastUpdate }) => ({
@@ -31,7 +32,6 @@ const getEndpoint = (
 class App extends Component<IApp> {
   state = {
     settingsAreOpen: true,
-    endpoint: "",
     data: {
       settingsAreOpen: "",
       username: "",
@@ -43,33 +43,9 @@ class App extends Component<IApp> {
   };
 
   componentDidMount() {
-    const {
-      settingsAreOpen,
-      username,
-      password,
-      listEndpoint,
-      staticEndpoint,
-      dsbEndpoint
-    } = this.props.db.read().__wrapped__;
     this.setState({
-      settingsAreOpen,
-      endpoint:
-        this.props.db.read().__wrapped__.endpoint ||
-        getEndpoint(
-          listEndpoint,
-          dsbEndpoint,
-          staticEndpoint,
-          username,
-          password
-        ),
-      data: {
-        settingsAreOpen,
-        username,
-        password,
-        listEndpoint,
-        staticEndpoint,
-        dsbEndpoint
-      }
+      settingsAreOpen: this.props.db.read().__wrapped__.settingsAreOpen,
+      data: this.props.db.read().__wrapped__
     });
   }
 
@@ -80,7 +56,7 @@ class App extends Component<IApp> {
     });
   };
 
-  handleSettingsSave = data => {
+  handleSave = data => {
     this.setState({
       data
     });
@@ -101,15 +77,27 @@ class App extends Component<IApp> {
       this.state.data.password
     );
 
+    const { settingsAreOpen, data } = this.state;
+
     return (
       <Container>
-        <Navbar
-          data={this.state.data}
-          settingsIsOpen={this.state.settingsAreOpen}
-          onToggleSettings={this.toggleSettings}
-          onSettingsSave={this.handleSettingsSave}
-        />
-        {this.state.settingsAreOpen ? null : (
+        <Navbar>
+          <Button
+            active={settingsAreOpen}
+            onClick={this.toggleSettings}
+            variant="outline-primary"
+            className="mr-auto"
+          >
+            Settings
+          </Button>
+          <Settings
+            data={data}
+            areOpen={settingsAreOpen}
+            onHide={this.toggleSettings}
+            onSave={this.handleSave}
+          />
+        </Navbar>
+        {settingsAreOpen ? null : (
           <Fetch url={endpoint}>
             {({ loading, error, data }) => (
               <>
