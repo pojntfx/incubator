@@ -4,7 +4,7 @@ import { Form, Button, Collapse, Modal, Row, Col } from "react-bootstrap";
 
 interface ISettings {
   data: any;
-  isOpen: boolean;
+  areOpen: boolean;
   onHide: any;
   onSave: any;
 }
@@ -64,7 +64,7 @@ class Settings extends Component<ISettings> {
   render() {
     return (
       <Modal
-        show={this.props.isOpen}
+        show={this.props.areOpen}
         onHide={this.props.onHide}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
