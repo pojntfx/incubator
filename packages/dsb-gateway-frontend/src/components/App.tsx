@@ -11,12 +11,15 @@ import { Settings } from "./Settings";
 import { endpointTransformer } from "../transformers/endpoint.transformer";
 import { imageListTransformer } from "../transformers/imageList.transformer";
 import { writeToDBHelper } from "../helpers/writeToDB.helper";
+import { writeMultipleToDBHelper } from "../helpers/writeMultipleToDB.helper";
+import { getAllFromDBHelper } from "../helpers/getAllFromDB.helper";
+import { getFromDBHelper } from "../helpers/getFromDB.helper";
 
-interface IApp {
+interface IAppProps {
   db: low;
 }
 
-class App extends Component<IApp> {
+class App extends Component<IAppProps> {
   state = {
     settingsAreOpen: true,
     data: {
@@ -29,12 +32,18 @@ class App extends Component<IApp> {
     }
   };
 
-  componentDidMount() {
-    this.setState({
-      settingsAreOpen: this.props.db.read().__wrapped__.settingsAreOpen,
-      data: this.props.db.read().__wrapped__
-    });
-  }
+  componentDidMount = async () =>
+    getAllFromDBHelper(this.props.db)
+      .then(data => ({
+        data,
+        settingsAreOpen: getFromDBHelper("settingsAreOpen", this.props.db)
+      }))
+      .then(({ data, settingsAreOpen }) =>
+        this.setState({
+          data,
+          settingsAreOpen
+        })
+      );
 
   toggleSettings = () =>
     writeToDBHelper("settingsAreOpen", false, this.props.db).then(() =>
@@ -43,19 +52,24 @@ class App extends Component<IApp> {
       })
     );
 
-  handleSave = data => {
-    this.setState({
-      data
-    });
-    this.props.db.set("endpoint", data.endpoint).write();
-    this.props.db.set("listEndpoint", data.listEndpoint).write();
-    this.props.db.set("dsbEndpoint", data.dsbEndpoint).write();
-    this.props.db.set("staticEndpoint", data.staticEndpoint).write();
-    this.props.db.set("username", data.username).write();
-    this.props.db.set("password", data.password).write();
-  };
+  handleSave = data =>
+    writeMultipleToDBHelper(
+      [
+        ["endpoint", data.endpoint],
+        ["listEndpoint", data.listEndpoint],
+        ["dsbEndpoint", data.dsbEndpoint],
+        ["staticEndpoint", data.staticEndpoint],
+        ["username", data.username],
+        ["password", data.password]
+      ],
+      this.props.db
+    ).then(() =>
+      this.setState({
+        data
+      })
+    );
 
-  render() {
+  render = () => {
     const endpoint = endpointTransformer(
       this.state.data.listEndpoint,
       this.state.data.dsbEndpoint,
@@ -104,7 +118,7 @@ class App extends Component<IApp> {
         )}
       </Container>
     );
-  }
+  };
 }
 
 export { App };
