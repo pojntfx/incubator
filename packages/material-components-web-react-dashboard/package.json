@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/material-components-web-react-dashboard",
-  "version": "0.0.1-7",
+  "version": "0.0.1-8",
   "dependencies": {
     "react": "^16.5.0",
     "react-dom": "^16.5.0",
