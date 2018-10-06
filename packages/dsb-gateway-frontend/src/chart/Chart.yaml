@@ -1,0 +1,11 @@
+apiVersion: v1
+name: dsb-gateway-frontend
+version: 0.0.1-10
+description: A simple and minimal frontend for the gateway microservice to the proprietary "Digitales Schwarzes Brett" service used in German schools
+home: https://gitlab.com/pojntfx/incubator/tree/master/packages/dsb-gateway-frontend
+sources:
+  - https://gitlab.com/pojntfx/incubator.git
+maintainers:
+  - name: Felix Pojtinger
+    email: felix@pojtinger.com
+    url: https://twitter.com/pojntfx
