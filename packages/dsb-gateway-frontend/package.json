@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/dsb-gateway-frontend",
-  "version": "0.0.1-8",
+  "version": "0.0.1-9",
   "description": "A simple and minimal frontend for the gateway microservice to the proprietary \\\"Digitales Schwarzes Brett\\\" service used in German schools.",
   "main": "src/index.tsx",
   "scripts": {
