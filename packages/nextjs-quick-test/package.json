@@ -1,6 +1,6 @@
 {
   "name": "@pojntfx-incubator/nextjs-quick-test",
-  "version": "0.0.1-8",
+  "version": "0.0.1-9",
   "description": "A quick test of nextjs",
   "main": "index.js",
   "scripts": {
