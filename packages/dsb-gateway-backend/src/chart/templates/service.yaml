@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: {{ .Release.Namespace }}
+spec:
+  ports:
+    - name: list
+      port: 3000
+      targetPort: 3000
+    - name: static
+      port: 4000
+      targetPort: 4000
+  selector:
+    app: web
