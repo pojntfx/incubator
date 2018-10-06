@@ -1,5 +1,5 @@
 {
-  "name": "@pojntfx-incubator/dsb-gateway-service",
+  "name": "@pojntfx-incubator/dsb-gateway-backend",
   "version": "0.0.1-8",
   "description": "A simple gateway microservice to the proprietary \"Digitales Schwarzes Brett\" service used in German schools. Uses @pojntfx-incubator/dsb-gateway-core to get the data.",
   "main": "src/json-server.ts",

@@ -11,6 +11,7 @@ import { getList } from "./handlers/getList";
 import { getInfo } from "./handlers/getInfo";
 import { enableCORS } from "./utils/enableCORS";
 import { isLoggedIn } from "./actions/isLoggedIn";
+import { info } from "./static-server";
 
 const db = startDatabase(dbFilePath, low, FileSync);
 const dataFetcher = (endpoint, username, password) =>
@@ -22,6 +23,7 @@ const dirReader = promisify(readdir);
 const fileStatisticsGetter = promisify(stat);
 
 export default router()(
+  get("/", info),
   get("/info", getInfo, {
     db,
     send,
