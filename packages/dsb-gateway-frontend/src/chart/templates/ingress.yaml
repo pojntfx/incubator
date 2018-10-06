@@ -11,8 +11,4 @@ spec:
           - path: /
             backend:
               serviceName: web
-              servicePort: list
-          - path: /img
-            backend:
-              serviceName: web
-              servicePort: static
+              servicePort: web
