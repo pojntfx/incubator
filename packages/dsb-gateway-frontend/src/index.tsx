@@ -12,8 +12,8 @@ db.defaults({
   settingsAreOpen: true,
   username: "296501",
   password: "vplan2018",
-  listEndpoint: "http://localhost:3000/list",
-  staticEndpoint: "http://localhost:4000",
+  listEndpoint: "https://api.dsb.rvwg.ga:3000/list",
+  staticEndpoint: "https://api.dsb.rvwg.ga:4000",
   dsbEndpoint: "https://www.dsbmobile.de/Login.aspx",
   endpoint: undefined
 }).write();
