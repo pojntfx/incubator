@@ -1,0 +1,30 @@
+{
+  "name": "@pojntfx-incubator/openjsdcad-test",
+  "version": "0.0.1-0",
+  "description": "A simple test of OpenJSCAD",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "npm run build:watch & npm run start:watch",
+    "build:watch": "tsc -w",
+    "build": "tsc",
+    "start": "mkdir -p bin/ && openjscad -v dist/index.js -o bin/index.stl && npm run preview",
+    "start:watch": "nodemon --exec npm run start",
+    "preview": "admeshgui bin/index.stl",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Felicitas Pojtinger <felicitas@pojtinger.com>",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "@jscad/cli": "^1.9.0",
+    "@jscad/csg": "^0.7.0",
+    "@types/openjscad": "0.0.28"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4",
+    "typescript": "^3.1.3"
+  }
+}

@@ -1,6 +1,14 @@
 import * as React from "react";
 import { Component } from "react";
-import { Form, Button, Collapse, Modal, Row, Col } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Collapse,
+  Modal,
+  Row,
+  Col,
+  Image
+} from "react-bootstrap";
 
 interface ISettingsProps {
   data: any;
@@ -73,6 +81,23 @@ class Settings extends Component<ISettingsProps> {
         <Modal.Title>Settings</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <p>
+          This is <a href="https://gitlab.com/pojntfx/incubator">DSB Gateway</a>{" "}
+          by <a href="https://twitter.com/pojntfx">Felicitas Pojtinger</a>, a{" "}
+          <a href="http://www.rastinmehr.com/2009/03/01/the-4-software-freedoms-according-to-richard-stallman/">
+            free/libre and open source
+          </a>{" "}
+          gateway to the{" "}
+          <a href="https://www.gnu.org/proprietary/">proprietary</a>, non-free
+          and centralized "Digitales Schwarzes Brett" service used in German
+          schools.
+        </p>
+        <Image
+          src="https://i.imgur.com/0maxS2B.jpg"
+          alt="Image of RMS"
+          fluid
+          className="mb-3"
+        />
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formUsername">
             <Form.Label>Username</Form.Label>
