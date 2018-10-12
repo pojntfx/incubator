@@ -106,9 +106,22 @@ const shelves: IShelve[] = [
   }
 ];
 
-let main = () =>
-  shelves.map(({ x, y, z, t, r }) =>
+const floor = translate(
+  [0, 0, -5],
+  cube({ size: [500, 500, 5], center: true })
+);
+
+const backWall = translate(
+  [-55, 0, 0],
+  rotate([0, 90, 0], cube({ size: [500, 500, 5], center: true }))
+);
+
+let main = () => [
+  ...shelves.map(({ x, y, z, t, r }) =>
     translate([t.x, t.y, t.z], rotate([r.x, r.y, r.z], shelf(x, y, z)))
-  );
+  ),
+  floor,
+  backWall
+];
 
 export { main };
