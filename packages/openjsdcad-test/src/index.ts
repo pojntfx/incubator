@@ -112,8 +112,13 @@ const floor = translate(
 );
 
 const backWall = translate(
-  [-55, 0, 0],
+  [-55, 130, 0],
   rotate([0, 90, 0], cube({ size: [500, 500, 5], center: true }))
+);
+
+const windowWall = translate(
+  [-50, 200, 0],
+  rotate([0, 90, 90], cube({ size: [500, 500, 5], center: true }))
 );
 
 let main = () => [
@@ -121,7 +126,8 @@ let main = () => [
     translate([t.x, t.y, t.z], rotate([r.x, r.y, r.z], shelf(x, y, z)))
   ),
   floor,
-  backWall
+  backWall,
+  windowWall
 ];
 
 export { main };
