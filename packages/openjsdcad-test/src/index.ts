@@ -108,7 +108,7 @@ const shelves: IShelve[] = [
 
 const floor = translate(
   [0, 0, -5],
-  cube({ size: [500, 500, 5], center: true })
+  cube({ size: [1000, 1000, 5], center: true })
 );
 
 const backWall = translate(
