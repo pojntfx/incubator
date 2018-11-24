@@ -58,6 +58,7 @@ install_icons() {
 	echo "[INFO] Installing icons ..."
 	[ -e ${HOME}/.local/share/icons/macOS-dark ] && rm -r ${HOME}/.local/share/icons/macOS-dark
 	[ -e ${HOME}/.local/share/icons/macOS-light ] && rm -r ${HOME}/.local/share/icons/macOS-light
+	mkdir -p ${HOME}/.local/share/icons
 	cp -r dist/icons/macOS-dark ${HOME}/.local/share/icons/macOS-dark
 	cp -r dist/icons/macOS-light ${HOME}/.local/share/icons/macOS-light
 	echo "[SUCCESS] Installed icons."
@@ -105,6 +106,7 @@ inject_tweaks_into_widget() {
 
 install_widget() {
 	echo "[INFO] Installing widget theme ..."
+	mkdir -p ${HOME}/.local/share/themes
 	cd $WIDGET_SRC_DIR && source install.sh -d "${HOME}/.local/share/themes" -n "macOS" >>/dev/null && cd $ROOT_DIR
 	echo "[SUCESS] Installed widget theme."
 }
