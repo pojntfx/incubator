@@ -1,0 +1,8 @@
+window.budgie-container.left > box.horizontal > box.budgie-panel {
+	border-top-right-radius: 6px;
+	border-bottom-right-radius: 6px;
+}
+
+window.budgie-container.left > box.horizontal > widget.shadow-block {
+	background: transparent;
+}
