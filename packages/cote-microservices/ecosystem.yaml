@@ -1,0 +1,5 @@
+apps:
+  - name: list
+    script: npm
+    args: run dev--list
+    watch: true
