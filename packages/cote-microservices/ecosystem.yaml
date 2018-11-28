@@ -1,5 +1,5 @@
 apps:
-  - name: list
+  - name: entity
     script: npm
-    args: run dev--list
+    args: run dev--entity
     watch: true

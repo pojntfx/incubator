@@ -2,10 +2,10 @@
   "name": "@pojntfx-incubator/cote-microservices",
   "version": "0.0.1-0",
   "description": "A simple test of the cote microservice framework",
-  "main": "src/list-server.ts",
+  "main": "src/entity.ts",
   "scripts": {
-    "dev--list": "ts-node src/list-server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev--entity": "ts-node src/entity.ts",
+    "test": "jest --watch"
   },
   "author": "Felicitas Pojtinger <felicitas@pojtinger.com>",
   "license": "AGPL-3.0",
@@ -14,5 +14,11 @@
     "cote": "^0.18.0",
     "ts-node": "^7.0.1",
     "typescript": "^3.1.6"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.9",
+    "jest": "^23.6.0",
+    "pm2": "^3.2.2",
+    "ts-jest": "^23.10.5"
   }
 }
