@@ -63,3 +63,7 @@ typings/
 
 # lerna
 lerna-debug.log
+
+# Python/Django
+*.sqlite3
+*pyc
