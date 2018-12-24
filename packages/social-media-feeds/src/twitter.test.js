@@ -14,5 +14,5 @@ it("Should get events", async () => {
   );
   const events = await twitter.getEvents();
 
-  expect(events[0].user.screen_name).toBe(TWITTER_USERNAME);
+  expect(events[0].actor).toBe(TWITTER_USERNAME);
 });

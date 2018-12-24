@@ -20,7 +20,7 @@ class Facebook {
     const events = await this.__getEventsRaw();
     return events.map(event => ({
       actor: this.userId,
-      type: "Post",
+      type: "com.facebook.Post",
       payload: {
         text: event.message
       }

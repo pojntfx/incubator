@@ -16,7 +16,7 @@ class GitLab {
     const events = await this.__getEventsRaw();
     return events.map(event => ({
       actor: event.author.username,
-      type: event.action_name,
+      type: `com.gitlab.${event.action_name}`,
       payload: {
         title: event.push_data.commit_title,
         text: event.push_data.commit_description
