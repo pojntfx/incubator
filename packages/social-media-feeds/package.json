@@ -1,0 +1,36 @@
+{
+  "name": "@pojntfx-incubator/social-media-feeds",
+  "version": "0.0.1-0",
+  "description": "A simple utility to get social media feeds from GitLab, GitHub, Reddit, Facebook or Instagram",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "jest --watch",
+    "build": "babel src/ -d dist/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "gitlab",
+    "github",
+    "reddit",
+    "facebook",
+    "instagram"
+  ],
+  "author": "Felicitas Pojtinger <felicitas@pojtinger.com>",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.6.0",
+    "nodemon": "^1.18.9"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "dependencies": {
+    "insta-api": "^1.2.1",
+    "node-fetch": "^2.3.0"
+  }
+}
