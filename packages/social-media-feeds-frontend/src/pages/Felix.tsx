@@ -6,6 +6,7 @@ import { noscript } from "../data/noscript";
 import { shortcuts } from "../data/shortcuts";
 import { footer } from "../data/footer";
 import { Link } from "../downstream/Link";
+import { UserHeader } from "../downstream/UserHeader";
 
 const Felicitas = (props: any) => (
   <Shell
@@ -19,8 +20,7 @@ const Felicitas = (props: any) => (
     segment
     {...props}
   >
-    <h1>Felicitas</h1>
-    <i>Coming soon!</i>
+    <UserHeader {...felicitas.header} />
   </Shell>
 );
 
