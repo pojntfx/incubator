@@ -16,7 +16,8 @@ const Twitter = {
           ctx.params.userName
         );
         return twitter.getEvents();
-      }
+      },
+      cache: true
     }
   }
 };

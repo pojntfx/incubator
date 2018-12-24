@@ -28,13 +28,19 @@ class Twitter {
 
   async getEvents() {
     const events = await this.__getEventsRaw();
-    return events.map(event => ({
-      actor: event.user.screen_name,
-      type: event.retweeted_status ? "com.twitter.Retweet" : "com.twitter.Post",
-      payload: {
-        text: event.text
-      }
-    }));
+    if (Array.isArray(events)) {
+      return events.map(event => ({
+        actor: event.user.screen_name,
+        type: event.retweeted_status
+          ? "com.twitter.Retweet"
+          : "com.twitter.Post",
+        payload: {
+          text: event.text
+        }
+      }));
+    } else {
+      throw new Error("Invalid Twitter key or secret key!");
+    }
   }
 
   __getOAuthToken() {

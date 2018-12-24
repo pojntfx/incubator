@@ -16,25 +16,19 @@ class Facebook {
       .then(data => data.data);
   }
 
-  async __getUserName() {
-    return fetch(
-      `https://graph.facebook.com/v3.2/${this.userId}?access_token=${
-        this.accessKey
-      }`
-    )
-      .then(data => data.json())
-      .then(data => data.data.id);
-  }
-
   async getEvents() {
     const events = await this.__getEventsRaw();
-    return events.map(event => ({
-      actor: this.userId,
-      type: "com.facebook.Post",
-      payload: {
-        text: event.message
-      }
-    }));
+    if (Array.isArray(events)) {
+      return events.map(event => ({
+        actor: this.userId,
+        type: "com.facebook.Post",
+        payload: {
+          text: event.message
+        }
+      }));
+    } else {
+      throw new Error("Invalid Facebook access key!");
+    }
   }
 }
 

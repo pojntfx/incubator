@@ -14,7 +14,8 @@ const Instagram = {
           ctx.params.userName
         );
         return instagram.getEvents();
-      }
+      },
+      cache: true
     },
     getStories: {
       params: {
@@ -27,7 +28,8 @@ const Instagram = {
           ctx.params.userName
         );
         return instagram.getStories();
-      }
+      },
+      cache: true
     }
   }
 };

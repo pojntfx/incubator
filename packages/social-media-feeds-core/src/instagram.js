@@ -13,15 +13,19 @@ class Instagram {
 
   async getEvents() {
     const events = await this.__getEventsRaw();
-    return events.map(event => ({
-      actor: event.owner.username,
-      type: "com.instagram.Post",
-      payload: {
-        text: event.caption,
-        media: event.display_url,
-        url: event.url
-      }
-    }));
+    if (Array.isArray(events)) {
+      return events.map(event => ({
+        actor: event.owner.username,
+        type: "com.instagram.Post",
+        payload: {
+          text: event.caption,
+          media: event.display_url,
+          url: event.url
+        }
+      }));
+    } else {
+      throw new Error("Invalid Instagram session id!");
+    }
   }
 
   async __getStoriesRaw() {
@@ -30,14 +34,18 @@ class Instagram {
 
   async getStories() {
     const stories = await this.__getStoriesRaw();
-    return stories.map(event => ({
-      actor: event.owner.username,
-      type: "com.instagram.Story",
-      payload: {
-        media: event.display_url,
-        url: event.url
-      }
-    }));
+    if (Array.isArray(stories)) {
+      return stories.map(story => ({
+        actor: story.owner.username,
+        type: "com.instagram.Story",
+        payload: {
+          media: story.display_url,
+          url: story.url
+        }
+      }));
+    } else {
+      throw new Error("Invalid Instagram session id!");
+    }
   }
 }
 

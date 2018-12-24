@@ -3,10 +3,10 @@ const Config = {
   actions: {
     get: {
       params: {
-        password: "string"
+        authorization: "string"
       },
       handler: ctx => {
-        if (process.env.SECRET_KEY === ctx.params.password) {
+        if (process.env.SECRET_KEY === ctx.params.authorization) {
           return {
             twitter: {
               apiKey: process.env.TWITTER_API_KEY,
@@ -20,9 +20,10 @@ const Config = {
             }
           };
         } else {
-          throw new Error("Wrong password!");
+          throw new Error("Invalid authorization key!");
         }
-      }
+      },
+      cache: true
     }
   }
 };
