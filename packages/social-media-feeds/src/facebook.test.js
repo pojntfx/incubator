@@ -6,5 +6,5 @@ it("Should get events", async () => {
   const facebook = new Facebook(FACEBOOK_ACCESS_KEY, FACEBOOK_USERID);
   const events = await facebook.getEvents();
 
-  expect(events.data.length).toBeGreaterThan(1);
+  expect(events.length).toBeGreaterThan(1);
 });
