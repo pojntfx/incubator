@@ -10,7 +10,9 @@ const Events = {
       },
       handler: async ctx => {
         const {
-          facebook: { accessKey }
+          facebook: { accessKey },
+          instagram: { sessionToken },
+          twitter: { apiKey, apiSecretKey }
         } = await ctx.call("config.get", {
           password: ctx.params.password
         });
@@ -25,7 +27,26 @@ const Events = {
           url: ctx.params.gitlabUrl,
           userName: ctx.params.userName
         });
-        return [...facebookEvents, ...githubEvents, ...gitlabEvents];
+        const instagramEvents = await ctx.call("instagram.get", {
+          sessionId: sessionToken,
+          userName: ctx.params.userName
+        });
+        const redditEvents = await ctx.call("reddit.get", {
+          userName: ctx.params.userName
+        });
+        const twitterEvents = await ctx.call("twitter.get", {
+          apiKey,
+          apiSecretKey,
+          userName: ctx.params.userName
+        });
+        return [
+          ...facebookEvents,
+          ...githubEvents,
+          ...gitlabEvents,
+          ...instagramEvents,
+          ...redditEvents,
+          ...twitterEvents
+        ];
       }
     }
   }
