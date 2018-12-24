@@ -24,7 +24,8 @@ class Facebook {
         type: "com.facebook.Post",
         payload: {
           text: event.message
-        }
+        },
+        time: new Date(event.created_time).toISOString()
       }));
     } else {
       throw new Error("Invalid Facebook access key!");

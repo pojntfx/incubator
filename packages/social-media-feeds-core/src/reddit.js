@@ -21,7 +21,8 @@ class Reddit {
         title: event.link_title,
         text: event.body,
         url: event.link_permalink
-      }
+      },
+      time: new Date(parseInt(event.created) * 1000).toISOString()
     }));
   }
 }

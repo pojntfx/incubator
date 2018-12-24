@@ -36,7 +36,8 @@ class Twitter {
           : "com.twitter.Post",
         payload: {
           text: event.text
-        }
+        },
+        time: new Date(event.created_at).toISOString()
       }));
     } else {
       throw new Error("Invalid Twitter key or secret key!");
