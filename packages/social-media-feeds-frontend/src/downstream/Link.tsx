@@ -1,7 +1,8 @@
 import * as React from "react";
 import { NavLink } from "react-router-dom";
 
-const isExternalLink = (link: string) => /(http|https):\/\/(.*)/.test(link);
+const isExternalLink = (link: string) =>
+  /((http|https):\/\/(.*)|(mailto|tel):(.*))/.test(link);
 const isImageLink = (link: string) => /(.*)(\.jpg|\.png|\.webp)/.test(link);
 
 interface ILinkProps {
