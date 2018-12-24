@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Shell, IShellProps } from "@libresat/frontend-components";
+import { Shell, IShellProps, Paper } from "@libresat/frontend-components";
 import { navbar } from "../data/navbar";
 import { felicitas } from "../data/felicitas";
 import { noscript } from "../data/noscript";
@@ -7,6 +7,8 @@ import { shortcuts } from "../data/shortcuts";
 import { footer } from "../data/footer";
 import { Link } from "../downstream/Link";
 import { UserHeader } from "../downstream/UserHeader";
+import { UserMetadata } from "../downstream/UserMetadata";
+import { UserLinks } from "../downstream/UserLinks";
 
 const Felicitas = (props: any) => (
   <Shell
@@ -17,10 +19,17 @@ const Felicitas = (props: any) => (
     shortcuts={shortcuts}
     background={felicitas.background}
     linkComponent={Link}
-    segment
     {...props}
   >
-    <UserHeader {...felicitas.header} />
+    <Paper>
+      <UserHeader {...felicitas.header} />
+    </Paper>
+    <Paper>
+      <UserLinks links={felicitas.links} />
+    </Paper>
+    <Paper>
+      <UserMetadata {...felicitas.metadata} />
+    </Paper>
   </Shell>
 );
 
