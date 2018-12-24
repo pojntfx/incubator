@@ -11,7 +11,8 @@ const GitLab = {
       handler: async ctx => {
         const gitlab = new GitLabClient(ctx.params.userName, ctx.params.url);
         return gitlab.getEvents();
-      }
+      },
+      cache: true
     }
   }
 };

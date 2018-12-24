@@ -10,7 +10,8 @@ const GitHub = {
       handler: async ctx => {
         const github = new GitHubClient(ctx.params.userName);
         return github.getEvents();
-      }
+      },
+      cache: true
     }
   }
 };

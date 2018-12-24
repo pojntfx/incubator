@@ -14,7 +14,8 @@ import { Stories } from "./stories";
 dotenv.config();
 
 const broker = new ServiceBroker({
-  transporter: "TCP"
+  transporter: "TCP",
+  cacher: "Memory"
 });
 
 broker.createService(Config);

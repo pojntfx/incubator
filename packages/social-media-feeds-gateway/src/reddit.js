@@ -10,7 +10,8 @@ const Reddit = {
       handler: async ctx => {
         const reddit = new RedditClient(ctx.params.userName);
         return reddit.getEvents();
-      }
+      },
+      cache: true
     }
   }
 };

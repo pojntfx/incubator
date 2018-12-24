@@ -14,7 +14,8 @@ const Facebook = {
           ctx.params.userId
         );
         return facebook.getEvents();
-      }
+      },
+      cache: true
     }
   }
 };

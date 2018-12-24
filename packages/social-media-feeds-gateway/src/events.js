@@ -3,7 +3,7 @@ const Events = {
   actions: {
     get: {
       params: {
-        password: "string",
+        authorization: "string",
         userId: "string",
         userName: "string",
         gitlabUrl: "string"
@@ -14,7 +14,7 @@ const Events = {
           instagram: { sessionToken },
           twitter: { apiKey, apiSecretKey }
         } = await ctx.call("config.get", {
-          password: ctx.params.password
+          authorization: ctx.params.authorization
         });
         const facebookEvents = await ctx.call("facebook.get", {
           accessKey,
@@ -47,7 +47,8 @@ const Events = {
           ...redditEvents,
           ...twitterEvents
         ];
-      }
+      },
+      cache: true
     }
   }
 };
