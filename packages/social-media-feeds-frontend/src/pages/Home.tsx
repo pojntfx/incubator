@@ -19,8 +19,11 @@ const Home = (props: any) => (
     segment
     {...props}
   >
-    <h1>Home</h1>
-    <i>Coming soon!</i>
+    <h1>Die Hirschkopfbande grüßt alle "Fans!"</h1>
+    <p>
+      Herzlich willkommen auf unserer Website. Hier finden sich alle
+      Informationen rund um ums!
+    </p>
   </Shell>
 );
 

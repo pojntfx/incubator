@@ -12,6 +12,7 @@ interface IActivityFeed {
   gitlabUrl: string;
   authorization: string;
   endpoint: string;
+  instagramOnly?: boolean;
 }
 
 const ActivityFeed = ({
@@ -20,58 +21,61 @@ const ActivityFeed = ({
   gitlabUrl,
   authorization,
   endpoint,
+  instagramOnly,
   ...otherProps
 }: IActivityFeed) => (
-  <Grid columns={2} stackable stretched>
-    <Fetch
-      url={`${endpoint}/events/get?userId=${userId}&authorization=${authorization}&userName=${userName}&gitlabUrl=${gitlabUrl}`}
-      {...otherProps}
-    >
-      {({ data, loading, error }) => (
-        <>
-          {error && (
-            <Message
-              icon="warning"
-              error
-              header="Oh no!"
-              content="Could not fetch activity."
-            />
-          )}
-          {loading && (
-            <>
-              <Grid.Column>
-                <Paper>
-                  <Placeholder>
-                    <Placeholder.Paragraph>
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                    </Placeholder.Paragraph>
-                    <Placeholder.Paragraph>
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                    </Placeholder.Paragraph>
-                  </Placeholder>
-                </Paper>
-              </Grid.Column>
-              <Grid.Column>
-                <Paper>
-                  <Placeholder>
-                    <Placeholder.Image />
-                    <Placeholder.Paragraph>
-                      <Placeholder.Line />
-                      <Placeholder.Line />
-                    </Placeholder.Paragraph>
-                  </Placeholder>
-                </Paper>
-              </Grid.Column>
-            </>
-          )}
-          {Array.isArray(data) &&
-            data.map((event, index) => (
+  <Fetch
+    url={`${endpoint}/${
+      instagramOnly ? "instagram" : "events"
+    }/get?userId=${userId}&authorization=${authorization}&userName=${userName}&gitlabUrl=${gitlabUrl}`}
+    {...otherProps}
+  >
+    {({ data, loading, error }) => (
+      <>
+        {error && (
+          <Message
+            icon="warning"
+            error
+            header="Oh no!"
+            content="Could not fetch activity."
+          />
+        )}
+        {loading && (
+          <Grid columns={2} stackable stretched>
+            <Grid.Column>
+              <Paper>
+                <Placeholder>
+                  <Placeholder.Paragraph>
+                    <Placeholder.Line />
+                    <Placeholder.Line />
+                    <Placeholder.Line />
+                    <Placeholder.Line />
+                    <Placeholder.Line />
+                  </Placeholder.Paragraph>
+                  <Placeholder.Paragraph>
+                    <Placeholder.Line />
+                    <Placeholder.Line />
+                    <Placeholder.Line />
+                  </Placeholder.Paragraph>
+                </Placeholder>
+              </Paper>
+            </Grid.Column>
+            <Grid.Column>
+              <Paper>
+                <Placeholder>
+                  <Placeholder.Image />
+                  <Placeholder.Paragraph>
+                    <Placeholder.Line />
+                    <Placeholder.Line />
+                  </Placeholder.Paragraph>
+                </Placeholder>
+              </Paper>
+            </Grid.Column>
+          </Grid>
+        )}
+        {Array.isArray(data) && (
+          <Grid columns={2} stackable stretched>
+            {data.map((event, index) => (
               <Lazy key={index} height={500} once>
                 <Grid.Column>
                   {event.type === "com.facebook.Post" ? (
@@ -151,10 +155,11 @@ const ActivityFeed = ({
                 </Grid.Column>
               </Lazy>
             ))}
-        </>
-      )}
-    </Fetch>
-  </Grid>
+          </Grid>
+        )}
+      </>
+    )}
+  </Fetch>
 );
 
 export { ActivityFeed };
