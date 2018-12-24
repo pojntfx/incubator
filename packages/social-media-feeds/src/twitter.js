@@ -1,8 +1,8 @@
 import fetch from "node-fetch";
 
 class Twitter {
-  constructor(apiConsumerKey, apiSecretKey, userName) {
-    this.apiConsumerKey = apiConsumerKey;
+  constructor(apiKey, apiSecretKey, userName) {
+    this.apiKey = apiKey;
     this.apiSecretKey = apiSecretKey;
     this.userName = userName;
   }
@@ -28,7 +28,7 @@ class Twitter {
 
   __getOAuthToken() {
     return fetch(
-      `https://${this.apiConsumerKey}:${
+      `https://${this.apiKey}:${
         this.apiSecretKey
       }@api.twitter.com/oauth2/token?grant_type=client_credentials`,
       {

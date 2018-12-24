@@ -8,11 +8,11 @@ class Instagram {
   }
 
   getEvents() {
-    return this.fetch.getPosts(this.userName);
+    return this.fetch.getPosts(this.userName).then(data => data.posts);
   }
 
   getStories() {
-    return this.fetch.getStories(this.userName);
+    return this.fetch.getStories(this.userName).then(data => data.stories);
   }
 }
 

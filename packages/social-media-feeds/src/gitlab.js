@@ -1,14 +1,14 @@
 import fetch from "node-fetch";
 
 class GitLab {
-  constructor(userId, apiUrl) {
-    this.userId = userId;
-    this.apiUrl = apiUrl;
+  constructor(userName, url) {
+    this.userName = userName;
+    this.url = url;
   }
 
   getEvents() {
     return fetch(
-      `https://${this.apiUrl}/api/v4/users/${this.userId}/events`
+      `https://${this.url}/api/v4/users/${this.userName}/events`
     ).then(data => data.json());
   }
 }
