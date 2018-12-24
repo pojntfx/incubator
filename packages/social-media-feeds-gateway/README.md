@@ -1,12 +1,15 @@
-# Social Media Feeds
+# Social Media Feeds Gateway
 
-A simple utility to get social media feeds from GitLab, GitHub, Reddit, Facebook or Instagram.
+Simple API for @pojntfx-incubator/social-media-feeds-core.
 
 ## Usage
 
 Put the follwing into a `.env` file (using your credentials):
 
 ```sh
+# API Key (supply with ?password=asfdsadfasdfasdf)
+SECRET_KEY="asfdsadfasdfasdf"
+
 # GitLab
 GITLAB_USERNAME="pojntfx"
 GITLAB_URL="gitlab.com"
