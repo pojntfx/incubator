@@ -1,12 +1,13 @@
 {
-  "name": "@pojntfx-incubator/social-media-feeds",
+  "name": "@pojntfx-incubator/social-media-feeds-core",
   "version": "0.0.1-0",
-  "description": "A simple utility to get social media feeds from GitLab, GitHub, Reddit, Facebook or Instagram",
+  "description": "A simple library to get social media feeds from GitLab, GitHub, Reddit, Facebook or Instagram",
   "main": "dist/index.js",
   "scripts": {
     "dev": "jest --watch --setupFiles dotenv/config",
     "build": "babel src/ -d dist/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --setupFiles dotenv/config",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "gitlab",
@@ -33,5 +34,8 @@
   "dependencies": {
     "insta-api": "^1.2.1",
     "node-fetch": "^2.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

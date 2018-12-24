@@ -1,0 +1,41 @@
+{
+  "name": "@pojntfx-incubator/social-media-feeds-gateway",
+  "version": "0.0.1-0",
+  "description": "Simple API for @pojntfx-incubator/social-media-feeds-core",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "nodemon --exec 'babel-node src/start.js'",
+    "build": "babel src/ -d dist/",
+    "start": "node dist/start.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "gitlab",
+    "github",
+    "reddit",
+    "facebook",
+    "instagram"
+  ],
+  "author": "Felix Pojtinger <felix@pojtinger.com>",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "dotenv": "^6.2.0",
+    "nodemon": "^1.18.9"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "moleculer": "^0.13.5",
+    "moleculer-web": "^0.8.5",
+    "@pojntfx-incubator/social-media-feeds-core": "^0.0.1-0"
+  }
+}
