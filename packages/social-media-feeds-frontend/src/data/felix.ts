@@ -127,7 +127,14 @@ Node + React fullstack dev, GNU/Linux/k8s geek and Free/Libre Open Source Softwa
         docsLink: "https://www.facebook.com"
       }
     }
-  ]
+  ],
+  activityFeed: {
+    userId: "2252754748345400",
+    userName: "pojntfx",
+    gitlabUrl: "gitlab.com",
+    authorization: "asdf",
+    endpoint: "http://localhost:3000"
+  }
 };
 
 export { felix };

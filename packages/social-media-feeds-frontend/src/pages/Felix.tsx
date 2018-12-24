@@ -9,6 +9,7 @@ import { Link } from "../downstream/Link";
 import { UserHeader } from "../downstream/UserHeader";
 import { UserMetadata } from "../downstream/UserMetadata";
 import { UserLinks } from "../downstream/UserLinks";
+import { ActivityFeed } from "../downstream/ActivityFeed";
 
 const Felix = (props: any) => (
   <Shell
@@ -29,6 +30,10 @@ const Felix = (props: any) => (
     </Paper>
     <Paper>
       <UserMetadata {...felix.metadata} />
+    </Paper>
+    <Paper>
+      <h2>Activity</h2>
+      <ActivityFeed {...felix.activityFeed} />
     </Paper>
   </Shell>
 );

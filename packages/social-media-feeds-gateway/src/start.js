@@ -29,5 +29,17 @@ broker.createService(Twitter);
 broker.createService(Events);
 broker.createService(Stories);
 
-broker.createService(Gateway);
+broker.createService({
+  mixins: [Gateway],
+  settings: {
+    cors: {
+      origin: "*",
+      methods: ["GET", "OPTIONS", "POST", "PUT", "DELETE"],
+      allowedHeaders: [],
+      exposedHeaders: [],
+      credentials: false,
+      maxAge: 3600
+    }
+  }
+});
 broker.start();
