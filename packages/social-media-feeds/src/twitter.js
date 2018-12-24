@@ -7,7 +7,7 @@ class Twitter {
     this.userName = userName;
   }
 
-  getEvents() {
+  __getEventsRaw() {
     return this.__getOAuthToken()
       .then(token =>
         fetch(
@@ -24,6 +24,17 @@ class Twitter {
         )
       )
       .then(data => data.json());
+  }
+
+  async getEvents() {
+    const events = await this.__getEventsRaw();
+    return events.map(event => ({
+      actor: event.user.screen_name,
+      type: event.retweeted_status ? "com.twitter.Retweet" : "com.twitter.Post",
+      payload: {
+        text: event.text
+      }
+    }));
   }
 
   __getOAuthToken() {

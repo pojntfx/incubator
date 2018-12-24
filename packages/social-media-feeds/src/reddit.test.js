@@ -6,5 +6,5 @@ it("Should get events", async () => {
   const reddit = new Reddit(REDDIT_USERNAME);
   const events = await reddit.getEvents();
 
-  expect(events.length).toBeGreaterThan(1);
+  expect(events[0].actor.toLowerCase()).toBe(REDDIT_USERNAME);
 });

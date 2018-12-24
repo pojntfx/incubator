@@ -15,7 +15,7 @@ class GitHub {
     const events = await this.__getEventsRaw();
     return events.map(event => ({
       actor: event.actor.login,
-      type: event.type,
+      type: `com.github.${event.type}`,
       payload:
         event.type === "WatchEvent"
           ? {
