@@ -27,7 +27,13 @@ const Instagram = {
           ctx.params.sessionId,
           ctx.params.userName
         );
-        return instagram.getStories();
+        return instagram
+          .getStories()
+          .then(stories =>
+            stories.sort((a, b) =>
+              a.time > b.time ? -1 : a.time < b.time ? 1 : 0
+            )
+          );
       },
       cache: true
     }

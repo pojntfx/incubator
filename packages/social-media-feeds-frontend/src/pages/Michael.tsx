@@ -1,11 +1,14 @@
 import * as React from "react";
-import { Shell, IShellProps } from "@libresat/frontend-components";
+import { Shell, IShellProps, Paper } from "@libresat/frontend-components";
 import { navbar } from "../data/navbar";
 import { michael } from "../data/michael";
 import { noscript } from "../data/noscript";
 import { shortcuts } from "../data/shortcuts";
 import { footer } from "../data/footer";
 import { Link } from "../downstream/Link";
+import { UserHeader } from "../downstream/UserHeader";
+import { UserLinks } from "../downstream/UserLinks";
+import { UserMetadata } from "../downstream/UserMetadata";
 
 const Michael = (props: any) => (
   <Shell
@@ -16,11 +19,17 @@ const Michael = (props: any) => (
     shortcuts={shortcuts}
     background={michael.background}
     linkComponent={Link}
-    segment
     {...props}
   >
-    <h1>Michael</h1>
-    <i>Coming soon!</i>
+    <Paper>
+      <UserHeader {...michael.header} />
+    </Paper>
+    <Paper>
+      <UserLinks links={michael.links} />
+    </Paper>
+    <Paper>
+      <UserMetadata {...michael.metadata} />
+    </Paper>
   </Shell>
 );
 

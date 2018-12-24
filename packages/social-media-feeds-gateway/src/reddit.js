@@ -9,7 +9,13 @@ const Reddit = {
       },
       handler: async ctx => {
         const reddit = new RedditClient(ctx.params.userName);
-        return reddit.getEvents();
+        return reddit
+          .getEvents()
+          .then(events =>
+            events.sort((a, b) =>
+              a.time > b.time ? -1 : a.time < b.time ? 1 : 0
+            )
+          );
       },
       cache: true
     }

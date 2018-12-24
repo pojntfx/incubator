@@ -1,11 +1,14 @@
 import * as React from "react";
-import { Shell, IShellProps } from "@libresat/frontend-components";
+import { Shell, IShellProps, Paper } from "@libresat/frontend-components";
 import { navbar } from "../data/navbar";
 import { nette } from "../data/nette";
 import { noscript } from "../data/noscript";
 import { shortcuts } from "../data/shortcuts";
 import { footer } from "../data/footer";
 import { Link } from "../downstream/Link";
+import { UserHeader } from "../downstream/UserHeader";
+import { UserLinks } from "../downstream/UserLinks";
+import { UserMetadata } from "../downstream/UserMetadata";
 
 const Nette = (props: any) => (
   <Shell
@@ -16,11 +19,17 @@ const Nette = (props: any) => (
     shortcuts={shortcuts}
     background={nette.background}
     linkComponent={Link}
-    segment
     {...props}
   >
-    <h1>Nette</h1>
-    <i>Coming soon!</i>
+    <Paper>
+      <UserHeader {...nette.header} />
+    </Paper>
+    <Paper>
+      <UserLinks links={nette.links} />
+    </Paper>
+    <Paper>
+      <UserMetadata {...nette.metadata} />
+    </Paper>
   </Shell>
 );
 

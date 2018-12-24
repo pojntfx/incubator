@@ -16,7 +16,11 @@ const Stories = {
           sessionId: sessionToken,
           userName: ctx.params.userName
         });
-        return [...instagramStories];
+        return [...instagramStories].then(stories =>
+          stories.sort((a, b) =>
+            a.time > b.time ? -1 : a.time < b.time ? 1 : 0
+          )
+        );
       },
       cache: true
     }

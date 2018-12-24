@@ -13,7 +13,13 @@ const Facebook = {
           ctx.params.accessKey,
           ctx.params.userId
         );
-        return facebook.getEvents();
+        return facebook
+          .getEvents()
+          .then(events =>
+            events.sort((a, b) =>
+              a.time > b.time ? -1 : a.time < b.time ? 1 : 0
+            )
+          );
       },
       cache: true
     }

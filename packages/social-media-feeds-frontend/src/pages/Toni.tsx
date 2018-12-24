@@ -1,11 +1,14 @@
 import * as React from "react";
-import { Shell, IShellProps } from "@libresat/frontend-components";
+import { Shell, IShellProps, Paper } from "@libresat/frontend-components";
 import { navbar } from "../data/navbar";
 import { toni } from "../data/toni";
 import { noscript } from "../data/noscript";
 import { shortcuts } from "../data/shortcuts";
 import { footer } from "../data/footer";
 import { Link } from "../downstream/Link";
+import { UserHeader } from "../downstream/UserHeader";
+import { UserLinks } from "../downstream/UserLinks";
+import { UserMetadata } from "../downstream/UserMetadata";
 
 const Toni = (props: any) => (
   <Shell
@@ -19,8 +22,15 @@ const Toni = (props: any) => (
     segment
     {...props}
   >
-    <h1>Toni</h1>
-    <i>Coming soon!</i>
+    <Paper>
+      <UserHeader {...toni.header} />
+    </Paper>
+    <Paper>
+      <UserLinks links={toni.links} />
+    </Paper>
+    <Paper>
+      <UserMetadata {...toni.metadata} />
+    </Paper>
   </Shell>
 );
 
