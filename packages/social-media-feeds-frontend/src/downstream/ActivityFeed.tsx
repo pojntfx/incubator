@@ -1,7 +1,7 @@
 import * as React from "react";
 import Fetch from "react-fetch-component";
 import { Paper } from "@libresat/frontend-components";
-import { Image, Grid, Placeholder, Message } from "semantic-ui-react";
+import { Image, Grid, Placeholder, Message, Card } from "semantic-ui-react";
 import { Link } from "./Link";
 import Lazy from "react-lazyload";
 import { Video } from "./Video";
@@ -75,56 +75,66 @@ const ActivityFeed = ({
               <Lazy key={index} height={500} once>
                 <Grid.Column>
                   {event.type === "com.facebook.Post" ? (
-                    <Paper>
-                      <b>Facebook: </b>
-                      {event.payload.text}
-                    </Paper>
+                    <Card
+                      meta={`Facebook, ${new Date(
+                        event.time
+                      ).toLocaleString()}`}
+                      description={event.payload.text}
+                      fluid
+                    />
                   ) : event.type.includes("com.github") ? (
-                    <Paper>
-                      <b>GitHub: </b>
-                      {event.payload.text}
-                    </Paper>
+                    <Card
+                      meta={`GitHub, ${new Date(event.time).toLocaleString()}`}
+                      header={event.payload.text}
+                      fluid
+                    />
                   ) : event.type.includes("com.gitlab") ? (
-                    <Paper>
-                      <b>GitLab: </b>
-                      {event.payload.title}
-                    </Paper>
+                    <Card
+                      meta={`GitLab, ${new Date(event.time).toLocaleString()}`}
+                      header={event.payload.title}
+                      fluid
+                    />
                   ) : event.type.includes("com.instagram") ? (
-                    <Paper>
-                      <b>Instagram: </b>
-                      <br />
-                      <Link to={event.payload.media}>
-                        <Image fluid src={event.payload.media} />
-                      </Link>
-                      <p>{event.payload.text}</p>
-                    </Paper>
-                  ) : event.type.includes("com.reddit") ? (
-                    <Paper>
-                      <b>Reddit: </b>
-                      {/(.mp4|.avi|.webm|.gifv)/.test(event.payload.media) ? (
-                        <Link to={event.payload.media}>
-                          <Video controls src={event.payload.media} />
-                          <b>{event.payload.title}</b>
-                        </Link>
-                      ) : /(.jpg|.jpeg|.png|.gif|.webp)/.test(
-                          event.payload.media
-                        ) ? (
+                    <Card
+                      meta={`Instagram, ${new Date(
+                        event.time
+                      ).toLocaleString()}`}
+                      description={event.payload.text}
+                      image={
                         <Link to={event.payload.media}>
                           <Image fluid src={event.payload.media} />
-                          <b>{event.payload.title}</b>
                         </Link>
-                      ) : (
-                        <Link to={event.payload.media}>
-                          <b>{event.payload.title}</b>
-                        </Link>
-                      )}
-                      <p>{event.payload.text}</p>
-                    </Paper>
+                      }
+                      fluid
+                    />
+                  ) : event.type.includes("com.reddit") ? (
+                    <Card
+                      meta={`Reddit, ${new Date(event.time).toLocaleString()}`}
+                      header={event.payload.title}
+                      description={event.payload.text}
+                      image={
+                        /(.mp4|.avi|.webm|.gifv)/.test(event.payload.media) ? (
+                          <Link to={event.payload.media}>
+                            <Video controls src={event.payload.media} />
+                          </Link>
+                        ) : /(.jpg|.jpeg|.png|.gif|.webp)/.test(
+                            event.payload.media
+                          ) ? (
+                          <Link to={event.payload.media}>
+                            <Image fluid src={event.payload.media} />
+                          </Link>
+                        ) : (
+                          undefined
+                        )
+                      }
+                      fluid
+                    />
                   ) : (
-                    <Paper>
-                      <b>Twitter: </b>
-                      {event.payload.text}
-                    </Paper>
+                    <Card
+                      meta={`Twitter, ${new Date(event.time).toLocaleString()}`}
+                      header={event.payload.text}
+                      fluid
+                    />
                   )}
                 </Grid.Column>
               </Lazy>

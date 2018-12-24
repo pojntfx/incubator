@@ -29,7 +29,8 @@ class GitLab {
         payload: {
           title: event.push_data.commit_title,
           text: event.push_data.commit_description
-        }
+        },
+        time: new Date(event.created_at).toISOString()
       }))
     );
   }

@@ -21,7 +21,8 @@ class Instagram {
           text: event.caption,
           media: event.display_url,
           url: event.url
-        }
+        },
+        time: new Date(parseInt(event.taken_at_timestamp) * 1000).toISOString()
       }));
     } else {
       throw new Error("Invalid Instagram session id!");
@@ -41,7 +42,8 @@ class Instagram {
         payload: {
           media: story.display_url,
           url: story.url
-        }
+        },
+        time: new Date(parseInt(story.taken_at_timestamp) * 1000).toISOString()
       }));
     } else {
       throw new Error("Invalid Instagram session id!");

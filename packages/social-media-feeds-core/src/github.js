@@ -31,7 +31,8 @@ class GitHub {
             }
           : {
               text: `Pushed to ${event.repo.name}`
-            }
+            },
+      time: new Date(event.created_at).toISOString()
     }));
   }
 }

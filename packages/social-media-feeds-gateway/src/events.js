@@ -46,7 +46,7 @@ const Events = {
           ...instagramEvents,
           ...redditEvents,
           ...twitterEvents
-        ];
+        ].sort((a, b) => (a.time > b.time ? -1 : a.time < b.time ? 1 : 0));
       },
       cache: true
     }
