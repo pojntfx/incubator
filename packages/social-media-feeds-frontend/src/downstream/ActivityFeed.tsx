@@ -75,38 +75,46 @@ const ActivityFeed = ({
               <Lazy key={index} height={500} once>
                 <Grid.Column>
                   {event.type === "com.facebook.Post" ? (
-                    <Card
-                      meta={`Facebook, ${new Date(
-                        event.time
-                      ).toLocaleString()}`}
-                      description={event.payload.text}
-                      fluid
-                    />
+                    <Link to={`https://facebook.com/${userName}`}>
+                      <Card
+                        meta={`Facebook, ${new Date(
+                          event.time
+                        ).toLocaleString()}`}
+                        description={event.payload.text}
+                        fluid
+                      />
+                    </Link>
                   ) : event.type.includes("com.github") ? (
-                    <Card
-                      meta={`GitHub, ${new Date(event.time).toLocaleString()}`}
-                      header={event.payload.text}
-                      fluid
-                    />
+                    <Link to={`https://github.com/${userName}`}>
+                      <Card
+                        meta={`GitHub, ${new Date(
+                          event.time
+                        ).toLocaleString()}`}
+                        header={event.payload.text}
+                        fluid
+                      />
+                    </Link>
                   ) : event.type.includes("com.gitlab") ? (
-                    <Card
-                      meta={`GitLab, ${new Date(event.time).toLocaleString()}`}
-                      header={event.payload.title}
-                      fluid
-                    />
+                    <Link to={`https://gitlab.com/${userName}`}>
+                      <Card
+                        meta={`GitLab, ${new Date(
+                          event.time
+                        ).toLocaleString()}`}
+                        header={event.payload.title}
+                        fluid
+                      />
+                    </Link>
                   ) : event.type.includes("com.instagram") ? (
-                    <Card
-                      meta={`Instagram, ${new Date(
-                        event.time
-                      ).toLocaleString()}`}
-                      description={event.payload.text}
-                      image={
-                        <Link to={event.payload.media}>
-                          <Image fluid src={event.payload.media} />
-                        </Link>
-                      }
-                      fluid
-                    />
+                    <Link to={`https://instagram.com/${userName}`}>
+                      <Card
+                        meta={`Instagram, ${new Date(
+                          event.time
+                        ).toLocaleString()}`}
+                        description={event.payload.text}
+                        image={<Image fluid src={event.payload.media} />}
+                        fluid
+                      />
+                    </Link>
                   ) : event.type.includes("com.reddit") ? (
                     <Card
                       meta={`Reddit, ${new Date(event.time).toLocaleString()}`}
@@ -130,11 +138,15 @@ const ActivityFeed = ({
                       fluid
                     />
                   ) : (
-                    <Card
-                      meta={`Twitter, ${new Date(event.time).toLocaleString()}`}
-                      header={event.payload.text}
-                      fluid
-                    />
+                    <Link to={`https://twitter.com/${userName}`}>
+                      <Card
+                        meta={`Twitter, ${new Date(
+                          event.time
+                        ).toLocaleString()}`}
+                        header={event.payload.text}
+                        fluid
+                      />
+                    </Link>
                   )}
                 </Grid.Column>
               </Lazy>
