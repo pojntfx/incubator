@@ -6,5 +6,5 @@ it("Should get events", async () => {
   const gitlab = new GitLab(GITLAB_USERNAME, GITLAB_URL);
   const events = await gitlab.getEvents();
 
-  expect(events[0].author_username).toBe(GITLAB_USERNAME);
+  expect(events[0].actor).toBe(GITLAB_USERNAME);
 });

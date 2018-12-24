@@ -6,5 +6,5 @@ it("Should get events", async () => {
   const github = new GitHub(GITHUB_USERNAME);
   const events = await github.getEvents();
 
-  expect(events[0].actor.login).toBe(GITHUB_USERNAME);
+  expect(events[0].actor).toBe(GITHUB_USERNAME);
 });
