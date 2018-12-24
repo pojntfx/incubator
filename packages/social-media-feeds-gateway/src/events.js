@@ -4,7 +4,9 @@ const Events = {
     get: {
       params: {
         password: "string",
-        userId: "string"
+        userId: "string",
+        userName: "string",
+        gitlabUrl: "string"
       },
       handler: async ctx => {
         const {
@@ -16,7 +18,14 @@ const Events = {
           accessKey,
           userId: ctx.params.userId
         });
-        return [...facebookEvents];
+        const githubEvents = await ctx.call("github.get", {
+          userName: ctx.params.userName
+        });
+        const gitlabEvents = await ctx.call("gitlab.get", {
+          url: ctx.params.gitlabUrl,
+          userName: ctx.params.userName
+        });
+        return [...facebookEvents, ...githubEvents, ...gitlabEvents];
       }
     }
   }
