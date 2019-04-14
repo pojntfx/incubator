@@ -67,3 +67,7 @@ lerna-debug.log
 # Python/Django
 *.sqlite3
 *pyc
+
+# parcel output
+/*/**/.cache
+/*/**/dist
