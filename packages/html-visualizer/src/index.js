@@ -43,10 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
       const input = transform(
         parse(turndown.turndown(value.replace(/\n.*> /g, " ")))
       );
-      const output = document.querySelector("svg#visualization-output");
+      const output = document.querySelector("svg.visualization-output");
       output.innerHTML = "";
       output.setAttribute("style", "height: 100vh; width: 100%;");
-      markmap("svg#visualization-output", input);
+      markmap("svg.visualization-output", input);
       output.scrollIntoView();
     });
 });
